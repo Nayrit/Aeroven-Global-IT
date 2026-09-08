@@ -260,12 +260,6 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-8 text-center">
-            <Link href="/process" className="btn btn-outline">
-              See full process
-              <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
         </div>
       </section>
 
@@ -299,12 +293,6 @@ export default function HomePage() {
               </Reveal>
             ))}
           </div>
-          <Reveal className="mt-8 text-center">
-            <Link href="/engagement" className="btn btn-primary">
-              Compare engagement models
-              <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
         </div>
       </section>
 

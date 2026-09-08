@@ -6,7 +6,7 @@ import { careersOpenRoles, type JobOpening } from "@/lib/content";
 
 export function JobsBoard() {
   const filters = careersOpenRoles.filters;
-  const [active, setActive] = useState(filters[0]);
+  const [active, setActive] = useState<(typeof filters)[number]>(filters[0]);
 
   const jobs = useMemo(() => {
     if (active === "All") return careersOpenRoles.jobs as JobOpening[];
@@ -51,7 +51,7 @@ export function JobsBoard() {
               </div>
             </div>
             <a href="/consultation" className="btn btn-outline shrink-0">
-              Apply
+              {careersOpenRoles.applyLabel}
               <ArrowRight className="size-4" />
             </a>
           </article>

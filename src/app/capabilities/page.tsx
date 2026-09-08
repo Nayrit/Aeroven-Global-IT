@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { capabilitiesPage } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
+import { Breadcrumb } from "@/components/SectionHeading";
 import { FeatureIcon } from "@/components/FeatureIcon";
 import { CtaBand } from "@/components/CtaBand";
 
