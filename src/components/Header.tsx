@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
-import { brand, nav } from "@/lib/content";
+import { nav } from "@/lib/content";
+import { Logo } from "./Logo";
 
 type HeaderProps = {
   ctaHref?: string;
@@ -49,16 +49,7 @@ export function Header({
       }`}
     >
       <div className="container flex items-center justify-between gap-6 py-[18px]">
-        <Link href="/" className="flex items-center gap-3 shrink-0">
-          <Image
-            src="/brand/aeroven-it.svg"
-            alt={brand.legalName}
-            width={180}
-            height={22}
-            className="h-6 w-auto brightness-0 invert"
-            priority
-          />
-        </Link>
+        <Logo />
 
         <nav className="hidden lg:flex items-center gap-7">
           {nav.links.map((link) => (
@@ -105,10 +96,7 @@ export function Header({
                 {link.label}
               </Link>
             ))}
-            <Link
-              href={ctaHref}
-              className="btn btn-primary mt-3 w-full"
-            >
+            <Link href={ctaHref} className="btn btn-primary mt-3 w-full">
               {ctaLabel}
               <ArrowRight className="size-4" strokeWidth={2.4} />
             </Link>

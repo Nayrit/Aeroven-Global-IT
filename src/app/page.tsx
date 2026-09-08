@@ -70,7 +70,7 @@ export default function HomePage() {
               </div>
             </div>
           </Reveal>
-          <Reveal delay={0.12} className="hidden lg:block">
+          <Reveal delay={0.12} className="mx-auto w-full max-w-[380px] lg:max-w-none">
             <HeroOrb />
           </Reveal>
         </div>
@@ -334,20 +334,22 @@ export default function HomePage() {
       <section className="section-sm bg-white pt-0">
         <div className="container">
           <Reveal>
-            <SectionHeading
-              eyebrow={faq.eyebrow}
-              headline={faq.headline}
-              body={faq.body}
-            />
-          </Reveal>
-          <Reveal className="mx-auto mt-4 max-w-3xl text-center">
-            <Link
-              href="/consultation"
-              className="text-[15px] font-semibold text-[#FCA311] transition-colors hover:text-[#ffb638]"
-            >
-              {faq.bodyLinkLabel}
-              <ArrowRight className="ml-1 inline size-4" />
-            </Link>
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="eyebrow mb-3">{faq.eyebrow}</span>
+              <h2 className="mt-2 text-[28px] font-extrabold tracking-[-0.02em] text-[#14213D] sm:text-[40px]">
+                {faq.headline}
+              </h2>
+              <p className="mt-4 text-[16px] leading-relaxed text-[#475569] sm:text-[18px]">
+                {faq.body.split(faq.bodyLinkLabel)[0]}
+                <Link
+                  href="/consultation"
+                  className="font-semibold text-[#FCA311] transition-colors hover:text-[#ffb638]"
+                >
+                  {faq.bodyLinkLabel}
+                </Link>
+                {faq.body.split(faq.bodyLinkLabel)[1] ?? ""}
+              </p>
+            </div>
           </Reveal>
           <Reveal className="mx-auto mt-10 max-w-3xl">
             <FaqAccordion items={faq.items} />

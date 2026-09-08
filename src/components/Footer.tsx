@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { brand, footer, nav } from "@/lib/content";
+import { Logo } from "./Logo";
 
 const footerLinkMap: Record<string, string> = {
   About: "/#values",
@@ -37,7 +37,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-[13px] font-700 font-semibold uppercase tracking-[0.1em] text-white">
+      <h4 className="mb-4 text-[13px] font-semibold uppercase tracking-[0.1em] text-white">
         {title}
       </h4>
       <ul className="space-y-2.5">
@@ -62,15 +62,7 @@ export function Footer() {
       <div className="container py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <Link href="/" className="inline-flex">
-              <Image
-                src="/brand/aeroven-it.svg"
-                alt={brand.legalName}
-                width={200}
-                height={24}
-                className="h-7 w-auto brightness-0 invert"
-              />
-            </Link>
+            <Logo className="h-7 w-auto" height={28} />
             <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[#9aa3b5]">
               {brand.tagline}
             </p>
