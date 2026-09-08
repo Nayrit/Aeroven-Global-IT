@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { careersOpenRoles, type JobOpening } from "@/lib/content";
 
 export function JobsBoard() {
-  const filters = careersOpenRoles.filters;
-  const [active, setActive] = useState<(typeof filters)[number]>(filters[0]);
+  const filters = careersOpenRoles.filters as readonly string[];
+  const [active, setActive] = useState<string>(filters[0] ?? "All");
 
   const jobs = useMemo(() => {
     if (active === "All") return careersOpenRoles.jobs as JobOpening[];
@@ -50,10 +51,13 @@ export function JobsBoard() {
                 <span>{job.type}</span>
               </div>
             </div>
-            <a href="/consultation" className="btn btn-outline shrink-0">
-              {careersOpenRoles.applyLabel}
+            <Link
+              href={`/consultation?role=${encodeURIComponent(job.title)}`}
+              className="btn btn-outline shrink-0"
+            >
+              Apply
               <ArrowRight className="size-4" />
-            </a>
+            </Link>
           </article>
         ))}
         {jobs.length === 0 ? (

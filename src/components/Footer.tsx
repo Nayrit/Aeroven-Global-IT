@@ -1,32 +1,7 @@
 import Link from "next/link";
 import { brand, footer, nav } from "@/lib/content";
+import { footerLinks, siteConfig } from "@/lib/site";
 import { Logo } from "./Logo";
-
-const footerLinkMap: Record<string, string> = {
-  About: "/#values",
-  Careers: "/careers",
-  Newsroom: "/success",
-  Contact: "/consultation",
-  "AI Engineering": "/capabilities",
-  Cloud: "/capabilities#cloud-devops",
-  Data: "/capabilities#data-applied-ai",
-  Strategy: "/engagement",
-  "Digital Transformation": "/capabilities#digital-transformation",
-  "Cloud & DevOps": "/capabilities#cloud-devops",
-  "Data & Applied AI": "/capabilities#data-applied-ai",
-  "Quality & Security": "/capabilities#quality-security",
-  Capabilities: "/capabilities",
-  Process: "/process",
-  Engagement: "/engagement",
-  Success: "/success",
-  "Case Studies": "/success",
-  Blog: "/success",
-  Docs: "/process",
-  Support: "/consultation",
-  "Privacy Policy": "/consultation",
-  "Terms of Service": "/consultation",
-  Cookies: "/consultation",
-};
 
 function FooterColumn({
   title,
@@ -44,7 +19,7 @@ function FooterColumn({
         {links.map((label) => (
           <li key={label}>
             <Link
-              href={footerLinkMap[label] ?? "/"}
+              href={footerLinks[label] ?? "/"}
               className="text-[14px] text-[#7c8494] transition-colors hover:text-[#FCA311]"
             >
               {label}
@@ -67,14 +42,22 @@ export function Footer() {
               {brand.tagline}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              {footer.social.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/10 px-3 py-1.5 text-[12px] font-medium text-[#7c8494]"
-                >
-                  {item}
-                </span>
-              ))}
+              {footer.social.map((item) => {
+                const href =
+                  siteConfig.social[item as keyof typeof siteConfig.social];
+                if (!href) return null;
+                return (
+                  <a
+                    key={item}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-white/10 px-3 py-1.5 text-[12px] font-medium text-[#7c8494] transition-colors hover:border-[#FCA311] hover:text-[#FCA311]"
+                  >
+                    {item}
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -92,7 +75,7 @@ export function Footer() {
             {footer.legal.map((item) => (
               <Link
                 key={item}
-                href={footerLinkMap[item] ?? "/"}
+                href={footerLinks[item] ?? "/"}
                 className="text-[13px] text-[#5f6675] transition-colors hover:text-[#FCA311]"
               >
                 {item}
@@ -123,6 +106,12 @@ export function Footer() {
           </Link>
           <Link href="/consultation" className="hover:text-[#FCA311]">
             Book a Consultation
+          </Link>
+          <Link href="/about" className="hover:text-[#FCA311]">
+            About
+          </Link>
+          <Link href="/support" className="hover:text-[#FCA311]">
+            Support
           </Link>
         </div>
       </div>

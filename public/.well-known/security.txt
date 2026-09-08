@@ -1,0 +1,3 @@
+Contact: mailto:hello@aeroven.com
+Preferred-Languages: en
+Canonical: https://aeroven.com/.well-known/security.txt

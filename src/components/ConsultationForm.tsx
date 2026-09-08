@@ -157,7 +157,7 @@ export function ConsultationForm() {
         {consultationForm.privacyNote.split(
           consultationForm.privacyLinkLabel,
         )[0]}
-        <Link href="/consultation" className="underline hover:text-[#FCA311]">
+        <Link href="/privacy" className="underline hover:text-[#FCA311]">
           {consultationForm.privacyLinkLabel}
         </Link>
         {consultationForm.privacyNote.split(

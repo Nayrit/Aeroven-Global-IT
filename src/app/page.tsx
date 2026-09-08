@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowRight, Check } from "lucide-react";
 import {
   home,
@@ -10,6 +11,24 @@ import { FeatureIcon } from "@/components/FeatureIcon";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { CtaBand } from "@/components/CtaBand";
 import { HeroOrb, Skyline } from "@/components/Illustrations";
+import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  ...buildMetadata({
+    title: "AI-Powered Digital Solutions",
+    description: siteConfig.description,
+    path: "/",
+    keywords: [
+      "AI-powered digital transformation",
+      "enterprise software",
+      "custom ERP",
+    ],
+  }),
+  title: {
+    absolute: `${siteConfig.name} | AI-Powered Digital Solutions`,
+  },
+};
 
 export default function HomePage() {
   const {

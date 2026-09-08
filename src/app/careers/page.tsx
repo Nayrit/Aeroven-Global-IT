@@ -161,7 +161,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <CtaBand cta={cta} href="#roles" />
+      <CtaBand cta={cta} href="/consultation" />
     </>
   );
 }
