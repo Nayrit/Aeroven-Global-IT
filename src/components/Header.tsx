@@ -49,7 +49,7 @@ export function Header({
       }`}
     >
       <div className="container flex items-center justify-between gap-6 py-[18px]">
-        <Logo />
+        <Logo height={28} />
 
         <nav className="hidden lg:flex items-center gap-7">
           {nav.links.map((link) => (

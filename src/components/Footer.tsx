@@ -62,7 +62,7 @@ export function Footer() {
       <div className="container py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <Logo className="h-7 w-auto" height={28} />
+            <Logo height={30} />
             <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[#9aa3b5]">
               {brand.tagline}
             </p>

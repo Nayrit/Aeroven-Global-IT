@@ -3,29 +3,32 @@ import { brand } from "@/lib/content";
 
 type LogoProps = {
   className?: string;
+  /** Rendered height in pixels */
   height?: number;
-  onDark?: boolean;
 };
 
-export function Logo({
-  className = "h-5 w-auto sm:h-6",
-  height = 24,
-  onDark = true,
-}: LogoProps) {
+/**
+ * Official Aeroven lockup (mark + wordmark).
+ * Brand colors are designed for dark backgrounds.
+ */
+export function Logo({ className = "", height = 32 }: LogoProps) {
+  const width = Math.round(height * (790.23 / 80.6));
+
   return (
     <Link
       href="/"
       aria-label={brand.legalName}
-      className={`inline-flex items-center shrink-0 rounded-lg px-2.5 py-1.5 transition-opacity hover:opacity-90 ${
-        onDark ? "bg-white" : "bg-transparent"
-      }`}
+      className="inline-flex items-center shrink-0 transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FCA311]"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/brand/aeroven-it.svg"
         alt={brand.legalName}
+        width={width}
         height={height}
+        style={{ height, width: "auto", maxWidth: "min(280px, 55vw)" }}
         className={className}
+        decoding="async"
       />
     </Link>
   );
