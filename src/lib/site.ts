@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Designing and building AI-powered, scalable solutions.",
   description:
     "Aeroven Global IT Solutions designs and builds AI-powered, scalable digital platforms for startups and enterprises — custom software, cloud, data, and applied AI.",
-  url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://aeroven.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://aerovenglobal.com",
   locale: "en_US",
   email: "hello@aeroven.com",
   phone: "+1 (415) 555-0199",
