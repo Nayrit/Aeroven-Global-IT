@@ -3,6 +3,7 @@ import { successPage } from "@/lib/content";
 import { ChapterHero } from "@/components/ChapterHero";
 import { Counter } from "@/components/Kinetic";
 import { CtaBand } from "@/components/CtaBand";
+import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Client Success",
@@ -22,18 +23,18 @@ export default function SuccessPage() {
         body={hero.body}
       />
       <div className="container grid grid-cols-2 gap-6 border-y border-black/10 py-10 lg:grid-cols-4">
-        {hero.stats.map((stat) => (
-          <div key={stat.label}>
+        {hero.stats.map((stat, i) => (
+          <Reveal key={stat.label} delay={i * 0.05}>
             <p className="display text-[28px] text-[#14171c]">
               <Counter value={stat.value} />
             </p>
             <p className="mt-2 text-[13px] text-[#5d6673]">{stat.label}</p>
-          </div>
+          </Reveal>
         ))}
       </div>
       <section className="py-20">
         <div className="container">
-          <article className="card p-8 sm:p-12">
+          <Reveal className="card p-8 sm:p-12">
             <p className="eyebrow">{featuredBadge}</p>
             <p className="mt-5 text-[13px] text-[#c51a1b]">
               {featured.company} · {featured.industry}
@@ -50,12 +51,12 @@ export default function SuccessPage() {
                 </div>
               ))}
             </div>
-          </article>
+          </Reveal>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {caseStudies
               .filter((s) => !s.featured)
-              .map((study) => (
-                <article key={study.company} className="card p-6">
+              .map((study, i) => (
+                <Reveal key={study.company} delay={i * 0.06} className="card p-6">
                   <p className="text-[12px] uppercase tracking-[0.12em] text-[#c51a1b]">
                     {study.company}
                   </p>
@@ -64,23 +65,25 @@ export default function SuccessPage() {
                     {study.title}
                   </h3>
                   <p className="mt-3 text-[14px] text-[#5d6673]">{study.description}</p>
-                </article>
+                </Reveal>
               ))}
           </div>
         </div>
       </section>
       <section className="border-t border-black/10 bg-white py-20">
         <div className="container">
-          <p className="eyebrow">{testimonials.eyebrow}</p>
-          <h2 className="display mt-4 text-[32px] text-[#14171c]">{testimonials.headline}</h2>
+          <Reveal>
+            <p className="eyebrow">{testimonials.eyebrow}</p>
+            <h2 className="display mt-4 text-[32px] text-[#14171c]">{testimonials.headline}</h2>
+          </Reveal>
           <div className="mt-10 grid gap-4 lg:grid-cols-3">
-            {testimonials.items.map((item) => (
-              <blockquote key={item.name} className="card p-7">
+            {testimonials.items.map((item, i) => (
+              <Reveal key={item.name} delay={i * 0.08} className="card p-7">
                 <p className="text-[16px] leading-relaxed text-[#14171c]">“{item.quote}”</p>
                 <footer className="mt-5 text-[13px] text-[#5d6673]">
                   {item.name} — {item.role}
                 </footer>
-              </blockquote>
+              </Reveal>
             ))}
           </div>
           <p className="mt-14 text-center text-[12px] uppercase tracking-[0.16em] text-[#8b93a0]">

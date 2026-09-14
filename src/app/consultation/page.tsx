@@ -3,6 +3,8 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { consultationPage } from "@/lib/content";
 import { ChapterHero } from "@/components/ChapterHero";
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { InteractiveRows } from "@/components/InteractiveRows";
+import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
   title: "Book a Consultation",
@@ -18,15 +20,15 @@ export default function ConsultationPage() {
       <section className="pb-24">
         <div className="container grid items-start gap-14 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
-            <ul>
-              {highlights.map((item) => (
-                <li key={item.title} className="border-t border-black/10 py-5">
-                  <h2 className="text-[18px] font-semibold text-[#14171c]">{item.title}</h2>
-                  <p className="mt-2 text-[15px] text-[#5d6673]">{item.description}</p>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 space-y-3">
+            <InteractiveRows
+              layoutId="consult-highlights"
+              items={highlights.map((item, i) => ({
+                number: `0${i + 1}`,
+                title: item.title,
+                description: item.description,
+              }))}
+            />
+            <Reveal className="mt-8 space-y-3">
               <a
                 href={`mailto:${contact.email}`}
                 className="flex items-center gap-3 text-[#14171c] hover:text-[#c51a1b]"
@@ -45,7 +47,7 @@ export default function ConsultationPage() {
                 <MapPin className="mt-0.5 size-4 text-[#c51a1b]" />
                 {contact.address}
               </p>
-            </div>
+            </Reveal>
             <p className="mt-10 text-[12px] uppercase tracking-[0.14em] text-[#8b93a0]">
               {trust.label}
             </p>

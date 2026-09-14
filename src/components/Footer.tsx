@@ -20,7 +20,7 @@ function Column({
           <li key={label}>
             <Link
               href={footerLinks[label] ?? "/"}
-              className="text-[14px] text-[#9aa3b0] transition-colors hover:text-white"
+              className="footer-link text-[14px] text-[#9aa3b0] hover:text-white"
             >
               {label}
             </Link>
@@ -52,7 +52,7 @@ export function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[12px] text-[#9aa3b0] hover:text-white"
+                    className="footer-link text-[12px] text-[#9aa3b0] hover:text-white"
                   >
                     {item}
                   </a>
@@ -71,14 +71,14 @@ export function Footer() {
               <Link
                 key={item}
                 href={footerLinks[item] ?? "/"}
-                className="text-[13px] text-[#6b7380] hover:text-white"
+                className="footer-link text-[13px] text-[#6b7380] hover:text-white"
               >
                 {item}
               </Link>
             ))}
             <Link
               href={nav.careersLink.href}
-              className="text-[13px] text-[#6b7380] hover:text-white"
+              className="footer-link text-[13px] text-[#6b7380] hover:text-white"
             >
               Careers
             </Link>

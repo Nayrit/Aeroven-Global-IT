@@ -1,15 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 export function Loader() {
-  const [show, setShow] = useState(true);
+  const reduce = useReducedMotion();
+  const [show, setShow] = useState(!reduce);
 
   useEffect(() => {
-    const t = window.setTimeout(() => setShow(false), 1200);
+    if (reduce) {
+      setShow(false);
+      return;
+    }
+    const t = window.setTimeout(() => setShow(false), 1100);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [reduce]);
 
   return (
     <AnimatePresence>
@@ -27,7 +32,7 @@ export function Loader() {
                 className="h-full bg-[#c51a1b]"
                 initial={{ x: "-100%" }}
                 animate={{ x: "0%" }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
               />
             </div>
           </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChapterHero } from "@/components/ChapterHero";
 import { Reveal } from "@/components/Reveal";
+import { Magnetic } from "@/components/Magnetic";
 
 export type ContentSection = {
   heading: string;
@@ -66,9 +67,11 @@ export function ContentPage({
           ))}
           {cta ? (
             <Reveal>
-              <Link href={cta.href} data-cursor="open" className="btn btn-primary">
-                {cta.label}
-              </Link>
+              <Magnetic strength={0.16}>
+                <Link href={cta.href} className="btn btn-primary">
+                  {cta.label}
+                </Link>
+              </Magnetic>
             </Reveal>
           ) : null}
         </div>

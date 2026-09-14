@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, Mail, Phone } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { ChapterHero } from "@/components/ChapterHero";
+import { Magnetic } from "@/components/Magnetic";
 import { routes, siteConfig } from "@/lib/site";
 
 const topics = [
@@ -93,13 +94,17 @@ export function SupportClient() {
               </a>
             </div>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Link href={routes.consultation} data-cursor className="btn btn-primary">
-                Book a Consultation
-                <ArrowUpRight className="size-4" />
-              </Link>
-              <Link href={routes.docs} data-cursor className="btn btn-ghost">
-                Browse docs
-              </Link>
+              <Magnetic strength={0.16}>
+                <Link href={routes.consultation} className="btn btn-primary">
+                  Book a Consultation
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              </Magnetic>
+              <Magnetic strength={0.12}>
+                <Link href={routes.docs} className="btn btn-ghost">
+                  Browse docs
+                </Link>
+              </Magnetic>
             </div>
           </Reveal>
 

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { CtaBlock } from "@/lib/content";
-import { Reveal } from "./Reveal";
+import { Reveal, RevealText } from "./Reveal";
+import { Magnetic } from "./Magnetic";
 
 export function CtaBand({
   cta,
@@ -18,17 +19,19 @@ export function CtaBand({
         <Reveal>
           <p className="eyebrow">Next step</p>
           <h2 className="display mt-5 max-w-3xl text-[36px] sm:text-[52px]">
-            {cta.headline}
+            <RevealText text={cta.headline} />
           </h2>
           {cta.body ? (
             <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-[#9aa3b0]">
               {cta.body}
             </p>
           ) : null}
-          <Link href={href} className="btn btn-primary mt-10">
-            {cta.cta}
-            <ArrowUpRight className="size-4" />
-          </Link>
+          <Magnetic strength={0.16} className="mt-10 inline-flex">
+            <Link href={href} className="btn btn-primary">
+              {cta.cta}
+              <ArrowUpRight className="size-4" />
+            </Link>
+          </Magnetic>
         </Reveal>
       </div>
     </section>

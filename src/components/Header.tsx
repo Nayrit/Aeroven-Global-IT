@@ -2,25 +2,40 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { nav } from "@/lib/content";
 import { Logo } from "./Logo";
+import { Magnetic } from "./Magnetic";
 
 export function Header() {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      const goingDown = y > lastY.current + 6;
+      const goingUp = y < lastY.current - 6;
+      if (!open) {
+        if (goingDown && y > 96) setHidden(true);
+        else if (goingUp || y < 48) setHidden(false);
+      }
+      lastY.current = y;
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [open]);
 
   useEffect(() => {
     setOpen(false);
+    setHidden(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -35,7 +50,9 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 z-50 w-full transition-shadow duration-300 ${
+        className={`fixed top-0 z-50 w-full transition-[transform,background-color,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          hidden && !open ? "-translate-y-full" : "translate-y-0"
+        } ${
           scrolled || open
             ? "border-b border-black/8 bg-[#f5f3ee]/95 backdrop-blur-md"
             : "bg-transparent"
@@ -48,7 +65,8 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[14px] transition-colors ${
+                data-active={pathname === link.href}
+                className={`nav-link text-[14px] transition-colors ${
                   pathname === link.href
                     ? "text-[#c51a1b]"
                     : "text-[#5d6673] hover:text-[#14171c]"
@@ -59,12 +77,13 @@ export function Header() {
             ))}
           </nav>
           <div className="flex items-center gap-3">
-            <Link
-              href="/consultation"
-              className="btn btn-primary hidden sm:inline-flex"
-            >
-              {nav.cta}
-            </Link>
+            <div className="hidden sm:block">
+              <Magnetic strength={0.16}>
+                <Link href="/consultation" className="btn btn-primary">
+                  {nav.cta}
+                </Link>
+              </Magnetic>
+            </div>
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
@@ -97,14 +116,24 @@ export function Header() {
             exit={{ opacity: 0 }}
           >
             <div className="container flex h-full flex-col justify-end pb-16 pt-28">
-              {links.map((link) => (
-                <Link
+              {links.map((link, i) => (
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  className="display border-b border-black/10 py-4 text-[36px] text-[#14171c]"
+                  initial={reduce ? false : { opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.05 * i,
+                    duration: 0.45,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className="display block border-b border-black/10 py-4 text-[36px] text-[#14171c]"
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </motion.div>
