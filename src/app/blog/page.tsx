@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { CtaBand } from "@/components/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -48,9 +48,9 @@ const posts = [
 export default function BlogPage() {
   return (
     <>
-      <PageHero
+      <ChapterHero
         eyebrow="Insights"
-        title="Field notes from the build"
+        title="Notes from the machine."
         body="Practical writing on AI systems, cloud platforms, and enterprise delivery from Aeroven engineers."
       />
       <section className="pb-28">
@@ -59,7 +59,7 @@ export default function BlogPage() {
             <Reveal key={post.title} delay={i * 0.04}>
               <Link
                 href={post.href}
-                data-cursor
+                data-cursor="read"
                 className="group grid gap-4 border-t border-white/10 py-10 last:border-b lg:grid-cols-[180px_1fr_auto] lg:items-center"
               >
                 <span className="text-[12px] uppercase tracking-[0.18em] text-[#c51a1b]">

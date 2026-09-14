@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { CtaBand } from "@/components/CtaBand";
-import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
+import { Constellation } from "@/components/Constellation";
+import { Magnetic } from "@/components/Magnetic";
+import { offices } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
 
@@ -32,30 +34,45 @@ const pillars = [
 export default function AboutPage() {
   return (
     <>
-      <PageHero
+      <ChapterHero
         eyebrow="Company"
-        title="Engineering digital platforms that scale"
+        title="A studio for intelligent systems."
         body={`${siteConfig.name} partners with startups and enterprises to design, build, and operate AI-powered software — from discovery through production.`}
       />
       <section className="pb-16">
         <div className="container flex flex-wrap gap-4">
-          <Link href={routes.capabilities} data-cursor className="btn btn-primary">
-            Our capabilities
-            <ArrowUpRight className="size-4" />
-          </Link>
-          <Link href={routes.careers} data-cursor className="btn btn-ghost">
-            Careers
-          </Link>
+          <Magnetic>
+            <Link href={routes.capabilities} data-cursor="open" className="btn btn-primary">
+              Our capabilities
+              <ArrowUpRight className="size-4" />
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <Link href={routes.careers} data-cursor className="btn btn-ghost">
+              Careers
+            </Link>
+          </Magnetic>
         </div>
       </section>
-      <section className="border-t border-white/10 py-24">
-        <div className="container grid gap-8 md:grid-cols-3">
-          {pillars.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.06}>
-              <h2 className="display text-[28px] text-white">{item.title}</h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-[#8a96a8]">{item.body}</p>
-            </Reveal>
+      <section className="paper py-28">
+        <div className="container grid gap-12 md:grid-cols-3">
+          {pillars.map((item) => (
+            <article key={item.title}>
+              <h2 className="display text-[32px] text-[#05080c]">{item.title}</h2>
+              <p className="mt-4 text-[16px] leading-relaxed text-[#3d4654]">{item.body}</p>
+            </article>
           ))}
+        </div>
+      </section>
+      <section className="py-28">
+        <div className="container">
+          <p className="eyebrow">Presence</p>
+          <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
+            Hover the world.
+          </h2>
+          <div className="mt-14">
+            <Constellation offices={offices} />
+          </div>
         </div>
       </section>
       <CtaBand

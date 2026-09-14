@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { careersPage } from "@/lib/content";
-import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
+import { Counter } from "@/components/Kinetic";
+import { Magnetic } from "@/components/Magnetic";
+import { TiltCard } from "@/components/TiltCard";
 import { JobsBoard } from "@/components/JobsBoard";
 import { CtaBand } from "@/components/CtaBand";
 
@@ -17,20 +19,31 @@ export default function CareersPage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} index="05" />
+      <ChapterHero
+        index="05"
+        eyebrow={hero.eyebrow}
+        title="Build the organism."
+        body={hero.body}
+      />
       <div className="container flex flex-wrap gap-4 pb-10">
-        <Link href="#roles" data-cursor className="btn btn-primary">
-          {hero.primaryCta}
-          <ArrowUpRight className="size-4" />
-        </Link>
-        <Link href="#life" data-cursor className="btn btn-ghost">
-          {hero.secondaryCta}
-        </Link>
+        <Magnetic>
+          <Link href="#roles" data-cursor="jump" className="btn btn-primary">
+            {hero.primaryCta}
+            <ArrowUpRight className="size-4" />
+          </Link>
+        </Magnetic>
+        <Magnetic>
+          <Link href="#life" data-cursor className="btn btn-ghost">
+            {hero.secondaryCta}
+          </Link>
+        </Magnetic>
       </div>
-      <div className="container grid grid-cols-3 gap-px border-y border-white/10 bg-white/10">
+      <div className="container grid grid-cols-3 gap-6 border-y border-white/10 py-10">
         {hero.stats.map((stat) => (
-          <div key={stat.label} className="bg-[#05080c] px-4 py-8">
-            <p className="display text-[28px] text-white">{stat.value}</p>
+          <div key={stat.label}>
+            <p className="display text-[32px] text-white">
+              <Counter value={stat.value} />
+            </p>
             <p className="mt-2 text-[12px] uppercase tracking-[0.12em] text-[#8a96a8]">
               {stat.label}
             </p>
@@ -39,31 +52,27 @@ export default function CareersPage() {
       </div>
       <section id="life" className="scroll-mt-28 py-24">
         <div className="container">
-          <Reveal>
-            <p className="eyebrow">{life.eyebrow}</p>
-            <h2 className="display mt-4 text-[40px] text-white">{life.headline}</h2>
-          </Reveal>
+          <p className="eyebrow">{life.eyebrow}</p>
+          <h2 className="display mt-4 text-[40px] text-white">{life.headline}</h2>
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {life.items.map((item) => (
-              <article key={item.title} className="card-glass p-7">
-                <h3 className="display text-[24px] text-white">{item.title}</h3>
+              <TiltCard key={item.title} className="card-glass p-8">
+                <h3 className="display text-[26px] text-white">{item.title}</h3>
                 <p className="mt-3 text-[15px] text-[#8a96a8]">{item.description}</p>
-              </article>
+              </TiltCard>
             ))}
           </div>
         </div>
       </section>
-      <section className="border-y border-white/10 py-24">
+      <section className="paper py-24">
         <div className="container">
-          <Reveal>
-            <p className="eyebrow">{benefits.eyebrow}</p>
-            <h2 className="display mt-4 text-[40px] text-white">{benefits.headline}</h2>
-          </Reveal>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <p className="eyebrow">{benefits.eyebrow}</p>
+          <h2 className="display mt-4 text-[40px] text-[#05080c]">{benefits.headline}</h2>
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.items.map((item) => (
-              <article key={item.title} className="p-2">
-                <h3 className="text-[18px] font-semibold text-white">{item.title}</h3>
-                <p className="mt-2 text-[14px] text-[#8a96a8]">{item.description}</p>
+              <article key={item.title}>
+                <h3 className="text-[18px] font-semibold text-[#05080c]">{item.title}</h3>
+                <p className="mt-2 text-[14px] text-[#3d4654]">{item.description}</p>
               </article>
             ))}
           </div>
@@ -71,10 +80,8 @@ export default function CareersPage() {
       </section>
       <section id="roles" className="scroll-mt-28 py-24">
         <div className="container">
-          <Reveal>
-            <p className="eyebrow">{openRoles.eyebrow}</p>
-            <h2 className="display mt-4 text-[40px] text-white">{openRoles.headline}</h2>
-          </Reveal>
+          <p className="eyebrow">{openRoles.eyebrow}</p>
+          <h2 className="display mt-4 text-[40px] text-white">{openRoles.headline}</h2>
           <div className="mt-10">
             <JobsBoard />
           </div>
@@ -84,7 +91,7 @@ export default function CareersPage() {
         <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {hiring.steps.map((step) => (
             <article key={step.number}>
-              <p className="display text-[36px] text-[#c51a1b]">{step.number}</p>
+              <p className="display text-[48px] text-[#c51a1b]">{step.number}</p>
               <h3 className="mt-3 text-[18px] font-semibold text-white">{step.title}</h3>
               <p className="mt-2 text-[14px] text-[#8a96a8]">{step.description}</p>
             </article>

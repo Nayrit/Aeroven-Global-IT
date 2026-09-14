@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { CtaBand } from "@/components/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -44,9 +44,9 @@ const stories = [
 export default function NewsroomPage() {
   return (
     <>
-      <PageHero
+      <ChapterHero
         eyebrow="Press & updates"
-        title="Newsroom"
+        title="Signal from the studio."
         body="Announcements, product notes, and company updates from the Aeroven team."
       />
       <section className="pb-28">

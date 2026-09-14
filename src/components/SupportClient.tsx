@@ -4,7 +4,7 @@ import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2, Mail, Phone } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { routes, siteConfig } from "@/lib/site";
 
 const topics = [
@@ -54,9 +54,9 @@ export function SupportClient() {
 
   return (
     <>
-      <PageHero
+      <ChapterHero
         eyebrow="Help"
-        title="Support"
+        title="We’re on the line."
         body="Get help with engagements, platform issues, or general inquiries."
       />
 

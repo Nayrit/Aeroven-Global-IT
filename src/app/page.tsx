@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { home, offices, footer } from "@/lib/content";
-import { Reveal, RevealText } from "@/components/Reveal";
+import { home, offices, footer, homeValues } from "@/lib/content";
+import { KineticLine, Stamp, Counter } from "@/components/Kinetic";
+import { Magnetic } from "@/components/Magnetic";
+import { CapabilityTheater } from "@/components/CapabilityTheater";
+import { HorizontalReel } from "@/components/HorizontalReel";
+import { TiltCard } from "@/components/TiltCard";
+import { QuoteStage } from "@/components/QuoteStage";
+import { Constellation } from "@/components/Constellation";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { Reveal } from "@/components/Reveal";
 import { CtaBand } from "@/components/CtaBand";
-import { OrbitalField } from "@/components/OrbitalField";
 
 export default function HomePage() {
   const {
@@ -20,51 +25,63 @@ export default function HomePage() {
     faq,
     cta,
   } = home;
-  const [active, setActive] = useState(0);
 
-  const ticker = [...footer.trustedBy, ...footer.trustedBy];
+  const ticker = [...footer.trustedByExtended, ...footer.trustedByExtended];
+  const verbs = [
+    "Transform",
+    "Compose",
+    "Orchestrate",
+    "Scale",
+    "Secure",
+    "Launch",
+    "Learn",
+    "Operate",
+  ];
 
   return (
     <>
-      <section className="relative min-h-[100svh] overflow-hidden pt-28">
-        <div className="container grid items-center gap-10 pb-20 lg:grid-cols-[1.15fr_0.85fr] lg:pb-8">
-          <div>
-            <Reveal>
-              <p className="eyebrow">Studio / 2026</p>
-            </Reveal>
-            <h1 className="display mt-6 text-[15vw] text-white sm:text-[80px] lg:text-[96px]">
-              <RevealText text="Intelligence" />
-              <br />
-              <span className="text-[#c51a1b]">
-                <RevealText text="without limits." delay={0.18} />
-              </span>
-            </h1>
-            <Reveal delay={0.25}>
-              <p className="mt-8 max-w-xl text-[18px] leading-relaxed text-[#8a96a8]">
-                {hero.body}
-              </p>
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <Link href="/consultation" data-cursor className="btn btn-primary">
+      <section className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-10 pt-28">
+        <div className="container relative">
+          <div className="mb-8 flex items-center justify-between">
+            <p className="eyebrow">Studio / 2026</p>
+            <Magnetic strength={0.25}>
+              <Stamp size={128} className="text-white/55" />
+            </Magnetic>
+          </div>
+          <h1 className="display text-white">
+            <span className="block text-[16vw] sm:text-[110px] lg:text-[132px]">
+              <KineticLine text="INTELLIGENCE" />
+            </span>
+            <span className="serif block text-[12vw] font-normal text-[#c51a1b] sm:text-[80px] lg:text-[96px]">
+              <KineticLine text="without limits." delay={0.2} />
+            </span>
+          </h1>
+          <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+            <p className="max-w-xl text-[18px] leading-relaxed text-[#8a96a8]">
+              {hero.body}
+            </p>
+            <div className="flex flex-wrap items-center gap-5">
+              <Magnetic>
+                <Link href="/consultation" data-cursor="book" className="btn btn-primary">
                   {hero.primaryCta}
                   <ArrowUpRight className="size-4" />
                 </Link>
-                <Link href="/success" data-cursor className="btn btn-ghost">
+              </Magnetic>
+              <Magnetic>
+                <Link href="/success" data-cursor="view" className="btn btn-ghost">
                   {hero.secondaryCta}
                 </Link>
-              </div>
-            </Reveal>
+              </Magnetic>
+            </div>
           </div>
-          <Reveal delay={0.15} className="hidden lg:block">
-            <OrbitalField />
-          </Reveal>
         </div>
-        <div className="container grid grid-cols-3 gap-px border-t border-white/10 bg-white/5">
+        <div className="container mt-16 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
           {hero.stats.map((stat) => (
-            <div key={stat.label} className="bg-[#05080c] px-4 py-7 sm:px-8">
-              <p className="display text-[28px] text-white sm:text-[36px]">
-                {stat.value}
+            <div key={stat.label}>
+              <p className="display text-[28px] text-white sm:text-[44px]">
+                <Counter value={stat.value} />
               </p>
-              <p className="mt-2 text-[12px] uppercase tracking-[0.14em] text-[#8a96a8]">
+              <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#8a96a8]">
                 {stat.label}
               </p>
             </div>
@@ -73,229 +90,178 @@ export default function HomePage() {
       </section>
 
       <div className="marquee">
-        <div className="marquee-track py-5">
+        <div className="marquee-track py-4">
+          {[...verbs, ...verbs].map((word, i) => (
+            <span
+              key={`${word}-${i}`}
+              className="display text-[28px] tracking-[0.12em] text-white/35 sm:text-[40px]"
+            >
+              {word} <span className="mx-5 text-[#c51a1b]">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="marquee">
+        <div className="marquee-track reverse py-3">
           {ticker.map((name, i) => (
             <span
               key={`${name}-${i}`}
-              className="display text-[22px] tracking-[0.2em] text-white/40"
+              className="text-[13px] tracking-[0.28em] text-white/40"
             >
-              {name} <span className="mx-4 text-[#c51a1b]">✦</span>
+              {name}
             </span>
           ))}
         </div>
       </div>
 
-      <section className="py-28">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">{capabilitiesDetail.eyebrow}</p>
-            <h2 className="display mt-5 max-w-4xl text-[42px] text-white sm:text-[64px]">
-              {capabilitiesDetail.headline}
-            </h2>
-          </Reveal>
-          <div className="mt-16">
-            {capabilitiesDetail.items.map((item, i) => (
-              <button
-                key={item.title}
-                type="button"
-                data-cursor
-                onMouseEnter={() => setActive(i)}
-                onClick={() => setActive(i)}
-                className="group w-full border-t border-white/10 py-7 text-left last:border-b"
-              >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div className="flex items-baseline gap-6">
-                    <span className="text-[13px] text-[#c51a1b]">
-                      0{i + 1}
-                    </span>
-                    <h3 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[40px]">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p
-                    className={`max-w-md text-[15px] leading-relaxed text-[#8a96a8] transition-opacity duration-400 ${
-                      active === i ? "opacity-100" : "opacity-40 lg:opacity-0"
-                    }`}
-                  >
-                    {item.description}
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-          <Link
-            href="/capabilities"
-            data-cursor
-            className="btn btn-outline mt-12"
-          >
-            All capabilities
-            <ArrowUpRight className="size-4" />
-          </Link>
-        </div>
-      </section>
+      <CapabilityTheater
+        eyebrow={capabilitiesDetail.eyebrow}
+        headline="Five practices. One organism."
+        items={capabilitiesDetail.items}
+        href="/capabilities"
+      />
 
-      <section className="border-y border-white/10 py-28">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">{products.eyebrow}</p>
-            <h2 className="display mt-5 max-w-3xl text-[42px] text-white sm:text-[64px]">
-              {products.headline}
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid gap-4 lg:grid-cols-2">
-            <Reveal className="card-glass relative overflow-hidden p-8 lg:row-span-2 lg:p-12">
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#c51a1b]">
-                {products.featured.badge}
-              </span>
-              <h3 className="display mt-6 text-[36px] text-white sm:text-[48px]">
-                {products.featured.title}
-              </h3>
-              <p className="mt-5 text-[16px] leading-relaxed text-[#8a96a8]">
-                {products.featured.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {products.featured.tags?.map((tag) => (
-                  <span
-                    key={tag}
-                    className="border border-white/10 px-3 py-1 text-[12px] text-[#c9d0da]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
-            {products.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.05} className="card-glass p-8">
-                <span className="text-[12px] text-[#004b9c]">0{i + 1}</span>
-                <h3 className="display mt-3 text-[24px] text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-[#8a96a8]">
-                  {item.description}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-28">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">{process.eyebrow}</p>
-            <h2 className="display mt-5 text-[42px] text-white sm:text-[64px]">
-              {process.headline}
-            </h2>
-          </Reveal>
-          <div className="mt-16 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
-            {process.steps.map((step, i) => (
-              <Reveal
-                key={step.title}
-                delay={i * 0.06}
-                className="bg-[#05080c] p-6 transition-colors hover:bg-[#081018]"
-              >
-                <p className="display text-[32px] text-[#c51a1b]">{step.number}</p>
-                <h3 className="mt-6 text-[18px] font-semibold text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-[#8a96a8]">
-                  {step.description}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-28">
-        <div className="container grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
-          <Reveal>
-            <p className="eyebrow">{engagement.eyebrow}</p>
-            <h2 className="display mt-5 text-[42px] text-white sm:text-[56px]">
-              {engagement.headline}
-            </h2>
-            <Link href="/engagement" data-cursor className="btn btn-ghost mt-8">
-              Compare models
-            </Link>
-          </Reveal>
+      <section className="overflow-hidden py-8">
+        <div className="container mb-10 flex items-end justify-between gap-6">
           <div>
-            {engagement.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.05}>
-                <div className="flex gap-6 border-t border-white/10 py-8 last:border-b">
-                  <span className="text-[#c51a1b]">{item.number}</span>
-                  <div>
-                    <h3 className="display text-[26px] text-white">{item.title}</h3>
-                    <p className="mt-2 text-[15px] text-[#8a96a8]">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
+            <p className="eyebrow">{products.eyebrow}</p>
+            <h2 className="display mt-4 max-w-2xl text-[40px] text-white sm:text-[56px]">
+              Drag the engines.
+            </h2>
+          </div>
+          <p className="hidden text-[13px] uppercase tracking-[0.16em] text-[#8a96a8] md:block">
+            Click + drag →
+          </p>
+        </div>
+        <HorizontalReel className="px-[max(20px,calc((100vw-1320px)/2))]">
+          <TiltCard className="card-glass min-h-[420px] p-8 sm:p-10">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#c51a1b]">
+              {products.featured.badge}
+            </p>
+            <h3 className="display mt-6 text-[32px] text-white sm:text-[40px]">
+              {products.featured.title}
+            </h3>
+            <p className="mt-5 text-[15px] leading-relaxed text-[#8a96a8]">
+              {products.featured.description}
+            </p>
+          </TiltCard>
+          {products.items.map((item, i) => (
+            <TiltCard key={item.title} className="card-glass min-h-[420px] p-8">
+              <p className="text-[#c51a1b]">0{i + 1}</p>
+              <h3 className="display mt-5 text-[28px] text-white">{item.title}</h3>
+              <p className="mt-4 text-[15px] leading-relaxed text-[#8a96a8]">
+                {item.description}
+              </p>
+            </TiltCard>
+          ))}
+        </HorizontalReel>
+      </section>
+
+      <section className="py-28">
+        <div className="container">
+          <p className="eyebrow">{process.eyebrow}</p>
+          <h2 className="display mt-4 text-[40px] text-white sm:text-[64px]">
+            {process.headline}
+          </h2>
+          <div className="mt-16">
+            {process.steps.map((step, i) => (
+              <Reveal key={step.title}>
+                <article className="group grid items-center gap-6 border-t border-white/10 py-10 last:border-b lg:grid-cols-[140px_1fr_1.2fr]">
+                  <p className="display text-[56px] text-[#c51a1b] transition-transform duration-500 group-hover:translate-x-2">
+                    {step.number}
+                  </p>
+                  <h3 className="display text-[28px] text-white sm:text-[36px]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[16px] leading-relaxed text-[#8a96a8]">
+                    {step.description}
+                  </p>
+                </article>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y border-white/10 py-28">
+      <section className="paper relative overflow-hidden py-28">
         <div className="container">
-          <Reveal>
-            <p className="eyebrow">{testimonials.eyebrow}</p>
-            <h2 className="display mt-5 text-[42px] text-white sm:text-[64px]">
-              {testimonials.headline}
-            </h2>
-          </Reveal>
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.08} className="card-glass p-8">
-                <p className="text-[18px] leading-relaxed text-white">
-                  “{item.quote}”
-                </p>
-                <div className="mt-8 flex items-center gap-3">
-                  <span className="grid size-10 place-items-center rounded-full bg-[#c51a1b] text-[12px] font-bold">
-                    {item.initials}
-                  </span>
-                  <div>
-                    <p className="text-[14px] font-semibold">{item.name}</p>
-                    <p className="text-[13px] text-[#8a96a8]">{item.role}</p>
-                  </div>
-                </div>
-              </Reveal>
+          <p className="eyebrow">{homeValues.eyebrow}</p>
+          <h2 className="display mt-4 text-[40px] text-[#05080c] sm:text-[64px]">
+            {homeValues.headline}
+          </h2>
+          <div className="mt-16 grid gap-px bg-[#05080c]/10 sm:grid-cols-2 lg:grid-cols-4">
+            {homeValues.items.map((item, i) => (
+              <article
+                key={item.title}
+                className="bg-[#f4f1ea] p-8 transition-colors hover:bg-white"
+                data-cursor
+              >
+                <p className="text-[12px] tracking-[0.16em] text-[#c51a1b]">0{i + 1}</p>
+                <h3 className="display mt-6 text-[26px] text-[#05080c]">{item.title}</h3>
+                <p className="mt-3 text-[15px] text-[#3d4654]">{item.description}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
       <section className="py-28">
+        <div className="container grid gap-16 lg:grid-cols-[0.75fr_1.25fr]">
+          <div>
+            <p className="eyebrow">{engagement.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
+              How we plug in.
+            </h2>
+            <Magnetic className="mt-8">
+              <Link href="/engagement" data-cursor="open" className="btn btn-ghost">
+                Compare models
+              </Link>
+            </Magnetic>
+          </div>
+          <div>
+            {engagement.items.map((item) => (
+              <div
+                key={item.title}
+                className="group flex gap-6 border-t border-white/10 py-8 last:border-b"
+                data-cursor
+              >
+                <span className="text-[#c51a1b]">{item.number}</span>
+                <div>
+                  <h3 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[15px] text-[#8a96a8]">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <QuoteStage items={testimonials.items} />
+
+      <section className="border-t border-white/10 py-28">
+        <div className="container">
+          <p className="eyebrow">Presence</p>
+          <h2 className="display mt-4 text-[40px] text-white sm:text-[64px]">
+            A constellation, not a campus.
+          </h2>
+          <div className="mt-14">
+            <Constellation offices={offices} />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24">
         <div className="container grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
+          <div>
             <p className="eyebrow">{faq.eyebrow}</p>
-            <h2 className="display mt-5 text-[42px] text-white sm:text-[56px]">
+            <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
               {faq.headline}
             </h2>
             <p className="mt-5 text-[#8a96a8]">{faq.body}</p>
-          </Reveal>
-          <FaqAccordion items={faq.items} />
-        </div>
-      </section>
-
-      <section className="border-t border-white/10 py-24">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Presence</p>
-            <h2 className="display mt-5 text-[42px] text-white">Global offices</h2>
-          </Reveal>
-          <div className="mt-12 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
-            {offices.map((office) => (
-              <div key={office.city} className="bg-[#05080c] p-6">
-                <p className="display text-[22px] text-white">{office.city}</p>
-                <p className="mt-2 text-[13px] text-[#c51a1b]">
-                  {office.isHq ? "HQ · " : ""}
-                  {office.region}
-                </p>
-                <p className="mt-3 text-[14px] text-[#8a96a8]">{office.address}</p>
-              </div>
-            ))}
           </div>
+          <FaqAccordion items={faq.items} />
         </div>
       </section>
 

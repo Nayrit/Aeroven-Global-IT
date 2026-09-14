@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Breadcrumb } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { Reveal } from "@/components/Reveal";
 
 export type ContentSection = {
@@ -27,25 +27,13 @@ export function ContentPage({
 }: ContentPageProps) {
   return (
     <>
-      <section className="pb-12 pt-36">
-        <div className="container max-w-3xl">
-          <Reveal>
-            <Breadcrumb current={title} />
-            {eyebrow ? <span className="eyebrow mb-3">{eyebrow}</span> : null}
-            <h1 className="display mt-2 text-[42px] text-white sm:text-[56px]">
-              {title}
-            </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#8a96a8] sm:text-[18px]">
-              {description}
-            </p>
-            {updated ? (
-              <p className="mt-4 text-[13px] text-[#5c6778]">
-                Last updated: {updated}
-              </p>
-            ) : null}
-          </Reveal>
-        </div>
-      </section>
+      <ChapterHero
+        eyebrow={eyebrow ?? "Legal"}
+        title={title}
+        body={
+          updated ? `${description} Last updated ${updated}.` : description
+        }
+      />
       <section className="pb-28">
         <div className="container max-w-3xl space-y-10">
           {sections.map((section, i) => (
@@ -78,7 +66,7 @@ export function ContentPage({
           ))}
           {cta ? (
             <Reveal>
-              <Link href={cta.href} data-cursor className="btn btn-primary">
+              <Link href={cta.href} data-cursor="open" className="btn btn-primary">
                 {cta.label}
               </Link>
             </Reveal>

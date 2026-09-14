@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { consultationPage } from "@/lib/content";
-import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { ConsultationForm } from "@/components/ConsultationForm";
 
 export const metadata: Metadata = {
@@ -15,24 +14,32 @@ export default function ConsultationPage() {
 
   return (
     <>
-      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} />
+      <ChapterHero eyebrow={hero.eyebrow} title="Let’s start the signal." body={hero.body} />
       <section className="pb-28">
         <div className="container grid items-start gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-          <Reveal>
-            <ul className="space-y-6">
+          <div>
+            <ul>
               {highlights.map((item) => (
-                <li key={item.title} className="border-t border-white/10 pt-5">
-                  <h2 className="display text-[22px] text-white">{item.title}</h2>
-                  <p className="mt-2 text-[15px] text-[#8a96a8]">{item.description}</p>
+                <li key={item.title} className="border-t border-white/10 py-6">
+                  <h2 className="display text-[24px] text-white">{item.title}</h2>
+                  <p className="serif mt-2 text-[18px] text-[#c9d0da]">{item.description}</p>
                 </li>
               ))}
             </ul>
-            <div className="mt-10 space-y-3">
-              <a href={`mailto:${contact.email}`} data-cursor className="flex items-center gap-3 text-[#c9d0da] hover:text-[#c51a1b]">
+            <div className="mt-10 space-y-4">
+              <a
+                href={`mailto:${contact.email}`}
+                data-cursor="mail"
+                className="flex items-center gap-3 text-[#c9d0da] hover:text-[#c51a1b]"
+              >
                 <Mail className="size-4 text-[#c51a1b]" />
                 {contact.email}
               </a>
-              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`} data-cursor className="flex items-center gap-3 text-[#c9d0da] hover:text-[#c51a1b]">
+              <a
+                href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}
+                data-cursor="call"
+                className="flex items-center gap-3 text-[#c9d0da] hover:text-[#c51a1b]"
+              >
                 <Phone className="size-4 text-[#c51a1b]" />
                 {contact.phone}
               </a>
@@ -46,15 +53,13 @@ export default function ConsultationPage() {
             </p>
             <div className="mt-3 flex flex-wrap gap-5">
               {trust.brands.map((name) => (
-                <span key={name} className="text-[13px] tracking-[0.12em] text-white/40">
+                <span key={name} className="display text-[14px] tracking-[0.12em] text-white/35">
                   {name}
                 </span>
               ))}
             </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ConsultationForm />
-          </Reveal>
+          </div>
+          <ConsultationForm />
         </div>
       </section>
     </>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { brand, footer, nav } from "@/lib/content";
 import { footerLinks, siteConfig } from "@/lib/site";
 import { Logo } from "./Logo";
+import { Stamp } from "./Kinetic";
 
 function Column({
   title,
@@ -34,11 +35,12 @@ function Column({
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-[#05080c]">
-      <div className="overflow-hidden py-10">
-        <p className="display whitespace-nowrap px-4 text-[18vw] leading-[0.8] text-white/[0.04]">
-          AEROVEN AEROVEN
+    <footer className="relative z-10 overflow-hidden border-t border-white/10 bg-[#05080c]">
+      <div className="container flex items-end justify-between gap-8 py-16">
+        <p className="display max-w-[12ch] text-[16vw] leading-[0.8] text-white sm:text-[96px]">
+          Let’s build.
         </p>
+        <Stamp size={140} className="hidden text-white/40 sm:block" />
       </div>
       <div className="container pb-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
@@ -84,7 +86,11 @@ export function Footer() {
                 {item}
               </Link>
             ))}
-            <Link href={nav.careersLink.href} data-cursor className="text-[13px] text-[#5c6778] hover:text-white">
+            <Link
+              href={nav.careersLink.href}
+              data-cursor
+              className="text-[13px] text-[#5c6778] hover:text-white"
+            >
               Careers
             </Link>
           </div>

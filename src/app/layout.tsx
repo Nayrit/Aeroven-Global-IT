@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Outfit, Syne } from "next/font/google";
+import { Outfit, Syne, Instrument_Serif } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Cursor } from "@/components/Cursor";
-import { Loader } from "@/components/Loader";
-import { ScrollProgress } from "@/components/ScrollProgress";
+import { Experience } from "@/components/Experience";
 import { siteConfig } from "@/lib/site";
 import {
   absoluteUrl,
@@ -24,6 +22,14 @@ const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
   weight: ["600", "700", "800"],
+  display: "swap",
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -113,7 +119,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${syne.variable} h-full antialiased`}
+      className={`${outfit.variable} ${syne.variable} ${instrument.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -128,22 +134,19 @@ export default function RootLayout({
         className="relative min-h-full flex flex-col font-sans"
         suppressHydrationWarning
       >
-        <div className="ambient" aria-hidden />
-        <div className="noise" aria-hidden />
-        <Loader />
-        <Cursor />
-        <ScrollProgress />
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#c51a1b] focus:px-4 focus:py-2 focus:font-bold focus:text-white"
-        >
-          Skip to main content
-        </a>
-        <Header />
-        <main id="main-content" className="relative z-10 flex-1">
-          {children}
-        </main>
-        <Footer />
+        <Experience>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#c51a1b] focus:px-4 focus:py-2 focus:font-bold focus:text-white"
+          >
+            Skip to main content
+          </a>
+          <Header />
+          <main id="main-content" className="relative z-10 flex-1">
+            {children}
+          </main>
+          <Footer />
+        </Experience>
       </body>
     </html>
   );

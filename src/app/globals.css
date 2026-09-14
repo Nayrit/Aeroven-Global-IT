@@ -25,6 +25,7 @@
   --color-teal: var(--teal);
   --font-sans: var(--font-outfit);
   --font-display: var(--font-syne);
+  --font-serif: var(--font-instrument);
 }
 
 * {
@@ -79,6 +80,12 @@ button {
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.92;
+}
+
+.serif {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .container {
@@ -287,8 +294,62 @@ select.input-field option {
   }
 }
 
+.magnetic {
+  display: inline-flex;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.horizontal-reel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+}
+
+.horizontal-reel::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontal-reel:active {
+  cursor: grabbing;
+}
+
+.horizontal-reel > * {
+  scroll-snap-align: start;
+  flex: 0 0 min(78vw, 520px);
+}
+
+.stamp {
+  animation: orbit 18s linear infinite;
+  color: inherit;
+}
+
 .orbit {
   animation: orbit 28s linear infinite;
+}
+
+.paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.paper .eyebrow {
+  color: var(--red);
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+  animation-duration: 40s;
 }
 
 .card-glass {

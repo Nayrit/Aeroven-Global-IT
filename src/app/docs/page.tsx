@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { PageHero } from "@/components/SectionHeading";
+import { ChapterHero } from "@/components/ChapterHero";
 import { CtaBand } from "@/components/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -44,9 +44,9 @@ const docs = [
 export default function DocsPage() {
   return (
     <>
-      <PageHero
+      <ChapterHero
         eyebrow="Resources"
-        title="Documentation"
+        title="The operating manual."
         body="Start here for how Aeroven engages, delivers, and operates production systems."
       />
       <section className="pb-28">
@@ -55,7 +55,7 @@ export default function DocsPage() {
             <Reveal key={doc.title} delay={i * 0.05}>
               <Link
                 href={doc.href}
-                data-cursor
+                data-cursor="open"
                 className="group flex flex-col gap-4 border-t border-white/10 py-10 last:border-b sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex items-start gap-6">
