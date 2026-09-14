@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
+import { PageHero } from "@/components/SectionHeading";
 import { CtaBand } from "@/components/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -48,57 +48,37 @@ const posts = [
 export default function BlogPage() {
   return (
     <>
-      <section className="hero-glow section-sm">
-        <div className="container max-w-3xl">
-          <Reveal>
-            <Breadcrumb current="Blog" />
-            <span className="eyebrow mb-3">Insights</span>
-            <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.02em] text-white sm:text-[44px]">
-              Blog
-            </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              Practical writing on AI systems, cloud platforms, and enterprise
-              delivery from Aeroven engineers.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section bg-white">
+      <PageHero
+        eyebrow="Insights"
+        title="Field notes from the build"
+        body="Practical writing on AI systems, cloud platforms, and enterprise delivery from Aeroven engineers."
+      />
+      <section className="pb-28">
         <div className="container">
-          <Reveal>
-            <SectionHeading
-              headline="Featured reading"
-              body="Deep dives tied to how we actually ship — not generic thought leadership."
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            {posts.map((post, i) => (
-              <Reveal key={post.title} delay={i * 0.05}>
-                <article className="card-light flex h-full flex-col p-6">
-                  <span className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#FCA311]">
-                    {post.category}
-                  </span>
-                  <h2 className="mt-3 text-[20px] font-bold text-[#14213D]">
+          {posts.map((post, i) => (
+            <Reveal key={post.title} delay={i * 0.04}>
+              <Link
+                href={post.href}
+                data-cursor
+                className="group grid gap-4 border-t border-white/10 py-10 last:border-b lg:grid-cols-[180px_1fr_auto] lg:items-center"
+              >
+                <span className="text-[12px] uppercase tracking-[0.18em] text-[#c51a1b]">
+                  {post.category}
+                </span>
+                <div>
+                  <h2 className="display text-[26px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[34px]">
                     {post.title}
                   </h2>
-                  <p className="mt-3 flex-1 text-[15px] leading-relaxed text-[#475569]">
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#8a96a8]">
                     {post.excerpt}
                   </p>
-                  <Link
-                    href={post.href}
-                    className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-[#14213D] hover:text-[#FCA311]"
-                  >
-                    Continue
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+                </div>
+                <ArrowUpRight className="size-6 text-white/30 transition-all group-hover:text-[#c51a1b] group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </section>
-
       <CtaBand
         cta={{
           headline: "Want a working session, not another article?",

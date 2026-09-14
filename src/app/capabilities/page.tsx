@@ -3,8 +3,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { capabilitiesPage } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb } from "@/components/SectionHeading";
-import { FeatureIcon } from "@/components/FeatureIcon";
+import { PageHero } from "@/components/SectionHeading";
 import { CtaBand } from "@/components/CtaBand";
 
 export const metadata: Metadata = {
@@ -17,117 +16,60 @@ export default function CapabilitiesPage() {
 
   return (
     <>
-      <section className="hero-glow pb-14 pt-12 sm:pb-16 sm:pt-16">
-        <div className="container">
-          <Reveal>
-            <Breadcrumb current={hero.breadcrumb} />
-            <span className="eyebrow">{hero.eyebrow}</span>
-            <h1 className="mt-4 max-w-4xl text-[34px] font-extrabold leading-[1.12] tracking-[-0.03em] text-white sm:text-[48px]">
-              {hero.headline}
-            </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              {hero.body}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {hero.anchors.map((anchor) => (
-                <Link
-                  key={anchor.href}
-                  href={anchor.href}
-                  className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-[13px] font-semibold text-[#c7cbd4] transition-colors duration-200 hover:border-[#FCA311]/50 hover:text-[#FCA311]"
-                >
-                  {anchor.label}
-                </Link>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {items.map((cap, index) => {
-        const isDark = index % 2 === 0;
-        return (
-          <section
-            key={cap.id}
-            id={cap.id}
-            className={`section scroll-mt-24 ${isDark ? "bg-black" : "bg-white"}`}
+      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} index="01" />
+      <div className="container -mt-8 flex flex-wrap gap-3 pb-16">
+        {hero.anchors.map((anchor) => (
+          <Link
+            key={anchor.href}
+            href={anchor.href}
+            data-cursor
+            className="chip"
           >
-            <div className="container">
-              <Reveal>
-                <div
-                  className={`grid items-start gap-10 lg:grid-cols-[1fr_1.1fr] ${
-                    index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-                  }`}
-                >
-                  <div>
-                    <span className="eyebrow">{cap.number}</span>
-                    <h2
-                      className={`mt-3 text-[28px] font-extrabold tracking-[-0.02em] sm:text-[36px] ${
-                        isDark ? "text-white" : "text-[#14213D]"
-                      }`}
-                    >
-                      {cap.title}
-                    </h2>
-                    <p
-                      className={`mt-4 text-[16px] leading-relaxed ${
-                        isDark ? "text-[#c7cbd4]" : "text-[#475569]"
-                      }`}
-                    >
-                      {cap.description}
-                    </p>
-                  </div>
-                  <div
-                    className={`rounded-[20px] border p-6 sm:p-8 ${
-                      isDark
-                        ? "border-white/10 bg-[#14213D]"
-                        : "border-[#eef0f3] bg-[#fafbfc]"
-                    }`}
-                  >
-                    <div className="icon-well mb-6">
-                      <FeatureIcon title={cap.title} />
-                    </div>
-                    <ul className="space-y-3">
-                      {cap.features.map((feature) => (
-                        <li
-                          key={feature}
-                          className={`flex items-start gap-3 text-[15px] ${
-                            isDark ? "text-[#e5e5e5]" : "text-[#14213D]"
-                          }`}
-                        >
-                          <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-[#FCA311]/15">
-                            <Check
-                              className="size-3 text-[#FCA311]"
-                              strokeWidth={3}
-                            />
-                          </span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </Reveal>
+            {anchor.label}
+          </Link>
+        ))}
+      </div>
+      {items.map((item, i) => (
+        <section
+          key={item.id}
+          id={item.id}
+          className={`border-t border-white/10 py-24 ${i % 2 === 1 ? "bg-white/[0.02]" : ""}`}
+        >
+          <div className="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <Reveal>
+              <p className="text-[13px] uppercase tracking-[0.2em] text-[#c51a1b]">
+                {item.number}
+              </p>
+              <h2 className="display mt-4 text-[36px] text-white sm:text-[48px]">
+                {item.title}
+              </h2>
+              <p className="mt-5 text-[16px] leading-relaxed text-[#8a96a8]">
+                {item.description}
+              </p>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <ul className="space-y-4">
+                {item.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 border-b border-white/10 py-4">
+                    <Check className="mt-0.5 size-4 text-[#c51a1b]" />
+                    <span className="text-[16px] text-white">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          </div>
+        </section>
+      ))}
+      <section className="border-t border-white/10">
+        <div className="container grid grid-cols-2 gap-px bg-white/10 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="bg-[#05080c] px-6 py-10">
+              <p className="display text-[32px] text-white">{stat.value}</p>
+              <p className="mt-2 text-[13px] text-[#8a96a8]">{stat.label}</p>
             </div>
-          </section>
-        );
-      })}
-
-      <section className="section-sm bg-white">
-        <div className="container">
-          <Reveal>
-            <div className="grid gap-4 rounded-[24px] border border-[#eef0f3] bg-[#fafbfc] p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center sm:text-left">
-                  <p className="text-[28px] font-extrabold tracking-tight text-[#FCA311] sm:text-[32px]">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-[14px] text-[#475569]">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          ))}
         </div>
       </section>
-
       <CtaBand cta={cta} />
     </>
   );

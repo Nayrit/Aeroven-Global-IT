@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { successPage } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
+import { PageHero } from "@/components/SectionHeading";
 import { CtaBand } from "@/components/CtaBand";
 
 export const metadata: Metadata = {
@@ -15,160 +15,87 @@ export default function SuccessPage() {
 
   return (
     <>
-      <section className="hero-glow pb-14 pt-12 sm:pb-16 sm:pt-16">
-        <div className="container">
-          <Reveal>
-            <Breadcrumb current={hero.breadcrumb} />
-            <span className="eyebrow">{hero.eyebrow}</span>
-            <h1 className="mt-4 max-w-4xl text-[34px] font-extrabold leading-[1.12] tracking-[-0.03em] text-white sm:text-[48px]">
-              {hero.headline}
-            </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              {hero.body}
+      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} index="04" />
+      <div className="container grid grid-cols-2 gap-px border-y border-white/10 bg-white/10 lg:grid-cols-4">
+        {hero.stats.map((stat) => (
+          <div key={stat.label} className="bg-[#05080c] px-5 py-8">
+            <p className="display text-[32px] text-white">{stat.value}</p>
+            <p className="mt-2 text-[12px] uppercase tracking-[0.12em] text-[#8a96a8]">
+              {stat.label}
             </p>
-            <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-              {hero.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-5"
-                >
-                  <p className="text-[26px] font-extrabold tracking-tight text-[#FCA311] sm:text-[32px]">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-[13px] text-[#9aa3b5]">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+      <section className="py-24">
+        <div className="container">
+          <Reveal className="card-glass overflow-hidden p-8 sm:p-12">
+            <p className="eyebrow">{featuredBadge}</p>
+            <p className="mt-6 text-[13px] uppercase tracking-[0.16em] text-[#c51a1b]">
+              {featured.company} · {featured.industry}
+            </p>
+            <h2 className="display mt-3 max-w-3xl text-[36px] text-white sm:text-[48px]">
+              {featured.title}
+            </h2>
+            <p className="mt-5 max-w-3xl text-[16px] text-[#8a96a8]">{featured.description}</p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-3">
+              {featured.metrics.map((metric) => (
+                <div key={metric.label}>
+                  <p className="display text-[32px] text-white">{metric.value}</p>
+                  <p className="mt-1 text-[13px] text-[#8a96a8]">{metric.label}</p>
                 </div>
               ))}
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      <section className="section bg-white">
-        <div className="container">
-          <Reveal>
-            <article className="gradient-navy relative overflow-hidden rounded-[24px] border border-[#FCA311]/25 p-8 sm:p-10">
-              <div
-                className="pointer-events-none absolute -right-16 -top-10 size-56 rounded-full bg-[#FCA311]/15 blur-3xl"
-                aria-hidden
-              />
-              <span className="eyebrow">{featuredBadge}</span>
-              <p className="mt-4 text-[13px] font-semibold tracking-[0.08em] text-[#FCA311]">
-                {featured.company}
-              </p>
-              <p className="mt-1 text-[13px] text-[#9aa3b5]">{featured.industry}</p>
-              <h2 className="mt-4 max-w-3xl text-[26px] font-extrabold tracking-[-0.02em] text-white sm:text-[34px]">
-                {featured.title}
-              </h2>
-              <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-[#c7cbd4] sm:text-[16px]">
-                {featured.description}
-              </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {featured.metrics.map((metric) => (
-                  <div
-                    key={metric.label}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-4"
-                  >
-                    <p className="text-[24px] font-extrabold text-[#FCA311]">
-                      {metric.value}
-                    </p>
-                    <p className="mt-1 text-[13px] text-[#9aa3b5]">
-                      {metric.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </Reveal>
-
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
             {caseStudies.map((study, i) => (
-              <Reveal key={study.company} delay={i * 0.06}>
-                <article className="card-light flex h-full flex-col p-6 transition-transform duration-300 hover:-translate-y-1">
-                  <p className="text-[12px] font-bold tracking-[0.08em] text-[#FCA311]">
-                    {study.company}
-                  </p>
-                  <p className="mt-1 text-[12px] text-[#9aa3b5]">
-                    {study.industry}
-                  </p>
-                  <h3 className="mt-4 text-[18px] font-bold text-[#14213D]">
-                    {study.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-[14px] leading-relaxed text-[#475569]">
-                    {study.description}
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-4 border-t border-[#eef0f3] pt-5">
-                    {study.metrics.map((metric) => (
-                      <div key={metric.label}>
-                        <p className="text-[20px] font-extrabold text-[#14213D]">
-                          {metric.value}
-                        </p>
-                        <p className="text-[12px] text-[#9aa3b5]">
-                          {metric.label}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-black">
-        <div className="container">
-          <Reveal>
-            <SectionHeading
-              tone="dark"
-              eyebrow={testimonials.eyebrow}
-              headline={testimonials.headline}
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.07}>
-                <blockquote className="card-dark flex h-full flex-col p-6 transition-colors duration-300 hover:border-[#FCA311]/35">
-                  <p className="flex-1 text-[15px] leading-relaxed text-[#c7cbd4]">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                  <footer className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
-                    <span className="grid size-11 place-items-center rounded-full bg-[#FCA311]/15 text-[13px] font-bold text-[#FCA311]">
-                      {item.initials}
-                    </span>
-                    <div>
-                      <cite className="not-italic text-[15px] font-bold text-white">
-                        {item.name}
-                      </cite>
-                      <p className="text-[13px] text-[#9aa3b5]">{item.role}</p>
+              <Reveal key={study.company} delay={i * 0.06} className="card-glass p-6">
+                <p className="text-[12px] uppercase tracking-[0.16em] text-[#c51a1b]">
+                  {study.company}
+                </p>
+                <p className="mt-1 text-[12px] text-[#8a96a8]">{study.industry}</p>
+                <h3 className="display mt-4 text-[22px] text-white">{study.title}</h3>
+                <p className="mt-3 text-[14px] text-[#8a96a8]">{study.description}</p>
+                <div className="mt-6 flex gap-5 border-t border-white/10 pt-4">
+                  {study.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <p className="text-[18px] font-semibold text-white">{metric.value}</p>
+                      <p className="text-[11px] text-[#8a96a8]">{metric.label}</p>
                     </div>
-                  </footer>
-                </blockquote>
+                  ))}
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
-
-      <section className="section-sm bg-white">
+      <section className="border-t border-white/10 py-24">
         <div className="container">
           <Reveal>
-            <p className="text-center text-[12px] font-semibold uppercase tracking-[0.12em] text-[#9aa3b5]">
-              {logos.label}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-              {logos.brands.map((name) => (
-                <span
-                  key={name}
-                  className="text-[14px] font-bold tracking-[0.12em] text-[#14213D]/55 transition-colors hover:text-[#14213D]"
-                >
-                  {name}
-                </span>
-              ))}
-            </div>
+            <p className="eyebrow">{testimonials.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white">{testimonials.headline}</h2>
           </Reveal>
+          <div className="mt-12 grid gap-4 lg:grid-cols-3">
+            {testimonials.items.map((item) => (
+              <blockquote key={item.name} className="card-glass p-8">
+                <p className="text-[17px] leading-relaxed text-white">“{item.quote}”</p>
+                <footer className="mt-6 text-[13px] text-[#8a96a8]">
+                  {item.name} — {item.role}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+          <p className="mt-16 text-center text-[12px] uppercase tracking-[0.2em] text-[#5c6778]">
+            {logos.label}
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-8">
+            {logos.brands.map((name) => (
+              <span key={name} className="display text-[18px] tracking-[0.16em] text-white/30">
+                {name}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
-
       <CtaBand cta={cta} />
     </>
   );

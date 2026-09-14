@@ -1,24 +1,22 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { routes } from "@/lib/site";
 
 export default function NotFound() {
   return (
-    <section className="hero-glow flex min-h-[70vh] items-center">
-      <div className="container max-w-xl text-center">
+    <section className="flex min-h-[80vh] items-end pb-24 pt-40">
+      <div className="container">
         <p className="eyebrow">404</p>
-        <h1 className="mt-3 text-[40px] font-extrabold tracking-[-0.03em] text-white">
-          Page not found
-        </h1>
-        <p className="mt-4 text-[16px] leading-relaxed text-[#c7cbd4]">
+        <h1 className="display mt-4 text-[16vw] text-white sm:text-[120px]">Lost in orbit.</h1>
+        <p className="mt-6 max-w-md text-[17px] text-[#8a96a8]">
           The page you are looking for does not exist or may have moved.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link href={routes.home} className="btn btn-primary">
+        <div className="mt-10 flex flex-wrap gap-4">
+          <Link href={routes.home} data-cursor className="btn btn-primary">
             Back to home
-            <ArrowRight className="size-4" />
+            <ArrowUpRight className="size-4" />
           </Link>
-          <Link href={routes.support} className="btn btn-ghost">
+          <Link href={routes.support} data-cursor className="btn btn-ghost">
             Contact support
           </Link>
         </div>

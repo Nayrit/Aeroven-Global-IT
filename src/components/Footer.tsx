@@ -3,7 +3,7 @@ import { brand, footer, nav } from "@/lib/content";
 import { footerLinks, siteConfig } from "@/lib/site";
 import { Logo } from "./Logo";
 
-function FooterColumn({
+function Column({
   title,
   links,
 }: {
@@ -12,15 +12,16 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h4 className="mb-4 text-[13px] font-semibold uppercase tracking-[0.1em] text-white">
+      <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c51a1b]">
         {title}
-      </h4>
-      <ul className="space-y-2.5">
+      </p>
+      <ul className="space-y-3">
         {links.map((label) => (
           <li key={label}>
             <Link
               href={footerLinks[label] ?? "/"}
-              className="text-[14px] text-[#7c8494] transition-colors hover:text-[#FCA311]"
+              data-cursor
+              className="text-[15px] text-[#8a96a8] transition-colors hover:text-white"
             >
               {label}
             </Link>
@@ -33,12 +34,17 @@ function FooterColumn({
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-black text-white">
-      <div className="container py-16">
+    <footer className="relative z-10 border-t border-white/10 bg-[#05080c]">
+      <div className="overflow-hidden py-10">
+        <p className="display whitespace-nowrap px-4 text-[18vw] leading-[0.8] text-white/[0.04]">
+          AEROVEN AEROVEN
+        </p>
+      </div>
+      <div className="container pb-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div>
-            <Logo height={30} />
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-[#9aa3b5]">
+            <Logo height={28} />
+            <p className="mt-5 max-w-xs text-[15px] leading-relaxed text-[#8a96a8]">
               {brand.tagline}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
@@ -52,7 +58,8 @@ export function Footer() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full border border-white/10 px-3 py-1.5 text-[12px] font-medium text-[#7c8494] transition-colors hover:border-[#FCA311] hover:text-[#FCA311]"
+                    data-cursor
+                    className="text-[12px] uppercase tracking-[0.14em] text-[#8a96a8] hover:text-[#c51a1b]"
                   >
                     {item}
                   </a>
@@ -60,59 +67,27 @@ export function Footer() {
               })}
             </div>
           </div>
-
-          <FooterColumn title={footer.company.title} links={footer.company.links} />
-          <FooterColumn title={footer.explore.title} links={footer.explore.links} />
-          <FooterColumn
-            title={footer.resources.title}
-            links={footer.resources.links}
-          />
+          <Column title={footer.company.title} links={footer.company.links} />
+          <Column title={footer.explore.title} links={footer.explore.links} />
+          <Column title={footer.resources.title} links={footer.resources.links} />
         </div>
-
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[13px] text-[#5f6675]">{brand.copyright}</p>
-          <div className="flex flex-wrap gap-4">
+        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[13px] text-[#5c6778]">{brand.copyright}</p>
+          <div className="flex flex-wrap gap-5">
             {footer.legal.map((item) => (
               <Link
                 key={item}
                 href={footerLinks[item] ?? "/"}
-                className="text-[13px] text-[#5f6675] transition-colors hover:text-[#FCA311]"
+                data-cursor
+                className="text-[13px] text-[#5c6778] hover:text-white"
               >
                 {item}
               </Link>
             ))}
+            <Link href={nav.careersLink.href} data-cursor className="text-[13px] text-[#5c6778] hover:text-white">
+              Careers
+            </Link>
           </div>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#5f6675]">
-            {footer.trustedByLabel}
-          </p>
-          <div className="flex flex-wrap gap-x-6 gap-y-2">
-            {footer.trustedBy.map((name) => (
-              <span
-                key={name}
-                className="text-[13px] font-semibold tracking-[0.08em] text-[#94a0b0]"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-4 text-[13px] text-[#5f6675]">
-          <Link href={nav.careersLink.href} className="hover:text-[#FCA311]">
-            {nav.careersLink.label}
-          </Link>
-          <Link href="/consultation" className="hover:text-[#FCA311]">
-            Book a Consultation
-          </Link>
-          <Link href="/about" className="hover:text-[#FCA311]">
-            About
-          </Link>
-          <Link href="/support" className="hover:text-[#FCA311]">
-            Support
-          </Link>
         </div>
       </div>
     </footer>

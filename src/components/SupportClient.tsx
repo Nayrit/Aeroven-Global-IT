@@ -2,9 +2,9 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Mail, Phone } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Mail, Phone } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb } from "@/components/SectionHeading";
+import { PageHero } from "@/components/SectionHeading";
 import { routes, siteConfig } from "@/lib/site";
 
 const topics = [
@@ -54,85 +54,76 @@ export function SupportClient() {
 
   return (
     <>
-      <section className="hero-glow section-sm">
-        <div className="container max-w-3xl">
-          <Reveal>
-            <Breadcrumb current="Support" />
-            <span className="eyebrow mb-3">Help</span>
-            <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.02em] text-white sm:text-[44px]">
-              Support
-            </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              Get help with engagements, platform issues, or general inquiries.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Help"
+        title="Support"
+        body="Get help with engagements, platform issues, or general inquiries."
+      />
 
-      <section className="section bg-white">
-        <div className="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <section className="pb-20">
+        <div className="container grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <div>
-              <h2 className="text-[24px] font-extrabold text-[#14213D]">
-                Contact channels
-              </h2>
-              <div className="mt-6 space-y-4">
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="card-light flex items-center gap-3 p-4 transition-colors hover:border-[#FCA311]"
-                >
-                  <Mail className="size-5 text-[#FCA311]" />
-                  <div>
-                    <p className="font-semibold text-[#14213D]">Email</p>
-                    <p className="text-[14px] text-[#475569]">{siteConfig.email}</p>
-                  </div>
-                </a>
-                <a
-                  href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}
-                  className="card-light flex items-center gap-3 p-4 transition-colors hover:border-[#FCA311]"
-                >
-                  <Phone className="size-5 text-[#FCA311]" />
-                  <div>
-                    <p className="font-semibold text-[#14213D]">Phone</p>
-                    <p className="text-[14px] text-[#475569]">{siteConfig.phone}</p>
-                  </div>
-                </a>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href={routes.consultation} className="btn btn-primary">
-                  Book a Consultation
-                  <ArrowRight className="size-4" />
-                </Link>
-                <Link href={routes.docs} className="btn btn-outline">
-                  Browse docs
-                </Link>
-              </div>
+            <h2 className="display text-[32px] text-white">Contact channels</h2>
+            <div className="mt-8 space-y-6">
+              <a
+                href={`mailto:${siteConfig.email}`}
+                data-cursor
+                className="flex items-center gap-4 border-t border-white/10 pt-5"
+              >
+                <Mail className="size-5 text-[#c51a1b]" />
+                <div>
+                  <p className="text-[13px] uppercase tracking-[0.14em] text-[#8a96a8]">
+                    Email
+                  </p>
+                  <p className="mt-1 text-[16px] text-white">{siteConfig.email}</p>
+                </div>
+              </a>
+              <a
+                href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}
+                data-cursor
+                className="flex items-center gap-4 border-t border-white/10 pt-5"
+              >
+                <Phone className="size-5 text-[#c51a1b]" />
+                <div>
+                  <p className="text-[13px] uppercase tracking-[0.14em] text-[#8a96a8]">
+                    Phone
+                  </p>
+                  <p className="mt-1 text-[16px] text-white">{siteConfig.phone}</p>
+                </div>
+              </a>
+            </div>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href={routes.consultation} data-cursor className="btn btn-primary">
+                Book a Consultation
+                <ArrowUpRight className="size-4" />
+              </Link>
+              <Link href={routes.docs} data-cursor className="btn btn-ghost">
+                Browse docs
+              </Link>
             </div>
           </Reveal>
 
           <Reveal delay={0.08}>
             {submitted ? (
-              <div className="card-light flex flex-col items-center px-6 py-16 text-center">
-                <CheckCircle2 className="mb-4 size-12 text-[#FCA311]" />
-                <h3 className="text-[22px] font-extrabold text-[#14213D]">
-                  Message sent
-                </h3>
-                <p className="mt-2 max-w-sm text-[15px] text-[#475569]">
+              <div className="card-glass flex flex-col items-center px-6 py-16 text-center">
+                <CheckCircle2 className="mb-4 size-12 text-[#c51a1b]" />
+                <h3 className="display text-[28px] text-white">Message sent</h3>
+                <p className="mt-2 max-w-sm text-[15px] text-[#8a96a8]">
                   Thanks — our team will follow up shortly during business hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="card-light p-6 sm:p-8">
-                <h2 className="text-[22px] font-extrabold text-[#14213D]">
+              <form onSubmit={onSubmit} className="card-glass p-6 sm:p-10">
+                <h2 className="display text-[28px] text-white">
                   Send a support request
                 </h2>
-                <p className="mt-2 text-[14px] text-[#475569]">
+                <p className="mt-2 text-[14px] text-[#8a96a8]">
                   We typically reply within one business day.
                 </p>
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <label className="block sm:col-span-2">
-                    <span className="mb-2 block text-[13px] font-semibold text-[#14213D]">
-                      Work email <span className="text-[#FCA311]">*</span>
+                <div className="mt-6 grid gap-5">
+                  <label className="block">
+                    <span className="mb-2 block text-[13px] font-semibold text-white">
+                      Work email <span className="text-[#c51a1b]">*</span>
                     </span>
                     <input
                       required
@@ -143,8 +134,8 @@ export function SupportClient() {
                       autoComplete="email"
                     />
                   </label>
-                  <label className="block sm:col-span-2">
-                    <span className="mb-2 block text-[13px] font-semibold text-[#14213D]">
+                  <label className="block">
+                    <span className="mb-2 block text-[13px] font-semibold text-white">
                       Topic
                     </span>
                     <div className="flex flex-wrap gap-2">
@@ -154,6 +145,7 @@ export function SupportClient() {
                           type="button"
                           className="chip"
                           data-active={topic === item}
+                          data-cursor
                           onClick={() => setTopic(item)}
                         >
                           {item}
@@ -162,9 +154,9 @@ export function SupportClient() {
                     </div>
                     <input type="hidden" name="topic" value={topic} />
                   </label>
-                  <label className="block sm:col-span-2">
-                    <span className="mb-2 block text-[13px] font-semibold text-[#14213D]">
-                      How can we help? <span className="text-[#FCA311]">*</span>
+                  <label className="block">
+                    <span className="mb-2 block text-[13px] font-semibold text-white">
+                      How can we help? <span className="text-[#c51a1b]">*</span>
                     </span>
                     <textarea
                       required
@@ -175,13 +167,16 @@ export function SupportClient() {
                     />
                   </label>
                 </div>
-                <button type="submit" className="btn btn-primary mt-6 w-full">
+                <button type="submit" data-cursor className="btn btn-primary mt-8 w-full">
                   Submit request
-                  <ArrowRight className="size-4" />
+                  <ArrowUpRight className="size-4" />
                 </button>
-                <p className="mt-3 text-center text-[12px] text-[#94a0b0]">
+                <p className="mt-3 text-center text-[12px] text-[#5c6778]">
                   By submitting, you agree to our{" "}
-                  <Link href={routes.privacy} className="underline hover:text-[#FCA311]">
+                  <Link
+                    href={routes.privacy}
+                    className="underline hover:text-[#c51a1b]"
+                  >
                     Privacy Policy
                   </Link>
                   .
@@ -192,36 +187,39 @@ export function SupportClient() {
         </div>
       </section>
 
-      <section className="section bg-[#0b0b0c]">
+      <section className="border-t border-white/10 py-24">
         <div className="container max-w-3xl">
           <Reveal>
-            <h2 className="text-[28px] font-extrabold text-white">
+            <h2 className="display text-[36px] text-white sm:text-[48px]">
               Quick answers
             </h2>
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search support topics…"
-              className="input-field mt-5 border-white/10 bg-white/5 text-white placeholder:text-[#7c8494]"
+              className="input-field mt-6"
               aria-label="Search support FAQs"
             />
           </Reveal>
-          <div className="mt-6 space-y-3">
+          <div className="mt-8">
             {filteredFaqs.map((item) => (
               <details
                 key={item.q}
-                className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4"
+                className="border-t border-white/10 py-5 last:border-b"
               >
-                <summary className="cursor-pointer list-none font-semibold text-white">
+                <summary
+                  data-cursor
+                  className="cursor-pointer list-none display text-[20px] text-white"
+                >
                   {item.q}
                 </summary>
-                <p className="mt-3 text-[14px] leading-relaxed text-[#c7cbd4]">
+                <p className="mt-3 text-[15px] leading-relaxed text-[#8a96a8]">
                   {item.a}
                 </p>
               </details>
             ))}
             {filteredFaqs.length === 0 ? (
-              <p className="text-[14px] text-[#9aa3b5]">
+              <p className="border-t border-white/10 py-8 text-[14px] text-[#8a96a8]">
                 No matches. Try another keyword or send a support request.
               </p>
             ) : null}

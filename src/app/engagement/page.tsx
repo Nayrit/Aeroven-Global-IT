@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { engagementPage } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
-import { FeatureIcon } from "@/components/FeatureIcon";
+import { PageHero } from "@/components/SectionHeading";
 import { CtaBand } from "@/components/CtaBand";
 
 export const metadata: Metadata = {
@@ -16,123 +15,69 @@ export default function EngagementPage() {
 
   return (
     <>
-      <section className="hero-glow pb-14 pt-12 sm:pb-16 sm:pt-16">
-        <div className="container">
-          <Reveal>
-            <Breadcrumb current={hero.breadcrumb} />
-            <span className="eyebrow">{hero.eyebrow}</span>
-            <h1 className="mt-4 max-w-4xl text-[34px] font-extrabold leading-[1.12] tracking-[-0.03em] text-white sm:text-[48px]">
-              {hero.headline}
-            </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              {hero.body}
-            </p>
-          </Reveal>
+      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} index="03" />
+      <section className="pb-24">
+        <div className="container grid gap-4 md:grid-cols-2">
+          {models.map((model, i) => (
+            <Reveal key={model.number} delay={i * 0.05} className="card-glass p-8">
+              <p className="text-[#c51a1b]">{model.number}</p>
+              <h2 className="display mt-3 text-[32px] text-white">{model.title}</h2>
+              <p className="mt-4 text-[15px] leading-relaxed text-[#8a96a8]">
+                {model.description}
+              </p>
+              <ul className="mt-6 space-y-2">
+                {model.features.map((feature) => (
+                  <li key={feature} className="flex gap-2 text-[14px] text-white">
+                    <Check className="size-4 text-[#c51a1b]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 border-t border-white/10 pt-5 text-[13px] text-[#8a96a8]">
+                <span className="text-white">{compare.bestForPrefix}</span> {model.bestFor}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </section>
-
-      <section className="section bg-white">
+      <section className="border-t border-white/10 py-24">
         <div className="container">
-          <div className="grid gap-5 sm:grid-cols-2">
-            {models.map((model, i) => (
-              <Reveal key={model.number} delay={i * 0.05}>
-                <article className="card-light group flex h-full flex-col p-6 transition-transform duration-300 hover:-translate-y-1 sm:p-8">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="text-[13px] font-bold tracking-[0.08em] text-[#FCA311]">
-                      {model.number}
-                    </span>
-                    <div className="icon-well">
-                      <FeatureIcon title={model.title} />
-                    </div>
-                  </div>
-                  <h2 className="mt-4 text-[22px] font-extrabold tracking-[-0.02em] text-[#14213D]">
-                    {model.title}
-                  </h2>
-                  <p className="mt-3 text-[15px] leading-relaxed text-[#475569]">
-                    {model.description}
-                  </p>
-                  <ul className="mt-5 space-y-2.5">
-                    {model.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-2.5 text-[14px] text-[#14213D]"
-                      >
-                        <Check
-                          className="mt-0.5 size-4 shrink-0 text-[#FCA311]"
-                          strokeWidth={2.5}
-                        />
-                        {feature}
-                      </li>
+          <Reveal>
+            <p className="eyebrow">{compare.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white">{compare.headline}</h2>
+          </Reveal>
+          <div className="mt-10 overflow-x-auto">
+            <table className="w-full min-w-[640px] text-left">
+              <thead>
+                <tr className="border-b border-white/10">
+                  <th className="py-4 pr-4 text-[12px] uppercase tracking-[0.14em] text-[#8a96a8]">
+                    Factor
+                  </th>
+                  {compare.columns.map((col) => (
+                    <th key={col} className="py-4 pr-4 text-[14px] text-white">
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {compare.rows.map((row) => (
+                  <tr key={row.label} className="border-b border-white/10">
+                    <th className="py-4 pr-4 text-[14px] font-medium text-[#8a96a8]">
+                      {row.label}
+                    </th>
+                    {row.values.map((value) => (
+                      <td key={`${row.label}-${value}`} className="py-4 pr-4 text-[14px] text-white">
+                        {value}
+                      </td>
                     ))}
-                  </ul>
-                  <p className="mt-auto border-t border-[#eef0f3] pt-5 text-[13px] leading-relaxed text-[#475569]">
-                    <span className="font-bold text-[#14213D]">
-                      {compare.bestForPrefix}
-                    </span>{" "}
-                    {model.bestFor}
-                  </p>
-                </article>
-              </Reveal>
-            ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
-
-      <section className="section bg-black">
-        <div className="container">
-          <Reveal>
-            <SectionHeading
-              tone="dark"
-              eyebrow={compare.eyebrow}
-              headline={compare.headline}
-            />
-          </Reveal>
-          <Reveal className="mt-10">
-            <div className="overflow-x-auto rounded-[20px] border border-white/10">
-              <table className="w-full min-w-[640px] border-collapse text-left">
-                <thead>
-                  <tr className="bg-[#14213D]">
-                    <th className="px-5 py-4 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#9aa3b5]">
-                      Factor
-                    </th>
-                    {compare.columns.map((col) => (
-                      <th
-                        key={col}
-                        className="px-5 py-4 text-[14px] font-bold text-white"
-                      >
-                        {col}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {compare.rows.map((row, i) => (
-                    <tr
-                      key={row.label}
-                      className={
-                        i % 2 === 0 ? "bg-black/40" : "bg-white/[0.03]"
-                      }
-                    >
-                      <th className="px-5 py-4 text-[14px] font-semibold text-[#c7cbd4]">
-                        {row.label}
-                      </th>
-                      {row.values.map((value) => (
-                        <td
-                          key={`${row.label}-${value}`}
-                          className="px-5 py-4 text-[14px] text-[#e5e5e5]"
-                        >
-                          {value}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       <CtaBand cta={cta} />
     </>
   );

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
+import { PageHero } from "@/components/SectionHeading";
 import { CtaBand } from "@/components/CtaBand";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -44,60 +44,41 @@ const stories = [
 export default function NewsroomPage() {
   return (
     <>
-      <section className="hero-glow section-sm">
-        <div className="container max-w-3xl">
-          <Reveal>
-            <Breadcrumb current="Newsroom" />
-            <span className="eyebrow mb-3">Press & updates</span>
-            <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.02em] text-white sm:text-[44px]">
-              Newsroom
-            </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              Announcements, product notes, and company updates from the Aeroven
-              team.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section bg-white">
-        <div className="container max-w-4xl">
-          <Reveal>
-            <SectionHeading
-              align="left"
-              headline="Latest stories"
-              body="For press inquiries, email hello@aeroven.com."
-            />
-          </Reveal>
-          <div className="mt-10 space-y-4">
-            {stories.map((story, i) => (
-              <Reveal key={story.title} delay={i * 0.05}>
-                <article className="card-light p-6 transition-transform hover:-translate-y-0.5">
-                  <div className="flex flex-wrap items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#a5670a]">
-                    <span>{story.date}</span>
-                    <span className="text-[#E5E5E5]">·</span>
-                    <span>{story.tag}</span>
-                  </div>
-                  <h2 className="mt-3 text-[20px] font-bold text-[#14213D]">
+      <PageHero
+        eyebrow="Press & updates"
+        title="Newsroom"
+        body="Announcements, product notes, and company updates from the Aeroven team."
+      />
+      <section className="pb-28">
+        <div className="container">
+          {stories.map((story, i) => (
+            <Reveal key={story.title} delay={i * 0.05}>
+              <article className="group grid gap-6 border-t border-white/10 py-10 last:border-b lg:grid-cols-[140px_1fr_auto] lg:items-start">
+                <div className="text-[13px] uppercase tracking-[0.14em] text-[#8a96a8]">
+                  <p>{story.date}</p>
+                  <p className="mt-2 text-[#c51a1b]">{story.tag}</p>
+                </div>
+                <div>
+                  <h2 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[36px]">
                     {story.title}
                   </h2>
-                  <p className="mt-2 text-[15px] leading-relaxed text-[#475569]">
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#8a96a8]">
                     {story.summary}
                   </p>
-                  <Link
-                    href={story.href}
-                    className="mt-4 inline-flex items-center gap-2 text-[14px] font-bold text-[#14213D] hover:text-[#FCA311]"
-                  >
-                    Read more
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+                </div>
+                <Link
+                  href={story.href}
+                  data-cursor
+                  className="btn btn-ghost self-start"
+                >
+                  Read
+                  <ArrowUpRight className="size-4" />
+                </Link>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </section>
-
       <CtaBand
         cta={{
           headline: "Media or partnership inquiry?",

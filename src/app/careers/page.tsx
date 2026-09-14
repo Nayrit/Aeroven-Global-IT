@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { careersPage } from "@/lib/content";
 import { Reveal } from "@/components/Reveal";
-import { Breadcrumb, SectionHeading } from "@/components/SectionHeading";
+import { PageHero } from "@/components/SectionHeading";
 import { JobsBoard } from "@/components/JobsBoard";
 import { CtaBand } from "@/components/CtaBand";
 
@@ -17,151 +17,81 @@ export default function CareersPage() {
 
   return (
     <>
-      <section className="hero-glow pb-14 pt-12 sm:pb-16 sm:pt-16">
-        <div className="container">
-          <Reveal>
-            <Breadcrumb current={hero.breadcrumb} />
-            <span className="eyebrow">{hero.eyebrow}</span>
-            <h1 className="mt-4 max-w-4xl text-[34px] font-extrabold leading-[1.12] tracking-[-0.03em] text-white sm:text-[48px]">
-              {hero.headline}
-            </h1>
-            <p className="mt-5 max-w-3xl text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
-              {hero.body}
+      <PageHero eyebrow={hero.eyebrow} title={hero.headline} body={hero.body} index="05" />
+      <div className="container flex flex-wrap gap-4 pb-10">
+        <Link href="#roles" data-cursor className="btn btn-primary">
+          {hero.primaryCta}
+          <ArrowUpRight className="size-4" />
+        </Link>
+        <Link href="#life" data-cursor className="btn btn-ghost">
+          {hero.secondaryCta}
+        </Link>
+      </div>
+      <div className="container grid grid-cols-3 gap-px border-y border-white/10 bg-white/10">
+        {hero.stats.map((stat) => (
+          <div key={stat.label} className="bg-[#05080c] px-4 py-8">
+            <p className="display text-[28px] text-white">{stat.value}</p>
+            <p className="mt-2 text-[12px] uppercase tracking-[0.12em] text-[#8a96a8]">
+              {stat.label}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link href="#roles" className="btn btn-primary btn-primary-lg">
-                {hero.primaryCta}
-                <ArrowRight className="size-[18px]" strokeWidth={2.4} />
-              </Link>
-              <Link href="#life" className="btn btn-ghost">
-                {hero.secondaryCta}
-                <ArrowRight className="size-4" />
-              </Link>
-            </div>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {hero.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-5"
-                >
-                  <p className="text-[28px] font-extrabold tracking-tight text-[#FCA311]">
-                    {stat.value}
-                  </p>
-                  <p className="mt-1 text-[13px] text-[#9aa3b5]">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section id="life" className="section scroll-mt-24 bg-white">
+          </div>
+        ))}
+      </div>
+      <section id="life" className="scroll-mt-28 py-24">
         <div className="container">
           <Reveal>
-            <SectionHeading
-              eyebrow={life.eyebrow}
-              headline={life.headline}
-            />
+            <p className="eyebrow">{life.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white">{life.headline}</h2>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {life.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.06}>
-                <article className="card-light h-full p-6 transition-transform duration-300 hover:-translate-y-1">
-                  <h3 className="text-[18px] font-bold text-[#14213D]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-[15px] leading-relaxed text-[#475569]">
-                    {item.description}
-                  </p>
-                </article>
-              </Reveal>
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {life.items.map((item) => (
+              <article key={item.title} className="card-glass p-7">
+                <h3 className="display text-[24px] text-white">{item.title}</h3>
+                <p className="mt-3 text-[15px] text-[#8a96a8]">{item.description}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
-
-      <section className="section bg-black">
+      <section className="border-y border-white/10 py-24">
         <div className="container">
           <Reveal>
-            <SectionHeading
-              tone="dark"
-              eyebrow={benefits.eyebrow}
-              headline={benefits.headline}
-            />
+            <p className="eyebrow">{benefits.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white">{benefits.headline}</h2>
           </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.05}>
-                <article className="card-dark h-full p-6 transition-colors duration-300 hover:border-[#FCA311]/35">
-                  <h3 className="text-[17px] font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-[#9aa3b5]">
-                    {item.description}
-                  </p>
-                </article>
-              </Reveal>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {benefits.items.map((item) => (
+              <article key={item.title} className="p-2">
+                <h3 className="text-[18px] font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-[14px] text-[#8a96a8]">{item.description}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
-
-      <section id="roles" className="section scroll-mt-24 bg-white">
+      <section id="roles" className="scroll-mt-28 py-24">
         <div className="container">
           <Reveal>
-            <SectionHeading
-              align="left"
-              eyebrow={openRoles.eyebrow}
-              headline={openRoles.headline}
-            />
+            <p className="eyebrow">{openRoles.eyebrow}</p>
+            <h2 className="display mt-4 text-[40px] text-white">{openRoles.headline}</h2>
           </Reveal>
-          <Reveal className="mt-10">
+          <div className="mt-10">
             <JobsBoard />
-          </Reveal>
-          <Reveal className="mt-8 text-center">
-            <p className="text-[15px] text-[#475569]">
-              {openRoles.emptyPrompt}{" "}
-              <Link
-                href="/consultation"
-                className="font-semibold text-[#FCA311] transition-colors hover:text-[#ffb638]"
-              >
-                {openRoles.emptyPromptLinkLabel}
-              </Link>
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section bg-black">
-        <div className="container">
-          <Reveal>
-            <SectionHeading
-              tone="dark"
-              eyebrow={hiring.eyebrow}
-              headline={hiring.headline}
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {hiring.steps.map((step, i) => (
-              <Reveal key={step.number} delay={i * 0.05}>
-                <article className="card-dark h-full p-6 transition-colors duration-300 hover:border-[#FCA311]/35">
-                  <span className="text-[28px] font-extrabold tracking-tight text-[#FCA311]/45">
-                    {step.number}
-                  </span>
-                  <h3 className="mt-3 text-[17px] font-bold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-[#9aa3b5]">
-                    {step.description}
-                  </p>
-                </article>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
-
-      <CtaBand cta={cta} href="/consultation" />
+      <section className="border-t border-white/10 py-24">
+        <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {hiring.steps.map((step) => (
+            <article key={step.number}>
+              <p className="display text-[36px] text-[#c51a1b]">{step.number}</p>
+              <h3 className="mt-3 text-[18px] font-semibold text-white">{step.title}</h3>
+              <p className="mt-2 text-[14px] text-[#8a96a8]">{step.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <CtaBand cta={cta} />
     </>
   );
 }

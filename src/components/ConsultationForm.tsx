@@ -25,12 +25,12 @@ export function ConsultationForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-[20px] border border-[#eef0f3] bg-white px-6 py-16 text-center shadow-[0_4px_12px_rgba(20,33,61,0.06)]">
-        <CheckCircle2 className="mb-4 size-12 text-[#FCA311]" />
-        <h3 className="text-[22px] font-extrabold text-[#14213D]">
+      <div className="card-glass flex flex-col items-center justify-center px-6 py-16 text-center">
+        <CheckCircle2 className="mb-4 size-12 text-[#c51a1b]" />
+        <h3 className="display text-[28px] text-white">
           Request received
         </h3>
-        <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-[#475569]">
+        <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-[#8a96a8]">
           Thanks for reaching out. Our architects will follow up within two
           hours during business days.
         </p>
@@ -41,12 +41,12 @@ export function ConsultationForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-[20px] border border-[#eef0f3] bg-white p-6 shadow-[0_4px_12px_rgba(20,33,61,0.06)] sm:p-8"
+      className="card-glass p-6 sm:p-10"
     >
-      <h2 className="text-[22px] font-extrabold text-[#14213D]">
+      <h2 className="display text-[28px] text-white">
         {consultationForm.headline}
       </h2>
-      <p className="mt-2 text-[14px] text-[#475569]">
+      <p className="mt-2 text-[14px] text-[#8a96a8]">
         {consultationForm.requiredNote}
       </p>
 
@@ -79,10 +79,10 @@ export function ConsultationForm() {
 
       {helpField?.options ? (
         <div className="mt-5">
-          <label className="mb-2 block text-[13px] font-semibold text-[#14213D]">
+          <label className="mb-2 block text-[13px] font-semibold text-white">
             {helpField.label}{" "}
             {helpField.required ? (
-              <span className="text-[#FCA311]">
+              <span className="text-[#c51a1b]">
                 {consultationForm.requiredMarker}
               </span>
             ) : null}
@@ -94,6 +94,7 @@ export function ConsultationForm() {
                 type="button"
                 className="chip"
                 data-active={topic === option}
+                data-cursor
                 onClick={() => setTopic(option)}
               >
                 {option}
@@ -148,7 +149,8 @@ export function ConsultationForm() {
 
       <button
         type="submit"
-        className="btn btn-primary btn-primary-lg mt-6 w-full"
+        data-cursor
+        className="btn btn-primary mt-6 w-full"
       >
         {consultationForm.submitLabel}
         <ArrowRight className="size-[18px]" strokeWidth={2.4} />
@@ -157,7 +159,7 @@ export function ConsultationForm() {
         {consultationForm.privacyNote.split(
           consultationForm.privacyLinkLabel,
         )[0]}
-        <Link href="/privacy" className="underline hover:text-[#FCA311]">
+        <Link href="/privacy" className="underline hover:text-[#c51a1b]">
           {consultationForm.privacyLinkLabel}
         </Link>
         {consultationForm.privacyNote.split(
@@ -181,10 +183,10 @@ function Field({
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-2 block text-[13px] font-semibold text-[#14213D]">
+      <span className="mb-2 block text-[13px] font-semibold text-white">
         {label}
         {required ? (
-          <span className="text-[#FCA311]">
+          <span className="text-[#c51a1b]">
             {" "}
             {consultationForm.requiredMarker}
           </span>

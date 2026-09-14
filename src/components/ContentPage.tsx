@@ -27,38 +27,35 @@ export function ContentPage({
 }: ContentPageProps) {
   return (
     <>
-      <section className="hero-glow section-sm">
+      <section className="pb-12 pt-36">
         <div className="container max-w-3xl">
           <Reveal>
             <Breadcrumb current={title} />
             {eyebrow ? <span className="eyebrow mb-3">{eyebrow}</span> : null}
-            <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.02em] text-white sm:text-[44px]">
+            <h1 className="display mt-2 text-[42px] text-white sm:text-[56px]">
               {title}
             </h1>
-            <p className="mt-4 text-[16px] leading-relaxed text-[#c7cbd4] sm:text-[18px]">
+            <p className="mt-4 text-[16px] leading-relaxed text-[#8a96a8] sm:text-[18px]">
               {description}
             </p>
             {updated ? (
-              <p className="mt-4 text-[13px] text-[#9aa3b5]">
+              <p className="mt-4 text-[13px] text-[#5c6778]">
                 Last updated: {updated}
               </p>
             ) : null}
           </Reveal>
         </div>
       </section>
-
-      <section className="section bg-white">
+      <section className="pb-28">
         <div className="container max-w-3xl space-y-10">
           {sections.map((section, i) => (
-            <Reveal key={section.heading} delay={i * 0.04}>
-              <article>
-                <h2 className="text-[22px] font-extrabold text-[#14213D] sm:text-[26px]">
-                  {section.heading}
-                </h2>
+            <Reveal key={section.heading} delay={i * 0.03}>
+              <article className="border-t border-white/10 pt-8">
+                <h2 className="display text-[24px] text-white">{section.heading}</h2>
                 {section.paragraphs?.map((p) => (
                   <p
                     key={p.slice(0, 48)}
-                    className="mt-3 text-[15px] leading-relaxed text-[#475569] sm:text-[16px]"
+                    className="mt-3 text-[15px] leading-relaxed text-[#8a96a8]"
                   >
                     {p}
                   </p>
@@ -68,9 +65,9 @@ export function ContentPage({
                     {section.bullets.map((item) => (
                       <li
                         key={item}
-                        className="flex gap-3 text-[15px] leading-relaxed text-[#475569]"
+                        className="flex gap-3 text-[15px] leading-relaxed text-[#8a96a8]"
                       >
-                        <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#FCA311]" />
+                        <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#c51a1b]" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -79,10 +76,9 @@ export function ContentPage({
               </article>
             </Reveal>
           ))}
-
           {cta ? (
             <Reveal>
-              <Link href={cta.href} className="btn btn-primary">
+              <Link href={cta.href} data-cursor className="btn btn-primary">
                 {cta.label}
               </Link>
             </Reveal>

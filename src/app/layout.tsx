@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Outfit, Syne } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Cursor } from "@/components/Cursor";
+import { Loader } from "@/components/Loader";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { siteConfig } from "@/lib/site";
 import {
   absoluteUrl,
@@ -10,17 +13,24 @@ import {
 } from "@/lib/seo";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | AI-Powered Digital Solutions`,
+    default: `${siteConfig.name} | Engineered Intelligence`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -60,7 +70,7 @@ export const metadata: Metadata = {
     locale: siteConfig.locale,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | AI-Powered Digital Solutions`,
+    title: `${siteConfig.name} | Engineered Intelligence`,
     description: siteConfig.description,
     images: [
       {
@@ -73,7 +83,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | AI-Powered Digital Solutions`,
+    title: `${siteConfig.name} | Engineered Intelligence`,
     description: siteConfig.description,
     images: [absoluteUrl("/brand/aeroven-it.png")],
   },
@@ -103,7 +113,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} h-full antialiased`}
+      className={`${outfit.variable} ${syne.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -115,17 +125,22 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-full flex flex-col font-sans"
+        className="relative min-h-full flex flex-col font-sans"
         suppressHydrationWarning
       >
+        <div className="ambient" aria-hidden />
+        <div className="noise" aria-hidden />
+        <Loader />
+        <Cursor />
+        <ScrollProgress />
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#FCA311] focus:px-4 focus:py-2 focus:font-bold focus:text-black"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#c51a1b] focus:px-4 focus:py-2 focus:font-bold focus:text-white"
         >
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="relative z-10 flex-1">
           {children}
         </main>
         <Footer />

@@ -4,13 +4,13 @@ export function HeroOrb() {
       <svg viewBox="0 0 420 420" className="h-full w-full" aria-hidden>
         <defs>
           <radialGradient id="orbGlow" cx="50%" cy="45%" r="55%">
-            <stop offset="0%" stopColor="#FFE0A3" stopOpacity="0.55" />
-            <stop offset="45%" stopColor="#FCA311" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#14213D" stopOpacity="0" />
+            <stop offset="0%" stopColor="#ff6b6b" stopOpacity="0.45" />
+            <stop offset="45%" stopColor="#c51a1b" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#004b9c" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FCA311" />
-            <stop offset="100%" stopColor="#7a4d00" />
+            <stop offset="0%" stopColor="#c51a1b" />
+            <stop offset="100%" stopColor="#004b9c" />
           </linearGradient>
         </defs>
         <circle cx="210" cy="210" r="150" fill="url(#orbGlow)" />
@@ -30,14 +30,14 @@ export function HeroOrb() {
           cy="210"
           r="78"
           fill="none"
-          stroke="rgba(252,163,17,0.35)"
+          stroke="rgba(197,26,27,0.35)"
           strokeWidth="1"
         />
         <circle
           cx="210"
           cy="210"
           r="28"
-          fill="#FCA311"
+          fill="#c51a1b"
           className="animate-pulse-glow"
         />
         {[
@@ -53,15 +53,15 @@ export function HeroOrb() {
               y1="210"
               x2={x}
               y2={y}
-              stroke="rgba(252,163,17,0.45)"
+              stroke="rgba(197,26,27,0.45)"
               strokeWidth="1.2"
             />
             <circle
               cx={x}
               cy={y}
               r="7"
-              fill="#14213D"
-              stroke="#FCA311"
+              fill="#05080c"
+              stroke="#c51a1b"
               strokeWidth="1.5"
               className="animate-pulse-glow"
               style={{ animationDelay: `${i * 0.35}s` }}
@@ -111,10 +111,10 @@ export function Skyline() {
           width={w}
           height={h}
           fill={i % 3 === 0 ? "#141a2b" : "#0f1524"}
-          stroke="rgba(252,163,17,0.12)"
+          stroke="rgba(197,26,27,0.12)"
         />
       ))}
-      <circle cx="980" cy="36" r="10" fill="#FCA311" opacity="0.7" />
+      <circle cx="980" cy="36" r="10" fill="#c51a1b" opacity="0.7" />
     </svg>
   );
 }

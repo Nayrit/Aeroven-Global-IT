@@ -3,25 +3,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { nav } from "@/lib/content";
 import { Logo } from "./Logo";
 
-type HeaderProps = {
-  ctaHref?: string;
-  ctaLabel?: string;
-};
-
-export function Header({
-  ctaHref = "/consultation",
-  ctaLabel = nav.cta,
-}: HeaderProps) {
+export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -41,68 +33,98 @@ export function Header({
   const links = [...nav.links, nav.careersLink];
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-[background,border-color,backdrop-filter] duration-300 ${
-        scrolled || open
-          ? "border-white/10 bg-black/90 backdrop-blur-xl"
-          : "border-transparent bg-black"
-      }`}
-    >
-      <div className="container flex items-center justify-between gap-6 py-[18px]">
-        <Logo height={28} />
-
-        <nav className="hidden lg:flex items-center gap-7">
-          {nav.links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="nav-link"
-              data-active={pathname === link.href}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <Link href={ctaHref} className="btn btn-primary hidden sm:inline-flex">
-            {ctaLabel}
-            <ArrowRight className="size-4" strokeWidth={2.4} />
-          </Link>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            className="lg:hidden grid place-items-center size-10 rounded-full border border-white/15 text-white"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-        </div>
-      </div>
-
-      {open && (
-        <div className="lg:hidden border-t border-white/10 bg-black">
-          <nav className="container flex flex-col gap-1 py-4">
-            {links.map((link) => (
+    <>
+      <header
+        className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+          scrolled || open
+            ? "bg-[#05080c]/80 backdrop-blur-xl"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="container flex items-center justify-between py-5">
+          <Logo height={26} />
+          <nav className="hidden items-center gap-8 lg:flex">
+            {nav.links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-xl px-4 py-3 text-[15px] font-medium text-[#c7cbd4] transition-colors hover:bg-white/5 hover:text-[#FCA311]"
-                data-active={pathname === link.href}
-                style={
-                  pathname === link.href ? { color: "#FCA311" } : undefined
-                }
+                data-cursor
+                className={`text-[13px] tracking-[0.08em] uppercase transition-colors ${
+                  pathname === link.href
+                    ? "text-[#c51a1b]"
+                    : "text-[#c9d0da] hover:text-white"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href={ctaHref} className="btn btn-primary mt-3 w-full">
-              {ctaLabel}
-              <ArrowRight className="size-4" strokeWidth={2.4} />
-            </Link>
           </nav>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/consultation"
+              data-cursor
+              className="btn btn-primary hidden sm:inline-flex"
+            >
+              {nav.cta}
+            </Link>
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              className="relative z-[60] grid size-11 place-items-center"
+              onClick={() => setOpen((v) => !v)}
+              data-cursor
+            >
+              <span className="flex w-6 flex-col gap-[6px]">
+                <span
+                  className={`h-px w-full bg-white transition-transform duration-300 ${
+                    open ? "translate-y-[3.5px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`h-px w-full bg-white transition-transform duration-300 ${
+                    open ? "-translate-y-[3.5px] -rotate-45" : ""
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
-      )}
-    </header>
+      </header>
+
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            className="fixed inset-0 z-40 bg-[#05080c]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className="container flex h-full flex-col justify-end pb-16 pt-32">
+              {links.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.06 * i, duration: 0.5 }}
+                >
+                  <Link
+                    href={link.href}
+                    data-cursor
+                    className="display flex items-baseline justify-between gap-6 border-b border-white/10 py-4 text-white transition-colors hover:text-[#c51a1b]"
+                  >
+                    <span className="text-[11vw] leading-none sm:text-[72px]">
+                      {link.label}
+                    </span>
+                    <span className="text-[13px] tracking-[0.16em] text-[#c51a1b]">
+                      0{i + 1}
+                    </span>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
   );
 }

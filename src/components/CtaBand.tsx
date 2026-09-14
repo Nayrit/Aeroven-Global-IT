@@ -1,40 +1,33 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { CtaBlock } from "@/lib/content";
 import { Reveal } from "./Reveal";
 
-type CtaBandProps = {
+export function CtaBand({
+  cta,
+  href = "/consultation",
+}: {
   cta: CtaBlock;
   href?: string;
-};
-
-export function CtaBand({ cta, href = "/consultation" }: CtaBandProps) {
+}) {
   return (
-    <section className="section bg-black">
-      <div className="container">
+    <section className="relative overflow-hidden py-28">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(197,26,27,0.18),transparent_60%)]" />
+      <div className="container relative">
         <Reveal>
-          <div className="gradient-navy relative overflow-hidden rounded-[24px] border border-[#FCA311]/28 px-8 py-12 sm:px-12 sm:py-14">
-            <div
-              className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-[#FCA311]/15 blur-3xl"
-              aria-hidden
-            />
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-2xl">
-                <h2 className="text-[28px] font-extrabold tracking-[-0.02em] text-white sm:text-[36px]">
-                  {cta.headline}
-                </h2>
-                {cta.body ? (
-                  <p className="mt-3 text-[16px] leading-relaxed text-[#c7cbd4]">
-                    {cta.body}
-                  </p>
-                ) : null}
-              </div>
-              <Link href={href} className="btn btn-primary btn-primary-lg shrink-0">
-                {cta.cta}
-                <ArrowRight className="size-[18px]" strokeWidth={2.4} />
-              </Link>
-            </div>
-          </div>
+          <p className="eyebrow">Next</p>
+          <h2 className="display mt-6 max-w-4xl text-[14vw] text-white sm:text-[72px] lg:text-[88px]">
+            {cta.headline}
+          </h2>
+          {cta.body ? (
+            <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-[#8a96a8]">
+              {cta.body}
+            </p>
+          ) : null}
+          <Link href={href} data-cursor className="btn btn-primary mt-10">
+            {cta.cta}
+            <ArrowUpRight className="size-4" />
+          </Link>
         </Reveal>
       </div>
     </section>
