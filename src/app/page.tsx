@@ -2,19 +2,12 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { home, offices, footer, homeValues } from "@/lib/content";
-import { KineticLine, Stamp, Counter } from "@/components/Kinetic";
-import { Magnetic } from "@/components/Magnetic";
+import { home, offices, footer } from "@/lib/content";
+import { Counter } from "@/components/Kinetic";
+import { Reveal } from "@/components/Reveal";
 import { CapabilityTheater } from "@/components/CapabilityTheater";
-import { ScrollReel } from "@/components/ScrollReel";
-import { TiltCard } from "@/components/TiltCard";
-import { PinnedProcess } from "@/components/PinnedProcess";
-import { QuoteStage } from "@/components/QuoteStage";
-import { Constellation } from "@/components/Constellation";
-import { FaqAccordion } from "@/components/FaqAccordion";
 import { CtaBand } from "@/components/CtaBand";
-import { Scramble } from "@/components/Scramble";
+import { FaqAccordion } from "@/components/FaqAccordion";
 
 export default function HomePage() {
   const {
@@ -29,97 +22,49 @@ export default function HomePage() {
   } = home;
 
   const ticker = [...footer.trustedByExtended, ...footer.trustedByExtended];
-  const verbs = [
-    "Transform",
-    "Compose",
-    "Orchestrate",
-    "Scale",
-    "Secure",
-    "Launch",
-    "Learn",
-    "Operate",
-  ];
-
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 50, damping: 20 });
-  const y = useSpring(my, { stiffness: 50, damping: 20 });
 
   return (
     <>
-      <section
-        className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-8 pt-24"
-        onMouseMove={(e) => {
-          mx.set((e.clientX / window.innerWidth - 0.5) * -28);
-          my.set((e.clientY / window.innerHeight - 0.5) * -18);
-        }}
-      >
-        <div className="absolute right-[8%] top-[22%] hidden md:block">
-          <Magnetic strength={0.2}>
-            <Stamp size={150} className="text-white/40" />
-          </Magnetic>
-        </div>
-        <div className="container relative">
-          <p className="eyebrow">Studio / 2026</p>
-          <motion.h1 style={{ x, y }} className="display mt-6 text-white">
-            <span className="block text-[17vw] sm:text-[120px] lg:text-[148px]">
-              <KineticLine text="INTELLIGENCE" />
-            </span>
-            <span className="serif mt-2 block text-[11vw] font-normal text-[#c51a1b] sm:text-[84px] lg:text-[104px]">
-              <KineticLine text="without limits." delay={0.22} />
-            </span>
-          </motion.h1>
-          <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <p className="max-w-xl text-[18px] leading-relaxed text-[#c9d0da]">
+      <section className="pb-16 pt-32 sm:pb-20 sm:pt-40">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">{hero.badge}</p>
+            <h1 className="display mt-6 max-w-5xl text-[40px] text-[#14171c] sm:text-[60px] lg:text-[72px]">
+              {hero.headlineBefore}
+              <span className="text-[#c51a1b]">{hero.headlineAccent}</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-[#5d6673]">
               {hero.body}
             </p>
-            <div className="flex flex-wrap items-center gap-5">
-              <Magnetic>
-                <Link href="/consultation" data-cursor="book" className="btn btn-primary">
-                  {hero.primaryCta}
-                  <ArrowUpRight className="size-4" />
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link href="/success" data-cursor="view" className="btn btn-ghost">
-                  {hero.secondaryCta}
-                </Link>
-              </Magnetic>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <Link href="/consultation" className="btn btn-primary">
+                {hero.primaryCta}
+                <ArrowUpRight className="size-4" />
+              </Link>
+              <Link href="/success" className="btn btn-ghost">
+                {hero.secondaryCta}
+              </Link>
             </div>
+          </Reveal>
+          <div className="mt-16 grid grid-cols-3 gap-8 border-t border-black/10 pt-10">
+            {hero.stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="display text-[28px] text-[#14171c] sm:text-[40px]">
+                  <Counter value={stat.value} />
+                </p>
+                <p className="mt-2 text-[13px] text-[#5d6673]">{stat.label}</p>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="container mt-16 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
-          {hero.stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="display text-[32px] text-white sm:text-[48px]">
-                <Counter value={stat.value} />
-              </p>
-              <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-[#8a96a8]">
-                {stat.label}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
 
       <div className="marquee">
-        <div className="marquee-track py-5">
-          {[...verbs, ...verbs].map((word, i) => (
-            <span
-              key={`${word}-${i}`}
-              className="display text-[32px] tracking-[0.1em] text-white/30 sm:text-[52px]"
-            >
-              {word} <span className="mx-6 text-[#c51a1b]">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-      <div className="marquee">
-        <div className="marquee-track reverse py-3">
+        <div className="marquee-track py-4">
           {ticker.map((name, i) => (
             <span
               key={`${name}-${i}`}
-              className="text-[13px] tracking-[0.32em] text-white/35"
+              className="text-[12px] font-semibold tracking-[0.22em] text-[#8b93a0]"
             >
               {name}
             </span>
@@ -129,92 +74,104 @@ export default function HomePage() {
 
       <CapabilityTheater
         eyebrow={capabilitiesDetail.eyebrow}
-        headline="Five practices. One organism."
+        headline={capabilitiesDetail.headline}
         items={capabilitiesDetail.items}
         href="/capabilities"
       />
 
-      <ScrollReel eyebrow={products.eyebrow} title="Scroll the engines.">
-        <TiltCard className="card-glass h-[62vh] min-w-[78vw] p-8 sm:min-w-[560px] sm:p-12 lg:min-w-[640px]">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-[#c51a1b]">
-            {products.featured.badge}
-          </p>
-          <h3 className="display mt-8 text-[36px] text-white sm:text-[48px]">
-            {products.featured.title}
-          </h3>
-          <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-[#8a96a8]">
-            {products.featured.description}
-          </p>
-        </TiltCard>
-        {products.items.map((item, i) => (
-          <TiltCard
-            key={item.title}
-            className="card-glass h-[62vh] min-w-[78vw] p-8 sm:min-w-[480px] sm:p-10 lg:min-w-[520px]"
-          >
-            <p className="text-[#c51a1b]">0{i + 1}</p>
-            <h3 className="display mt-8 text-[32px] text-white sm:text-[40px]">
-              {item.title}
-            </h3>
-            <p className="mt-5 text-[16px] leading-relaxed text-[#8a96a8]">
-              {item.description}
+      <section className="border-t border-black/10 py-24">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">{products.eyebrow}</p>
+            <h2 className="display mt-4 max-w-3xl text-[36px] text-[#14171c] sm:text-[48px]">
+              {products.headline}
+            </h2>
+          </Reveal>
+          <article className="card mt-12 p-8 sm:p-12">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#c51a1b]">
+              {products.featured.badge}
             </p>
-          </TiltCard>
-        ))}
-      </ScrollReel>
+            <h3 className="display mt-4 text-[28px] text-[#14171c] sm:text-[36px]">
+              {products.featured.title}
+            </h3>
+            <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-[#5d6673]">
+              {products.featured.description}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {products.featured.tags?.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-black/10 px-3 py-1 text-[12px] text-[#5d6673]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </article>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {products.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.04} className="card p-7">
+                <p className="text-[12px] text-[#004b9c]">0{i + 1}</p>
+                <h3 className="mt-3 text-[20px] font-semibold text-[#14171c]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-[#5d6673]">
+                  {item.description}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <PinnedProcess
-        eyebrow={process.eyebrow}
-        headline="Hold still. The path moves."
-        steps={process.steps}
-      />
-
-      <section className="paper relative overflow-hidden py-32">
-        <p className="pointer-events-none absolute -left-4 top-10 display text-[22vw] leading-none text-[#05080c]/[0.06]">
-          VALUES
-        </p>
-        <div className="container relative">
-          <p className="eyebrow">{homeValues.eyebrow}</p>
-          <h2 className="display mt-4 max-w-3xl text-[48px] text-[#05080c] sm:text-[72px]">
-            {homeValues.headline}
-          </h2>
-          <div className="mt-16 grid gap-12 sm:grid-cols-2">
-            {homeValues.items.map((item, i) => (
-              <article key={item.title} className="border-t border-[#05080c]/10 pt-8" data-cursor>
-                <p className="text-[12px] tracking-[0.16em] text-[#c51a1b]">0{i + 1}</p>
-                <h3 className="display mt-4 text-[32px] text-[#05080c]">{item.title}</h3>
-                <p className="mt-3 text-[16px] text-[#3d4654]">{item.description}</p>
+      <section className="border-t border-black/10 py-24">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">{process.eyebrow}</p>
+            <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
+              {process.headline}
+            </h2>
+          </Reveal>
+          <div className="mt-12">
+            {process.steps.map((step) => (
+              <article
+                key={step.number}
+                className="grid gap-4 border-t border-black/10 py-8 last:border-b sm:grid-cols-[80px_1fr_1.2fr] sm:items-start"
+              >
+                <p className="text-[18px] font-semibold text-[#c51a1b]">{step.number}</p>
+                <h3 className="text-[20px] font-semibold text-[#14171c]">{step.title}</h3>
+                <p className="text-[15px] leading-relaxed text-[#5d6673]">
+                  {step.description}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-28">
-        <div className="container grid gap-16 lg:grid-cols-[0.75fr_1.25fr]">
+      <section className="border-t border-black/10 py-24">
+        <div className="container grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <p className="eyebrow">{engagement.eyebrow}</p>
-            <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
-              How we plug in.
+            <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
+              {engagement.headline}
             </h2>
-            <Magnetic className="mt-8">
-              <Link href="/engagement" data-cursor="open" className="btn btn-ghost">
-                Compare models
-              </Link>
-            </Magnetic>
+            <Link href="/engagement" className="btn btn-ghost mt-8">
+              Compare models
+            </Link>
           </div>
           <div>
             {engagement.items.map((item) => (
               <div
                 key={item.title}
-                className="group flex gap-6 border-t border-white/10 py-8 last:border-b"
-                data-cursor
+                className="flex gap-5 border-t border-black/10 py-7 last:border-b"
               >
                 <span className="text-[#c51a1b]">{item.number}</span>
                 <div>
-                  <h3 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b]">
-                    <Scramble text={item.title} />
+                  <h3 className="text-[20px] font-semibold text-[#14171c]">
+                    {item.title}
                   </h3>
-                  <p className="mt-2 text-[15px] text-[#8a96a8]">{item.description}</p>
+                  <p className="mt-2 text-[15px] text-[#5d6673]">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -222,28 +179,54 @@ export default function HomePage() {
         </div>
       </section>
 
-      <QuoteStage items={testimonials.items} />
-
-      <section className="border-t border-white/10 py-28">
+      <section className="border-t border-black/10 bg-white py-24">
         <div className="container">
-          <p className="eyebrow">Presence</p>
-          <h2 className="display mt-4 text-[40px] text-white sm:text-[64px]">
-            A constellation, not a campus.
+          <p className="eyebrow">{testimonials.eyebrow}</p>
+          <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
+            {testimonials.headline}
           </h2>
-          <div className="mt-14">
-            <Constellation offices={offices} />
+          <div className="mt-12 grid gap-4 lg:grid-cols-3">
+            {testimonials.items.map((item) => (
+              <blockquote key={item.name} className="card p-7">
+                <p className="text-[16px] leading-relaxed text-[#14171c]">
+                  “{item.quote}”
+                </p>
+                <footer className="mt-6 text-[13px] text-[#5d6673]">
+                  {item.name} — {item.role}
+                </footer>
+              </blockquote>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="border-t border-black/10 py-24">
+        <div className="container">
+          <p className="eyebrow">Offices</p>
+          <h2 className="display mt-4 text-[36px] text-[#14171c]">Global offices</h2>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {offices.map((office) => (
+              <div key={office.city} className="border-t border-black/10 pt-5">
+                <p className="text-[18px] font-semibold text-[#14171c]">{office.city}</p>
+                <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-[#c51a1b]">
+                  {office.isHq ? "HQ · " : ""}
+                  {office.region}
+                </p>
+                <p className="mt-3 text-[14px] text-[#5d6673]">{office.address}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-black/10 py-24">
         <div className="container grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
             <p className="eyebrow">{faq.eyebrow}</p>
-            <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
+            <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
               {faq.headline}
             </h2>
-            <p className="mt-5 text-[#8a96a8]">{faq.body}</p>
+            <p className="mt-4 text-[#5d6673]">{faq.body}</p>
           </div>
           <FaqAccordion items={faq.items} />
         </div>

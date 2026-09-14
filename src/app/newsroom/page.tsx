@@ -46,23 +46,23 @@ export default function NewsroomPage() {
     <>
       <ChapterHero
         eyebrow="Press & updates"
-        title="Signal from the studio."
+        title="Newsroom"
         body="Announcements, product notes, and company updates from the Aeroven team."
       />
       <section className="pb-28">
         <div className="container">
           {stories.map((story, i) => (
             <Reveal key={story.title} delay={i * 0.05}>
-              <article className="group grid gap-6 border-t border-white/10 py-10 last:border-b lg:grid-cols-[140px_1fr_auto] lg:items-start">
-                <div className="text-[13px] uppercase tracking-[0.14em] text-[#8a96a8]">
+              <article className="group grid gap-6 border-t border-black/10 py-10 last:border-b lg:grid-cols-[140px_1fr_auto] lg:items-start">
+                <div className="text-[13px] uppercase tracking-[0.14em] text-[#5d6673]">
                   <p>{story.date}</p>
                   <p className="mt-2 text-[#c51a1b]">{story.tag}</p>
                 </div>
                 <div>
-                  <h2 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[36px]">
+                  <h2 className="display text-[28px] text-[#14171c] transition-colors group-hover:text-[#c51a1b] sm:text-[36px]">
                     {story.title}
                   </h2>
-                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#8a96a8]">
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#5d6673]">
                     {story.summary}
                   </p>
                 </div>

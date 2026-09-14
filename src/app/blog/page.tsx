@@ -50,7 +50,7 @@ export default function BlogPage() {
     <>
       <ChapterHero
         eyebrow="Insights"
-        title="Notes from the machine."
+        title="Blog"
         body="Practical writing on AI systems, cloud platforms, and enterprise delivery from Aeroven engineers."
       />
       <section className="pb-28">
@@ -60,20 +60,20 @@ export default function BlogPage() {
               <Link
                 href={post.href}
                 data-cursor="read"
-                className="group grid gap-4 border-t border-white/10 py-10 last:border-b lg:grid-cols-[180px_1fr_auto] lg:items-center"
+                className="group grid gap-4 border-t border-black/10 py-10 last:border-b lg:grid-cols-[180px_1fr_auto] lg:items-center"
               >
                 <span className="text-[12px] uppercase tracking-[0.18em] text-[#c51a1b]">
                   {post.category}
                 </span>
                 <div>
-                  <h2 className="display text-[26px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[34px]">
+                  <h2 className="display text-[26px] text-[#14171c] transition-colors group-hover:text-[#c51a1b] sm:text-[34px]">
                     {post.title}
                   </h2>
-                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#8a96a8]">
+                  <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#5d6673]">
                     {post.excerpt}
                   </p>
                 </div>
-                <ArrowUpRight className="size-6 text-white/30 transition-all group-hover:text-[#c51a1b] group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="size-6 text-[#14171c]/30 transition-all group-hover:text-[#c51a1b] group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
             </Reveal>
           ))}

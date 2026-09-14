@@ -4,8 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { MorphScene } from "./MorphScene";
-import { Magnetic } from "./Magnetic";
-import { Scramble } from "./Scramble";
 
 type Item = {
   title: string;
@@ -26,56 +24,53 @@ export function CapabilityTheater({
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative min-h-[100svh] py-24">
-      <div className="container grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+    <section className="py-24">
+      <div className="container grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
           <p className="eyebrow">{eyebrow}</p>
-          <h2 className="display mt-5 max-w-xl text-[40px] text-white sm:text-[56px]">
+          <h2 className="display mt-4 max-w-xl text-[36px] text-[#14171c] sm:text-[48px]">
             {headline}
           </h2>
-          <div className="mt-12">
+          <div className="mt-10">
             {items.map((item, i) => (
               <button
                 key={item.title}
                 type="button"
-                data-cursor="view"
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 onClick={() => setActive(i)}
-                className="group flex w-full items-baseline gap-5 border-t border-white/10 py-5 text-left last:border-b"
+                className="flex w-full items-baseline gap-4 border-t border-black/10 py-5 text-left last:border-b"
               >
                 <span
-                  className={`text-[12px] tracking-[0.16em] ${
-                    active === i ? "text-[#c51a1b]" : "text-white/30"
+                  className={`text-[12px] ${
+                    active === i ? "text-[#c51a1b]" : "text-[#8b93a0]"
                   }`}
                 >
                   0{i + 1}
                 </span>
-                  <span
-                    className={`display text-[22px] transition-colors sm:text-[28px] ${
-                      active === i ? "text-white" : "text-white/35"
-                    }`}
-                  >
-                    <Scramble text={item.title} />
-                  </span>
+                <span
+                  className={`text-[18px] sm:text-[20px] ${
+                    active === i ? "font-semibold text-[#14171c]" : "text-[#5d6673]"
+                  }`}
+                >
+                  {item.title}
+                </span>
               </button>
             ))}
           </div>
           {href ? (
-            <Magnetic className="mt-10 inline-flex">
-              <Link href={href} data-cursor="open" className="btn btn-outline">
-                Enter the studio
-                <ArrowUpRight className="size-4" />
-              </Link>
-            </Magnetic>
+            <Link href={href} className="btn btn-outline mt-10">
+              View capabilities
+              <ArrowUpRight className="size-4" />
+            </Link>
           ) : null}
         </div>
-        <div className="relative">
+        <div>
           <MorphScene
             index={active}
-            className="aspect-square w-full rounded-[40px]"
+            className="aspect-square w-full border border-black/10"
           />
-          <p className="serif mt-8 max-w-md text-[20px] leading-relaxed text-[#c9d0da]">
+          <p className="mt-6 max-w-md text-[16px] leading-relaxed text-[#5d6673]">
             {items[active]?.description}
           </p>
         </div>

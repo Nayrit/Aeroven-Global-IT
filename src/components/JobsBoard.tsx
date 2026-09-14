@@ -34,11 +34,11 @@ export function JobsBoard() {
         {jobs.map((job) => (
           <article
             key={job.title}
-            className="flex flex-col gap-4 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-4 border-t border-black/10 py-6 sm:flex-row sm:items-center sm:justify-between"
           >
             <div>
-              <h3 className="display text-[22px] text-white">{job.title}</h3>
-              <div className="mt-2 flex flex-wrap gap-3 text-[13px] text-[#8a96a8]">
+              <h3 className="display text-[22px] text-[#14171c]">{job.title}</h3>
+              <div className="mt-2 flex flex-wrap gap-3 text-[13px] text-[#5d6673]">
                 <span className="text-[#c51a1b]">{job.department}</span>
                 <span className="inline-flex items-center gap-1">
                   <MapPin className="size-3.5" />
@@ -58,7 +58,7 @@ export function JobsBoard() {
           </article>
         ))}
         {jobs.length === 0 ? (
-          <p className="border border-dashed border-white/15 px-5 py-10 text-center text-[#8a96a8]">
+          <p className="border border-dashed border-black/15 px-5 py-10 text-center text-[#5d6673]">
             No open roles in this category right now.
           </p>
         ) : null}

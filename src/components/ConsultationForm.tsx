@@ -25,12 +25,12 @@ export function ConsultationForm() {
 
   if (submitted) {
     return (
-      <div className="card-glass flex flex-col items-center justify-center px-6 py-16 text-center">
+      <div className="card flex flex-col items-center justify-center px-6 py-16 text-center">
         <CheckCircle2 className="mb-4 size-12 text-[#c51a1b]" />
-        <h3 className="display text-[28px] text-white">
+        <h3 className="display text-[28px] text-[#14171c]">
           Request received
         </h3>
-        <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-[#8a96a8]">
+        <p className="mt-2 max-w-sm text-[15px] leading-relaxed text-[#5d6673]">
           Thanks for reaching out. Our architects will follow up within two
           hours during business days.
         </p>
@@ -41,12 +41,12 @@ export function ConsultationForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="card-glass p-6 sm:p-10"
+      className="card p-6 sm:p-10"
     >
-      <h2 className="display text-[28px] text-white">
+      <h2 className="display text-[28px] text-[#14171c]">
         {consultationForm.headline}
       </h2>
-      <p className="mt-2 text-[14px] text-[#8a96a8]">
+      <p className="mt-2 text-[14px] text-[#5d6673]">
         {consultationForm.requiredNote}
       </p>
 
@@ -79,7 +79,7 @@ export function ConsultationForm() {
 
       {helpField?.options ? (
         <div className="mt-5">
-          <label className="mb-2 block text-[13px] font-semibold text-white">
+          <label className="mb-2 block text-[13px] font-semibold text-[#14171c]">
             {helpField.label}{" "}
             {helpField.required ? (
               <span className="text-[#c51a1b]">
@@ -183,7 +183,7 @@ function Field({
 }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-2 block text-[13px] font-semibold text-white">
+      <span className="mb-2 block text-[13px] font-semibold text-[#14171c]">
         {label}
         {required ? (
           <span className="text-[#c51a1b]">

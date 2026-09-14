@@ -38,12 +38,12 @@ export function ContentPage({
         <div className="container max-w-3xl space-y-10">
           {sections.map((section, i) => (
             <Reveal key={section.heading} delay={i * 0.03}>
-              <article className="border-t border-white/10 pt-8">
-                <h2 className="display text-[24px] text-white">{section.heading}</h2>
+              <article className="border-t border-black/10 pt-8">
+                <h2 className="display text-[24px] text-[#14171c]">{section.heading}</h2>
                 {section.paragraphs?.map((p) => (
                   <p
                     key={p.slice(0, 48)}
-                    className="mt-3 text-[15px] leading-relaxed text-[#8a96a8]"
+                    className="mt-3 text-[15px] leading-relaxed text-[#5d6673]"
                   >
                     {p}
                   </p>
@@ -53,7 +53,7 @@ export function ContentPage({
                     {section.bullets.map((item) => (
                       <li
                         key={item}
-                        className="flex gap-3 text-[15px] leading-relaxed text-[#8a96a8]"
+                        className="flex gap-3 text-[15px] leading-relaxed text-[#5d6673]"
                       >
                         <span className="mt-2 size-1.5 shrink-0 rounded-full bg-[#c51a1b]" />
                         <span>{item}</span>

@@ -3,10 +3,8 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 import { capabilitiesPage } from "@/lib/content";
 import { ChapterHero } from "@/components/ChapterHero";
-import { MorphScene } from "@/components/MorphScene";
 import { Counter } from "@/components/Kinetic";
 import { CtaBand } from "@/components/CtaBand";
-import { Magnetic } from "@/components/Magnetic";
 
 export const metadata: Metadata = {
   title: "Capabilities",
@@ -21,59 +19,56 @@ export default function CapabilitiesPage() {
       <ChapterHero
         index="01"
         eyebrow={hero.eyebrow}
-        title="Digital muscle, composed."
+        title={hero.headline}
         body={hero.body}
       />
-      <div className="container -mt-6 flex flex-wrap gap-3 pb-16">
+      <div className="container flex flex-wrap gap-2 pb-12">
         {hero.anchors.map((anchor) => (
-          <Magnetic key={anchor.href}>
-            <Link href={anchor.href} data-cursor="jump" className="chip">
-              {anchor.label}
-            </Link>
-          </Magnetic>
+          <Link key={anchor.href} href={anchor.href} className="chip">
+            {anchor.label}
+          </Link>
         ))}
       </div>
-      {items.map((item, i) => (
+      {items.map((item) => (
         <section
           key={item.id}
           id={item.id}
-          className="flex min-h-[100svh] items-center border-t border-white/10 py-20"
+          className="border-t border-black/10 py-16 sm:py-20"
         >
-          <div className="container grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <p className="text-[13px] uppercase tracking-[0.2em] text-[#c51a1b]">
+              <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-[#c51a1b]">
                 {item.number}
               </p>
-              <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
+              <h2 className="display mt-3 text-[32px] text-[#14171c] sm:text-[40px]">
                 {item.title}
               </h2>
-              <p className="serif mt-6 text-[22px] leading-relaxed text-[#c9d0da]">
+              <p className="mt-4 text-[16px] leading-relaxed text-[#5d6673]">
                 {item.description}
               </p>
-              <ul className="mt-10 space-y-4">
-                {item.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className="mt-1 size-4 text-[#c51a1b]" />
-                    <span className="text-[16px] text-white">{feature}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-            <MorphScene
-              index={i}
-              className="mx-auto aspect-square w-full max-w-[520px] rounded-[48px]"
-            />
+            <ul>
+              {item.features.map((feature) => (
+                <li
+                  key={feature}
+                  className="flex items-start gap-3 border-b border-black/10 py-4"
+                >
+                  <Check className="mt-0.5 size-4 text-[#c51a1b]" />
+                  <span className="text-[16px] text-[#14171c]">{feature}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       ))}
-      <section className="border-t border-white/10 py-16">
+      <section className="border-t border-black/10 py-16">
         <div className="container grid grid-cols-2 gap-8 lg:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.label}>
-              <p className="display text-[36px] text-white sm:text-[48px]">
+              <p className="display text-[32px] text-[#14171c] sm:text-[40px]">
                 <Counter value={stat.value} />
               </p>
-              <p className="mt-2 text-[13px] text-[#8a96a8]">{stat.label}</p>
+              <p className="mt-2 text-[13px] text-[#5d6673]">{stat.label}</p>
             </div>
           ))}
         </div>

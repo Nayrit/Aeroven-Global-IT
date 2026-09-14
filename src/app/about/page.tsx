@@ -3,8 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { CtaBand } from "@/components/CtaBand";
 import { ChapterHero } from "@/components/ChapterHero";
-import { Constellation } from "@/components/Constellation";
-import { Magnetic } from "@/components/Magnetic";
 import { offices } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -36,42 +34,45 @@ export default function AboutPage() {
     <>
       <ChapterHero
         eyebrow="Company"
-        title="A studio for intelligent systems."
+        title="Engineering digital platforms that scale"
         body={`${siteConfig.name} partners with startups and enterprises to design, build, and operate AI-powered software — from discovery through production.`}
       />
-      <section className="pb-16">
+      <section className="pb-12">
         <div className="container flex flex-wrap gap-4">
-          <Magnetic>
-            <Link href={routes.capabilities} data-cursor="open" className="btn btn-primary">
-              Our capabilities
-              <ArrowUpRight className="size-4" />
-            </Link>
-          </Magnetic>
-          <Magnetic>
-            <Link href={routes.careers} data-cursor className="btn btn-ghost">
-              Careers
-            </Link>
-          </Magnetic>
+          <Link href={routes.capabilities} className="btn btn-primary">
+            Our capabilities
+            <ArrowUpRight className="size-4" />
+          </Link>
+          <Link href={routes.careers} className="btn btn-ghost">
+            Careers
+          </Link>
         </div>
       </section>
-      <section className="paper py-28">
-        <div className="container grid gap-12 md:grid-cols-3">
+      <section className="border-t border-black/10 bg-white py-20">
+        <div className="container grid gap-10 md:grid-cols-3">
           {pillars.map((item) => (
             <article key={item.title}>
-              <h2 className="display text-[32px] text-[#05080c]">{item.title}</h2>
-              <p className="mt-4 text-[16px] leading-relaxed text-[#3d4654]">{item.body}</p>
+              <h2 className="display text-[26px] text-[#14171c]">{item.title}</h2>
+              <p className="mt-4 text-[15px] leading-relaxed text-[#5d6673]">{item.body}</p>
             </article>
           ))}
         </div>
       </section>
-      <section className="py-28">
+      <section className="py-20">
         <div className="container">
-          <p className="eyebrow">Presence</p>
-          <h2 className="display mt-4 text-[40px] text-white sm:text-[56px]">
-            Hover the world.
-          </h2>
-          <div className="mt-14">
-            <Constellation offices={offices} />
+          <p className="eyebrow">Offices</p>
+          <h2 className="display mt-4 text-[32px] text-[#14171c]">Global offices</h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            {offices.map((office) => (
+              <div key={office.city} className="border-t border-black/10 pt-5">
+                <p className="font-semibold text-[#14171c]">{office.city}</p>
+                <p className="mt-1 text-[12px] text-[#c51a1b]">
+                  {office.isHq ? "HQ · " : ""}
+                  {office.region}
+                </p>
+                <p className="mt-2 text-[14px] text-[#5d6673]">{office.address}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

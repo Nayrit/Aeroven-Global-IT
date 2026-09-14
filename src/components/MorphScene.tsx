@@ -1,71 +1,34 @@
 "use client";
 
-import { useId } from "react";
-import { motion } from "framer-motion";
-
 const PALETTES = [
-  ["#c51a1b", "#004b9c", "#003b50"],
-  ["#004b9c", "#1a6fd4", "#c51a1b"],
-  ["#003b50", "#c51a1b", "#004b9c"],
-  ["#e02426", "#004b9c", "#f4f1ea"],
-  ["#004b9c", "#c51a1b", "#003b50"],
+  ["#c51a1b", "#004b9c"],
+  ["#004b9c", "#003b50"],
+  ["#003b50", "#c51a1b"],
+  ["#004b9c", "#c51a1b"],
+  ["#c51a1b", "#003b50"],
 ];
 
 export function MorphScene({ index, className = "" }: { index: number; className?: string }) {
   const i = ((index % PALETTES.length) + PALETTES.length) % PALETTES.length;
-  const [a, b, c] = PALETTES[i];
-  const fid = useId().replace(/:/g, "");
+  const [a, b] = PALETTES[i];
 
   return (
-    <div className={`relative overflow-hidden bg-[#05080c] ${className}`}>
+    <div className={`relative overflow-hidden bg-white ${className}`}>
       <svg viewBox="0 0 400 400" className="h-full w-full">
-        <defs>
-          <filter id={fid}>
-            <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"
-              result="goo"
-            />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-        <rect width="400" height="400" fill="#05080c" />
-        <g filter={`url(#${fid})`}>
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="92"
-            fill={a}
-            animate={{ cx: [168, 232, 168], cy: [176, 220, 176] }}
-            transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="78"
-            fill={b}
-            animate={{ cx: [240, 150, 240], cy: [230, 170, 230] }}
-            transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.circle
-            cx="200"
-            cy="200"
-            r="64"
-            fill={c}
-            animate={{ cx: [190, 210, 190], cy: [140, 250, 140] }}
-            transition={{ duration: 8.4, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </g>
+        <rect width="400" height="400" fill="#f5f3ee" />
+        <rect x="48" y="48" width="304" height="304" fill="none" stroke={b} strokeWidth="1" />
+        <rect x="88" y="88" width="224" height="224" fill="none" stroke={a} strokeWidth="1.2" />
+        <line x1="48" y1="200" x2="352" y2="200" stroke="rgba(20,23,28,0.08)" />
+        <line x1="200" y1="48" x2="200" y2="352" stroke="rgba(20,23,28,0.08)" />
+        <circle cx="200" cy="200" r="6" fill={a} />
         <text
           x="200"
-          y="214"
+          y="188"
           textAnchor="middle"
-          fill="#f4f1ea"
-          fontSize="58"
+          fill="#14171c"
+          fontSize="42"
           fontFamily="var(--font-syne), sans-serif"
-          fontWeight="800"
+          fontWeight="700"
         >
           0{i + 1}
         </text>

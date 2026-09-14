@@ -46,7 +46,7 @@ export default function DocsPage() {
     <>
       <ChapterHero
         eyebrow="Resources"
-        title="The operating manual."
+        title="Documentation"
         body="Start here for how Aeroven engages, delivers, and operates production systems."
       />
       <section className="pb-28">
@@ -56,22 +56,22 @@ export default function DocsPage() {
               <Link
                 href={doc.href}
                 data-cursor="open"
-                className="group flex flex-col gap-4 border-t border-white/10 py-10 last:border-b sm:flex-row sm:items-center sm:justify-between"
+                className="group flex flex-col gap-4 border-t border-black/10 py-10 last:border-b sm:flex-row sm:items-center sm:justify-between"
               >
                 <div className="flex items-start gap-6">
                   <span className="display text-[22px] text-[#c51a1b]">
                     {doc.index}
                   </span>
                   <div>
-                    <h2 className="display text-[28px] text-white transition-colors group-hover:text-[#c51a1b] sm:text-[36px]">
+                    <h2 className="display text-[28px] text-[#14171c] transition-colors group-hover:text-[#c51a1b] sm:text-[36px]">
                       {doc.title}
                     </h2>
-                    <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#8a96a8]">
+                    <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#5d6673]">
                       {doc.body}
                     </p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] text-white/50 group-hover:text-white">
+                <span className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] text-[#14171c]/50 group-hover:text-[#14171c]">
                   Open
                   <ArrowUpRight className="size-4" />
                 </span>

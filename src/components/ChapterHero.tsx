@@ -1,8 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
-import { KineticLine, Stamp } from "./Kinetic";
-import { Magnetic } from "./Magnetic";
+import { Reveal, RevealText } from "./Reveal";
 
 export function ChapterHero({
   index,
@@ -15,47 +13,28 @@ export function ChapterHero({
   title: string;
   body?: string;
 }) {
-  const lines = useMemo(() => splitTitle(title), [title]);
-
   return (
-    <section className="relative flex min-h-[100svh] items-end overflow-hidden pb-16 pt-32">
-      {index ? (
-        <span className="pointer-events-none absolute -right-6 top-24 display text-[28vw] leading-none text-white/[0.04] sm:text-[220px]">
-          {index}
-        </span>
-      ) : null}
-      <div className="container relative w-full">
-        <div className="flex items-start justify-between gap-8">
-          <p className="eyebrow">{eyebrow}</p>
-          <Magnetic>
-            <Stamp size={110} className="text-white/50" />
-          </Magnetic>
-        </div>
-        <h1 className="mt-8">
-          {lines.map((line, i) => (
-            <span
-              key={line}
-              className="display block text-[14vw] text-white sm:text-[80px] lg:text-[96px]"
-            >
-              <KineticLine text={line} delay={i * 0.08} />
-            </span>
-          ))}
-        </h1>
-        {body ? (
-          <p className="serif mt-8 max-w-2xl text-[20px] leading-relaxed text-[#c9d0da] sm:text-[24px]">
-            {body}
-          </p>
-        ) : null}
+    <section className="relative pb-12 pt-32 sm:pb-16 sm:pt-36">
+      <div className="container">
+        <Reveal>
+          <div className="flex items-center justify-between gap-6">
+            <p className="eyebrow">{eyebrow}</p>
+            {index ? (
+              <span className="text-[13px] tracking-[0.14em] text-[#8b93a0]">
+                {index}
+              </span>
+            ) : null}
+          </div>
+          <h1 className="display mt-5 max-w-4xl text-[36px] text-[#14171c] sm:text-[56px] lg:text-[64px]">
+            <RevealText text={title} />
+          </h1>
+          {body ? (
+            <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-[#5d6673] sm:text-[19px]">
+              {body}
+            </p>
+          ) : null}
+        </Reveal>
       </div>
     </section>
-  );
-}
-
-function splitTitle(title: string) {
-  if (title.length < 28) return [title];
-  const words = title.split(" ");
-  const mid = Math.ceil(words.length / 2);
-  return [words.slice(0, mid).join(" "), words.slice(mid).join(" ")].filter(
-    Boolean,
   );
 }
