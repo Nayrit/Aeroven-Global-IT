@@ -10,15 +10,11 @@ import {
 } from "react";
 
 type PointerState = {
-  x: number;
-  y: number;
   label: string;
   hovering: boolean;
 };
 
 const PointerContext = createContext<PointerState>({
-  x: 0,
-  y: 0,
   label: "",
   hovering: false,
 });
@@ -29,28 +25,26 @@ export function usePointer() {
 
 export function PointerProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<PointerState>({
-    x: 0,
-    y: 0,
     label: "",
     hovering: false,
   });
+  const last = useRef(state);
 
   useEffect(() => {
     const move = (e: MouseEvent) => {
+      document.documentElement.style.setProperty("--cursor-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--cursor-y", `${e.clientY}px`);
       const t = e.target as HTMLElement | null;
       const hit = t?.closest(
         "[data-cursor], a, button, input, textarea, select",
       ) as HTMLElement | null;
       const attr = hit?.getAttribute("data-cursor");
       const label = attr && attr !== "true" ? attr : "";
-      setState({
-        x: e.clientX,
-        y: e.clientY,
-        label,
-        hovering: Boolean(hit),
-      });
-      document.documentElement.style.setProperty("--cursor-x", `${e.clientX}px`);
-      document.documentElement.style.setProperty("--cursor-y", `${e.clientY}px`);
+      const hovering = Boolean(hit);
+      if (label !== last.current.label || hovering !== last.current.hovering) {
+        last.current = { label, hovering };
+        setState({ label, hovering });
+      }
     };
     window.addEventListener("mousemove", move, { passive: true });
     return () => window.removeEventListener("mousemove", move);
@@ -62,30 +56,38 @@ export function PointerProvider({ children }: { children: ReactNode }) {
 }
 
 export function Cursor() {
-  const { x, y, hovering, label } = usePointer();
+  const { hovering, label } = usePointer();
   const ring = useRef<HTMLDivElement>(null);
-  const target = useRef({ x: 0, y: 0 });
+  const dot = useRef<HTMLDivElement>(null);
   const [on, setOn] = useState(false);
-
-  target.current = { x, y };
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
     if (!fine) return;
     setOn(true);
     document.body.classList.add("has-custom-cursor");
-    const ringPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const ringPos = { ...mouse };
+    const onMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
     let raf = 0;
     const tick = () => {
-      ringPos.x += (target.current.x - ringPos.x) * 0.16;
-      ringPos.y += (target.current.y - ringPos.y) * 0.16;
+      ringPos.x += (mouse.x - ringPos.x) * 0.14;
+      ringPos.y += (mouse.y - ringPos.y) * 0.14;
+      if (dot.current) {
+        dot.current.style.transform = `translate(${mouse.x}px, ${mouse.y}px) translate(-50%, -50%)`;
+      }
       if (ring.current) {
         ring.current.style.transform = `translate(${ringPos.x}px, ${ringPos.y}px) translate(-50%, -50%)`;
       }
       raf = requestAnimationFrame(tick);
     };
+    window.addEventListener("mousemove", onMove, { passive: true });
     raf = requestAnimationFrame(tick);
     return () => {
+      window.removeEventListener("mousemove", onMove);
       cancelAnimationFrame(raf);
       document.body.classList.remove("has-custom-cursor");
     };
@@ -93,25 +95,22 @@ export function Cursor() {
 
   if (!on) return null;
 
-  const size = hovering ? (label ? 96 : 58) : 20;
+  const size = hovering ? (label ? 104 : 62) : 22;
 
   return (
     <>
       <div
+        ref={dot}
         className="pointer-events-none fixed left-0 top-0 z-[90] hidden rounded-full bg-white mix-blend-difference md:block"
-        style={{
-          width: hovering ? 8 : 5,
-          height: hovering ? 8 : 5,
-          transform: `translate(${x}px, ${y}px) translate(-50%, -50%)`,
-        }}
+        style={{ width: hovering ? 7 : 5, height: hovering ? 7 : 5 }}
       />
       <div
         ref={ring}
-        className="pointer-events-none fixed left-0 top-0 z-[90] hidden items-center justify-center rounded-full border border-white/80 mix-blend-difference transition-[width,height] duration-300 md:flex"
+        className="pointer-events-none fixed left-0 top-0 z-[90] hidden items-center justify-center rounded-full border border-white mix-blend-difference transition-[width,height] duration-300 md:flex"
         style={{ width: size, height: size }}
       >
         {label ? (
-          <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
+          <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white">
             {label}
           </span>
         ) : null}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { motion } from "framer-motion";
 
 const PALETTES = [
@@ -13,58 +14,56 @@ const PALETTES = [
 export function MorphScene({ index, className = "" }: { index: number; className?: string }) {
   const i = ((index % PALETTES.length) + PALETTES.length) % PALETTES.length;
   const [a, b, c] = PALETTES[i];
-  const rot = index * 28;
+  const fid = useId().replace(/:/g, "");
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
-      <motion.div
-        className="absolute inset-0"
-        animate={{ rotate: rot }}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          background: `conic-gradient(from ${rot}deg, ${a}, ${b}, ${c}, ${a})`,
-          filter: "blur(28px)",
-          opacity: 0.85,
-        }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/2 size-[58%] -translate-x-1/2 -translate-y-1/2 rounded-full mix-blend-screen"
-        animate={{ scale: [0.92, 1.05, 0.92], rotate: -rot }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          background: `radial-gradient(circle, ${a} 0%, transparent 70%)`,
-        }}
-      />
-      <svg viewBox="0 0 400 400" className="relative z-10 h-full w-full">
-        <motion.circle
-          cx="200"
-          cy="200"
-          r="118"
-          fill="none"
-          stroke="rgba(244,241,234,0.35)"
-          strokeWidth="0.8"
-          strokeDasharray="6 14"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-          style={{ originX: "200px", originY: "200px" }}
-        />
-        <motion.circle
-          cx="200"
-          cy="200"
-          r="72"
-          fill="none"
-          stroke={a}
-          strokeWidth="1.2"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
-          style={{ originX: "200px", originY: "200px" }}
-        />
+    <div className={`relative overflow-hidden bg-[#05080c] ${className}`}>
+      <svg viewBox="0 0 400 400" className="h-full w-full">
+        <defs>
+          <filter id={fid}>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -9"
+              result="goo"
+            />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+        <rect width="400" height="400" fill="#05080c" />
+        <g filter={`url(#${fid})`}>
+          <motion.circle
+            cx="200"
+            cy="200"
+            r="92"
+            fill={a}
+            animate={{ cx: [168, 232, 168], cy: [176, 220, 176] }}
+            transition={{ duration: 7.5, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle
+            cx="200"
+            cy="200"
+            r="78"
+            fill={b}
+            animate={{ cx: [240, 150, 240], cy: [230, 170, 230] }}
+            transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.circle
+            cx="200"
+            cy="200"
+            r="64"
+            fill={c}
+            animate={{ cx: [190, 210, 190], cy: [140, 250, 140] }}
+            transition={{ duration: 8.4, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </g>
         <text
           x="200"
           y="214"
           textAnchor="middle"
           fill="#f4f1ea"
-          fontSize="54"
+          fontSize="58"
           fontFamily="var(--font-syne), sans-serif"
           fontWeight="800"
         >

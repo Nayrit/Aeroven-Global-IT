@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { CtaBlock } from "@/lib/content";
-import { KineticLine } from "./Kinetic";
+import { RevealText } from "./Reveal";
 import { Magnetic } from "./Magnetic";
 
 export function CtaBand({
@@ -19,7 +19,7 @@ export function CtaBand({
       <div className="container relative">
         <p className="eyebrow">Next</p>
         <h2 className="display mt-6 max-w-5xl text-[14vw] text-white sm:text-[80px] lg:text-[96px]">
-          <KineticLine text={cta.headline} />
+          <RevealText text={cta.headline} />
         </h2>
         {cta.body ? (
           <p className="serif mt-8 max-w-xl text-[22px] leading-relaxed text-[#c9d0da]">

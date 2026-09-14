@@ -8,6 +8,7 @@ import { nav } from "@/lib/content";
 import { Logo } from "./Logo";
 import { Magnetic } from "./Magnetic";
 import { Stamp } from "./Kinetic";
+import { Scramble } from "./Scramble";
 
 export function Header() {
   const pathname = usePathname();
@@ -57,7 +58,7 @@ export function Header() {
                     : "text-[#c9d0da] hover:text-white"
                 }`}
               >
-                {link.label}
+                <Scramble text={link.label} />
               </Link>
             ))}
           </nav>
@@ -99,11 +100,14 @@ export function Header() {
         {open ? (
           <motion.div
             className="fixed inset-0 z-40 overflow-hidden bg-[#05080c]"
-            initial={{ clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ clipPath: "circle(160% at 100% 0%)" }}
-            exit={{ clipPath: "circle(0% at 100% 0%)" }}
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-100%" }}
             transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
           >
+            <p className="pointer-events-none absolute -right-6 top-24 display text-[28vw] leading-none text-white/[0.04]">
+              MENU
+            </p>
             <div className="absolute right-10 top-28 hidden text-white/20 lg:block">
               <Stamp size={180} />
             </div>
@@ -122,7 +126,7 @@ export function Header() {
                       className="display flex w-full items-baseline justify-between gap-6 border-b border-white/10 py-3 text-white hover:text-[#c51a1b]"
                     >
                       <span className="text-[12vw] leading-none sm:text-[76px]">
-                        {link.label}
+                        <Scramble text={link.label} />
                       </span>
                       <span className="text-[13px] tracking-[0.16em] text-[#c51a1b]">
                         0{i + 1}

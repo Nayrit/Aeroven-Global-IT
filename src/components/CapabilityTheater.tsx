@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { MorphScene } from "./MorphScene";
 import { Magnetic } from "./Magnetic";
+import { Scramble } from "./Scramble";
 
 type Item = {
   title: string;
@@ -50,13 +51,13 @@ export function CapabilityTheater({
                 >
                   0{i + 1}
                 </span>
-                <span
-                  className={`display text-[22px] transition-colors sm:text-[28px] ${
-                    active === i ? "text-white" : "text-white/35"
-                  }`}
-                >
-                  {item.title}
-                </span>
+                  <span
+                    className={`display text-[22px] transition-colors sm:text-[28px] ${
+                      active === i ? "text-white" : "text-white/35"
+                    }`}
+                  >
+                    <Scramble text={item.title} />
+                  </span>
               </button>
             ))}
           </div>

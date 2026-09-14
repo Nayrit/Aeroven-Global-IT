@@ -12,7 +12,7 @@ export function QuoteStage({ items }: { items: readonly Testimonial[] }) {
 
   return (
     <section
-      className="relative flex min-h-[90vh] cursor-none items-center py-24"
+      className="relative flex min-h-[90vh] items-center py-24"
       onClick={next}
       data-cursor="next"
     >
