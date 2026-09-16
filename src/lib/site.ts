@@ -9,11 +9,11 @@ export const siteConfig = {
   email: "hello@aeroven.com",
   phone: "+1 (415) 555-0199",
   address: {
-    street: "525 Market St, Suite 2200",
-    city: "San Francisco",
-    region: "CA",
-    postalCode: "94105",
-    country: "US",
+    street: "Paramount Heights Suite # 15A-B-C1-C2-D1-15D2, Culvert Road",
+    city: "Dhaka",
+    region: "",
+    postalCode: "1000",
+    country: "BD",
   },
   social: {
     LinkedIn: "https://www.linkedin.com/company/aeroven-global-it",

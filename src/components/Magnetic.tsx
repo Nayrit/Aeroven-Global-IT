@@ -1,11 +1,10 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { useReducedMotion } from "framer-motion";
 
 export function Magnetic({
   children,
-  strength = 0.35,
+  strength = 0.4,
   className = "",
 }: {
   children: ReactNode;
@@ -13,14 +12,12 @@ export function Magnetic({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
 
   return (
     <div
       ref={ref}
       className={`magnetic inline-flex ${className}`}
       onMouseMove={(e) => {
-        if (reduce) return;
         const el = ref.current;
         if (!el) return;
         const r = el.getBoundingClientRect();

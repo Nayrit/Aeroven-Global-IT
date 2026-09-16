@@ -115,13 +115,11 @@ export function Counter({
 }
 
 function CountTo({ to, decimals }: { to: number; decimals: number }) {
-  const reduce = useReducedMotion();
-  const [n, setN] = useState(reduce ? to : 0);
+  const [n, setN] = useState(0);
   const started = useRef(false);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (reduce) return;
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
@@ -129,7 +127,7 @@ function CountTo({ to, decimals }: { to: number; decimals: number }) {
         if (!entry.isIntersecting || started.current) return;
         started.current = true;
         const start = performance.now();
-        const dur = 1400;
+        const dur = 1600;
         const step = (now: number) => {
           const p = Math.min(1, (now - start) / dur);
           const eased = 1 - Math.pow(1 - p, 3);
@@ -138,11 +136,11 @@ function CountTo({ to, decimals }: { to: number; decimals: number }) {
         };
         requestAnimationFrame(step);
       },
-      { threshold: 0.4 },
+      { threshold: 0.35 },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [to, reduce]);
+  }, [to]);
 
   return (
     <span ref={ref}>

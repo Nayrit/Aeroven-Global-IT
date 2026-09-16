@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { MorphScene } from "./MorphScene";
 import { Magnetic } from "./Magnetic";
 import { Reveal } from "./Reveal";
@@ -25,7 +25,6 @@ export function CapabilityTheater({
   href?: string;
 }) {
   const [active, setActive] = useState(0);
-  const reduce = useReducedMotion();
   const current = items[active];
 
   return (
@@ -51,7 +50,7 @@ export function CapabilityTheater({
               >
                 {active === i ? (
                   <motion.span
-                    layoutId={reduce ? undefined : "cap-bar"}
+                    layoutId="cap-bar"
                     className="absolute left-0 top-0 h-full w-[3px] bg-[#c51a1b]"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   />
@@ -63,18 +62,21 @@ export function CapabilityTheater({
                 >
                   0{i + 1}
                 </span>
-                <span
-                  className={`text-[18px] sm:text-[20px] ${
-                    active === i ? "font-semibold text-[#14171c]" : "text-[#5d6673]"
-                  }`}
+                <motion.span
+                  animate={{
+                    color: active === i ? "#14171c" : "#5d6673",
+                    x: active === i ? 8 : 0,
+                    fontWeight: active === i ? 600 : 400,
+                  }}
+                  className="text-[18px] sm:text-[20px]"
                 >
                   {item.title}
-                </span>
+                </motion.span>
               </button>
             ))}
           </div>
           {href ? (
-            <Magnetic strength={0.24} className="mt-10">
+            <Magnetic strength={0.28} className="mt-10">
               <Link href={href} className="btn btn-outline">
                 View capabilities
                 <ArrowUpRight className="size-4" />
@@ -92,10 +94,10 @@ export function CapabilityTheater({
             <AnimatePresence mode="wait">
               <motion.p
                 key={current?.title}
-                initial={reduce ? false : { opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="text-[16px] leading-relaxed text-[#5d6673]"
               >
                 {current?.description}

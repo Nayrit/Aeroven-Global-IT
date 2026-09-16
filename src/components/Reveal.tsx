@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 type RevealProps = {
   children: ReactNode;
@@ -10,22 +12,20 @@ type RevealProps = {
   y?: number;
 };
 
+/** Always animates on enter — not gated by OS reduce-motion. */
 export function Reveal({
   children,
   className,
   delay = 0,
-  y = 72,
+  y = 80,
 }: RevealProps) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, filter: "blur(8px)" }}
+      initial={{ opacity: 0, y, filter: "blur(10px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay }}
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px -8% 0px" }}
+      transition={{ duration: 1, ease, delay }}
     >
       {children}
     </motion.div>
@@ -41,24 +41,23 @@ export function RevealText({
   className?: string;
   delay?: number;
 }) {
-  const reduce = useReducedMotion();
   const words = text.split(" ");
-
-  if (reduce) return <span className={className}>{text}</span>;
 
   return (
     <span className={className}>
       {words.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-block overflow-hidden pb-1 align-bottom">
+        <span
+          key={`${word}-${i}`}
+          className="inline-block overflow-hidden pb-1 align-bottom"
+        >
           <motion.span
-            className="inline-block"
-            initial={{ y: "115%", rotate: 4 }}
-            whileInView={{ y: 0, rotate: 0 }}
-            viewport={{ once: true }}
+            className="inline-block will-change-transform"
+            initial={{ y: "120%", rotate: 6, opacity: 0 }}
+            animate={{ y: 0, rotate: 0, opacity: 1 }}
             transition={{
-              duration: 0.85,
-              ease: [0.16, 1, 0.3, 1],
-              delay: delay + i * 0.05,
+              duration: 0.9,
+              ease,
+              delay: delay + i * 0.06,
             }}
           >
             {word}
@@ -79,16 +78,32 @@ export function RevealClip({
   className?: string;
   delay?: number;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
-
   return (
     <motion.div
       className={className}
-      initial={{ clipPath: "inset(12% 12% 12% 12%)", scale: 1.08, opacity: 0.4 }}
+      initial={{ clipPath: "inset(18% 18% 18% 18%)", scale: 1.12, opacity: 0.35 }}
       whileInView={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1, opacity: 1 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 1.2, ease, delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/** Runs once on mount — use for above-the-fold so you always see motion. */
+export function RiseIn({
+  children,
+  className,
+  delay = 0,
+  y = 40,
+}: RevealProps) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.85, ease, delay }}
     >
       {children}
     </motion.div>

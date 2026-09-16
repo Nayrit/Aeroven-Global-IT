@@ -3,7 +3,6 @@
 import { useRef, type ReactNode } from "react";
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
   useSpring,
@@ -12,28 +11,19 @@ import {
 export function Parallax({
   children,
   className = "",
-  offset = 60,
+  offset = 70,
 }: {
   children: ReactNode;
   className?: string;
   offset?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
   const raw = useTransform(scrollYProgress, [0, 1], [offset, -offset]);
-  const y = useSpring(raw, { stiffness: 120, damping: 28 });
-
-  if (reduce) {
-    return (
-      <div ref={ref} className={`overflow-hidden ${className}`}>
-        {children}
-      </div>
-    );
-  }
+  const y = useSpring(raw, { stiffness: 100, damping: 26 });
 
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
@@ -44,7 +34,6 @@ export function Parallax({
   );
 }
 
-/** Image slowly scales while section is in view — clearly “alive”. */
 export function KenBurns({
   children,
   className = "",
@@ -53,24 +42,18 @@ export function KenBurns({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
-
-  if (reduce) {
-    return (
-      <div ref={ref} className={`overflow-hidden ${className}`}>
-        {children}
-      </div>
-    );
-  }
+  const scale = useTransform(scrollYProgress, [0, 1], [1.18, 1]);
 
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
-      <motion.div style={{ scale }} className="h-full w-full origin-center will-change-transform">
+      <motion.div
+        style={{ scale }}
+        className="h-full w-full origin-center will-change-transform"
+      >
         {children}
       </motion.div>
     </div>
@@ -85,21 +68,12 @@ export function ScrollScale({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "center center"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.25, 1]);
-
-  if (reduce) {
-    return (
-      <div ref={ref} className={className}>
-        {children}
-      </div>
-    );
-  }
+  const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.2, 1]);
 
   return (
     <motion.div ref={ref} style={{ scale, opacity }} className={className}>

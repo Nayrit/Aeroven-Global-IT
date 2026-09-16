@@ -475,25 +475,6 @@ details summary::-webkit-details-marker {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .image-holder-shimmer {
-    animation: none;
-  }
-
-  .card:hover,
-  .office-card:hover,
-  .btn-primary:hover,
-  .job-row:hover {
-    transform: none;
-  }
-
-  .magnetic,
-  .tilt-card {
-    transition: none;
-  }
-
-  .has-soft-cursor,
-  .has-soft-cursor * {
-    cursor: auto !important;
-  }
+  /* Motion is intentional on this marketing site.
+     Framer is forced on via MotionConfig; keep CSS marquee alive too. */
 }

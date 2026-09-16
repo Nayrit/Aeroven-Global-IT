@@ -219,38 +219,18 @@ export const footer = {
 
 export const offices: Office[] = [
   {
-    city: "San Francisco",
-    address: "525 Market St, Suite 2200",
-    region: "Americas",
+    city: "Dhaka",
+    address:
+      "Paramount Heights Suite # 15A-B-C1-C2-D1-15D2, Culvert Road, Dhaka 1000",
+    region: "Bangladesh",
     isHq: true,
-  },
-  {
-    city: "New York",
-    address: "1440 Broadway, Floor 23",
-    region: "Americas",
-  },
-  {
-    city: "London",
-    address: "30 St Mary Axe, EC3A",
-    region: "EMEA",
-  },
-  {
-    city: "Munich",
-    address: "Maximilianstraße 13",
-    region: "EMEA",
-  },
-  {
-    city: "Bengaluru",
-    address: "Prestige Tech Park, Marathahalli",
-    region: "APAC",
   },
 ];
 
-export const officesSummary =
-  "San Francisco · New York · London · Munich · Bengaluru";
+export const officesSummary = "Dhaka · Bangladesh";
 
 export const globalOfficesHeader = {
-  headline: "Global Offices",
+  headline: "Our Office",
   body: officesSummary,
 } satisfies SectionHeader;
 
@@ -961,7 +941,7 @@ export const careersHero = {
   primaryCta: "See Open Roles",
   secondaryCta: "Life at Aeroven",
   stats: [
-    { value: "2", label: "Dhaka Offices" },
+    { value: "1", label: "Dhaka Office" },
     { value: "90%+", label: "Remote-friendly" },
     { value: "5+", label: "Open positions" },
   ] satisfies Stat[],
@@ -1137,7 +1117,8 @@ export const consultationHighlights: ConsultationHighlight[] = [
 export const consultationContact: ContactInfo = {
   email: "hello@aeroven.com",
   phone: "+1 (415) 555-0199",
-  address: "525 Market St, Suite 2200, San Francisco",
+  address:
+    "Paramount Heights Suite # 15A-B-C1-C2-D1-15D2, Culvert Road, Dhaka 1000",
 };
 
 export const consultationForm = {

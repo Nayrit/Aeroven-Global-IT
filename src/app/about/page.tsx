@@ -27,8 +27,8 @@ const pillars = [
     body: "Discover early, ship in increments, secure by default, and own the outcome — from first workshop through production support.",
   },
   {
-    title: "Global footprint",
-    body: "Delivery presence across San Francisco, New York, London, Munich, Bengaluru, and Dhaka — supporting clients worldwide.",
+    title: "Our base",
+    body: "Headquartered in Dhaka at Paramount Heights, Culvert Road — delivering for clients worldwide.",
   },
 ];
 
@@ -68,28 +68,30 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container">
           <Reveal>
-            <p className="eyebrow">Offices</p>
-            <h2 className="display mt-4 text-[32px] text-[#14171c]">Global offices</h2>
+            <p className="eyebrow">Office</p>
+            <h2 className="display mt-4 text-[32px] text-[#14171c]">Dhaka HQ</h2>
           </Reveal>
           <Reveal className="mt-10 overflow-hidden border border-black/10">
             <ImageHolder
               src="/media/aeroven-office.jpg"
-              alt="Aeroven office"
+              alt="Aeroven Dhaka office"
               label="Office"
               ratio="wide"
               className="rounded-none border-0"
             />
           </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 max-w-xl">
             {offices.map((office, i) => (
               <Reveal key={office.city} delay={i * 0.05}>
-                <div className="office-card border-t border-black/10 pt-5">
+                <div className="border-t border-black/10 pt-5">
                   <p className="font-semibold text-[#14171c]">{office.city}</p>
                   <p className="mt-1 text-[12px] text-[#c51a1b]">
                     {office.isHq ? "HQ · " : ""}
                     {office.region}
                   </p>
-                  <p className="mt-2 text-[14px] text-[#5d6673]">{office.address}</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-[#5d6673]">
+                    {office.address}
+                  </p>
                 </div>
               </Reveal>
             ))}
