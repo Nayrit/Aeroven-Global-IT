@@ -9,6 +9,7 @@ export function ChapterHero({
   eyebrow,
   title,
   body,
+  imageSrc,
   imageLabel,
   imageCaption,
 }: {
@@ -16,12 +17,21 @@ export function ChapterHero({
   eyebrow: string;
   title: string;
   body?: string;
+  imageSrc?: string;
   imageLabel?: string;
   imageCaption?: string;
 }) {
+  const showMedia = Boolean(imageSrc || imageLabel);
+
   return (
     <section className="relative overflow-hidden pb-12 pt-32 sm:pb-16 sm:pt-36">
-      <div className="container grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
+      <div
+        className={`container ${
+          showMedia
+            ? "grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14"
+            : ""
+        }`}
+      >
         <Reveal>
           <div className="flex items-center justify-between gap-6">
             <p className="eyebrow">{eyebrow}</p>
@@ -40,12 +50,14 @@ export function ChapterHero({
             </p>
           ) : null}
         </Reveal>
-        {imageLabel ? (
-          <RevealClip delay={0.12}>
-            <Parallax offset={40}>
+        {showMedia ? (
+          <RevealClip delay={0.1}>
+            <Parallax offset={36}>
               <ImageHolder
-                label={imageLabel}
+                src={imageSrc}
+                label={imageLabel ?? "Image"}
                 caption={imageCaption}
+                alt={imageCaption ?? imageLabel}
                 ratio="landscape"
               />
             </Parallax>

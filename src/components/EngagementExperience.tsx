@@ -5,8 +5,6 @@ import { engagementPage } from "@/lib/content";
 import { ChapterHero } from "@/components/ChapterHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
-import { ImageHolder } from "@/components/ImageHolder";
-import { TiltCard } from "@/components/TiltCard";
 
 export function EngagementExperience() {
   const { hero, models, compare, cta } = engagementPage;
@@ -18,39 +16,31 @@ export function EngagementExperience() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
-        imageLabel="Engagement"
-        imageCaption="How clients work with us"
       />
       <section className="pb-16">
         <div className="container grid gap-4 md:grid-cols-2">
           {models.map((model, i) => (
-            <Reveal key={model.number} delay={i * 0.06}>
-              <TiltCard className="h-full overflow-hidden border border-black/10 bg-white">
-                <ImageHolder
-                  label={`Model ${model.number}`}
-                  caption={model.title}
-                  ratio="card"
-                  className="rounded-none border-0"
-                />
-                <div className="p-7">
-                  <p className="text-[#c51a1b]">{model.number}</p>
-                  <h2 className="display mt-2 text-[26px] text-[#14171c]">{model.title}</h2>
-                  <p className="mt-3 text-[15px] leading-relaxed text-[#5d6673]">
-                    {model.description}
-                  </p>
-                  <ul className="mt-5 space-y-2">
-                    {model.features.map((feature) => (
-                      <li key={feature} className="flex gap-2 text-[14px] text-[#14171c]">
-                        <Check className="size-4 shrink-0 text-[#c51a1b]" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-5 border-t border-black/10 pt-4 text-[13px] text-[#5d6673]">
-                    <span className="text-[#14171c]">{compare.bestForPrefix}</span> {model.bestFor}
-                  </p>
-                </div>
-              </TiltCard>
+            <Reveal
+              key={model.number}
+              delay={i * 0.06}
+              className="border border-black/10 bg-white p-7 transition-colors hover:border-[#c51a1b]/28"
+            >
+              <p className="text-[#c51a1b]">{model.number}</p>
+              <h2 className="display mt-2 text-[26px] text-[#14171c]">{model.title}</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-[#5d6673]">
+                {model.description}
+              </p>
+              <ul className="mt-5 space-y-2">
+                {model.features.map((feature) => (
+                  <li key={feature} className="flex gap-2 text-[14px] text-[#14171c]">
+                    <Check className="size-4 shrink-0 text-[#c51a1b]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-5 border-t border-black/10 pt-4 text-[13px] text-[#5d6673]">
+                <span className="text-[#14171c]">{compare.bestForPrefix}</span> {model.bestFor}
+              </p>
             </Reveal>
           ))}
         </div>

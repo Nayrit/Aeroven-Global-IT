@@ -17,7 +17,7 @@ export function PageTransition() {
     }
     if (reduce) return;
     setShow(true);
-    const t = window.setTimeout(() => setShow(false), 700);
+    const t = window.setTimeout(() => setShow(false), 480);
     return () => window.clearTimeout(t);
   }, [pathname, reduce]);
 
@@ -25,11 +25,11 @@ export function PageTransition() {
     <AnimatePresence>
       {show ? (
         <motion.div
-          className="pointer-events-none fixed inset-0 z-[95] origin-left bg-[#c51a1b]"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          exit={{ scaleX: 0, transformOrigin: "right" }}
-          transition={{ duration: 0.45, ease: [0.76, 0, 0.24, 1] }}
+          className="pointer-events-none fixed inset-0 z-[95] bg-[#f5f3ee]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
         />
       ) : null}
     </AnimatePresence>

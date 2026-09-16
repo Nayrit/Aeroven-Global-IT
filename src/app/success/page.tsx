@@ -5,7 +5,6 @@ import { Counter } from "@/components/Kinetic";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { ImageHolder } from "@/components/ImageHolder";
-import { TiltCard } from "@/components/TiltCard";
 
 export const metadata: Metadata = {
   title: "Client Success",
@@ -23,8 +22,9 @@ export default function SuccessPage() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
-        imageLabel="Client success"
-        imageCaption="Case studies & outcomes"
+        imageSrc="/media/aeroven-product.jpg"
+        imageLabel="Success"
+        imageCaption="Outcomes in production"
       />
       <div className="container grid grid-cols-2 gap-6 border-y border-black/10 py-10 lg:grid-cols-4">
         {hero.stats.map((stat, i) => (
@@ -38,59 +38,52 @@ export default function SuccessPage() {
       </div>
       <section className="py-20">
         <div className="container">
-          <Reveal>
-            <TiltCard className="overflow-hidden border border-black/10 bg-white">
-              <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-                <ImageHolder
-                  label="Featured case"
-                  caption={featured.company}
-                  ratio="landscape"
-                  className="rounded-none border-0"
-                />
-                <div className="p-8 sm:p-12">
-                  <p className="eyebrow">{featuredBadge}</p>
-                  <p className="mt-5 text-[13px] text-[#c51a1b]">
-                    {featured.company} · {featured.industry}
-                  </p>
-                  <h2 className="display mt-3 text-[28px] text-[#14171c] sm:text-[40px]">
-                    {featured.title}
-                  </h2>
-                  <p className="mt-4 text-[16px] text-[#5d6673]">{featured.description}</p>
-                  <div className="mt-8 grid gap-6 sm:grid-cols-3">
-                    {featured.metrics.map((metric) => (
-                      <div key={metric.label}>
-                        <p className="display text-[28px] text-[#14171c]">{metric.value}</p>
-                        <p className="mt-1 text-[13px] text-[#5d6673]">{metric.label}</p>
-                      </div>
-                    ))}
-                  </div>
+          <Reveal className="overflow-hidden border border-black/10 bg-white">
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
+              <ImageHolder
+                src="/media/aeroven-hero.jpg"
+                alt={featured.company}
+                label="Featured case"
+                ratio="landscape"
+                className="min-h-[240px] rounded-none border-0 lg:min-h-full"
+              />
+              <div className="p-8 sm:p-12">
+                <p className="eyebrow">{featuredBadge}</p>
+                <p className="mt-5 text-[13px] text-[#c51a1b]">
+                  {featured.company} · {featured.industry}
+                </p>
+                <h2 className="display mt-3 text-[28px] text-[#14171c] sm:text-[40px]">
+                  {featured.title}
+                </h2>
+                <p className="mt-4 text-[16px] text-[#5d6673]">{featured.description}</p>
+                <div className="mt-8 grid gap-6 sm:grid-cols-3">
+                  {featured.metrics.map((metric) => (
+                    <div key={metric.label}>
+                      <p className="display text-[28px] text-[#14171c]">{metric.value}</p>
+                      <p className="mt-1 text-[13px] text-[#5d6673]">{metric.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </TiltCard>
+            </div>
           </Reveal>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
             {caseStudies
               .filter((s) => !s.featured)
               .map((study, i) => (
-                <Reveal key={study.company} delay={i * 0.06}>
-                  <TiltCard className="h-full overflow-hidden border border-black/10 bg-white">
-                    <ImageHolder
-                      label="Case study"
-                      caption={study.company}
-                      ratio="card"
-                      className="rounded-none border-0"
-                    />
-                    <div className="p-6">
-                      <p className="text-[12px] uppercase tracking-[0.12em] text-[#c51a1b]">
-                        {study.company}
-                      </p>
-                      <p className="mt-1 text-[12px] text-[#5d6673]">{study.industry}</p>
-                      <h3 className="mt-4 text-[18px] font-semibold text-[#14171c]">
-                        {study.title}
-                      </h3>
-                      <p className="mt-3 text-[14px] text-[#5d6673]">{study.description}</p>
-                    </div>
-                  </TiltCard>
+                <Reveal
+                  key={study.company}
+                  delay={i * 0.06}
+                  className="border border-black/10 bg-white p-6 transition-colors hover:border-[#c51a1b]/28"
+                >
+                  <p className="text-[12px] uppercase tracking-[0.12em] text-[#c51a1b]">
+                    {study.company}
+                  </p>
+                  <p className="mt-1 text-[12px] text-[#5d6673]">{study.industry}</p>
+                  <h3 className="mt-4 text-[18px] font-semibold text-[#14171c]">
+                    {study.title}
+                  </h3>
+                  <p className="mt-3 text-[14px] text-[#5d6673]">{study.description}</p>
                 </Reveal>
               ))}
           </div>
@@ -102,23 +95,15 @@ export default function SuccessPage() {
             <p className="eyebrow">{testimonials.eyebrow}</p>
             <h2 className="display mt-4 text-[32px] text-[#14171c]">{testimonials.headline}</h2>
           </Reveal>
-          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          <div className="mt-10 grid gap-px bg-black/10 lg:grid-cols-3">
             {testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.08}>
-                <TiltCard className="h-full overflow-hidden border border-black/10 bg-[#f5f3ee]">
-                  <ImageHolder
-                    label="Portrait"
-                    caption={item.name}
-                    ratio="portrait"
-                    className="max-h-[200px] rounded-none border-0"
-                  />
-                  <div className="p-7">
-                    <p className="text-[16px] leading-relaxed text-[#14171c]">“{item.quote}”</p>
-                    <footer className="mt-5 text-[13px] text-[#5d6673]">
-                      {item.name} — {item.role}
-                    </footer>
-                  </div>
-                </TiltCard>
+              <Reveal key={item.name} delay={i * 0.08} className="bg-[#f5f3ee] p-7">
+                <p className="serif text-[20px] leading-relaxed text-[#14171c]">
+                  “{item.quote}”
+                </p>
+                <footer className="mt-5 text-[13px] text-[#5d6673]">
+                  {item.name} — {item.role}
+                </footer>
               </Reveal>
             ))}
           </div>

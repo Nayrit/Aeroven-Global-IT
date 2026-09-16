@@ -38,8 +38,9 @@ export default function AboutPage() {
         eyebrow="Company"
         title="Engineering digital platforms that scale"
         body={`${siteConfig.name} partners with startups and enterprises to design, build, and operate AI-powered software — from discovery through production.`}
+        imageSrc="/media/aeroven-office.jpg"
         imageLabel="About"
-        imageCaption="Team / offices / culture"
+        imageCaption="Global delivery footprint"
       />
       <section className="pb-12">
         <div className="container flex flex-wrap gap-4">

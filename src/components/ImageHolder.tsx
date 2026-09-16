@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 
 const RATIOS: Record<string, string> = {
@@ -17,14 +18,40 @@ export function ImageHolder({
   ratio = "landscape",
   className = "",
   interactive = true,
+  src,
+  alt,
 }: {
   label?: string;
   caption?: string;
   ratio?: keyof typeof RATIOS;
   className?: string;
   interactive?: boolean;
+  src?: string;
+  alt?: string;
 }) {
   const reduce = useReducedMotion();
+
+  if (src) {
+    return (
+      <motion.div
+        className={`media-frame ${RATIOS[ratio]} ${className}`}
+        whileHover={
+          reduce || !interactive
+            ? undefined
+            : { scale: 1.01, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+        }
+      >
+        <Image
+          src={src}
+          alt={alt ?? label}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+          priority={ratio === "hero"}
+        />
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -32,24 +59,18 @@ export function ImageHolder({
       whileHover={
         reduce || !interactive
           ? undefined
-          : { scale: 1.015, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
+          : { scale: 1.01, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
       }
     >
       <div className="image-holder-grid" aria-hidden />
-      <div className="image-holder-shimmer" aria-hidden />
       <div className="relative z-[1] flex flex-col items-center gap-2 px-4 text-center">
-        <span className="flex size-10 items-center justify-center border border-dashed border-[#c51a1b]/40 text-[#c51a1b]">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <rect x="3" y="5" width="18" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="8.5" cy="10" r="1.5" fill="currentColor" />
-            <path d="M3 16l5-4 4 3 3-2 6 4" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-          </svg>
-        </span>
-        <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-[#5d6673]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8b93a0]">
           {label}
         </p>
         {caption ? (
-          <p className="max-w-[220px] text-[12px] leading-relaxed text-[#8b93a0]">{caption}</p>
+          <p className="max-w-[200px] text-[12px] leading-relaxed text-[#a0a7b2]">
+            {caption}
+          </p>
         ) : null}
       </div>
     </motion.div>

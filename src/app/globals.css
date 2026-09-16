@@ -334,9 +334,22 @@ select.input-field option {
   display: grid;
   place-items: center;
   overflow: hidden;
-  border: 1px dashed rgba(20, 23, 28, 0.18);
-  background:
-    linear-gradient(135deg, #efece5 0%, #f7f5f1 48%, #ebe7df 100%);
+  border: 1px solid rgba(20, 23, 28, 0.1);
+  background: #ebe8e1;
+}
+
+.media-frame {
+  position: relative;
+  overflow: hidden;
+  background: #ebe8e1;
+}
+
+.media-frame img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.media-frame:hover img {
+  transform: scale(1.04);
 }
 
 .image-holder-grid {
