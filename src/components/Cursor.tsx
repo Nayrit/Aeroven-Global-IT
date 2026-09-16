@@ -1,6 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
+
+function subscribeFinePointer(onStoreChange: () => void) {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", onStoreChange);
+  return () => mq.removeEventListener("change", onStoreChange);
+}
+
+function getFinePointer() {
+  return window.matchMedia("(pointer: fine)").matches;
+}
 
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
@@ -8,13 +18,11 @@ export function Cursor() {
   const label = useRef<HTMLDivElement>(null);
   const hover = useRef(false);
   const labelText = useRef("");
-  const [ready, setReady] = useState(false);
+  const ready = useSyncExternalStore(subscribeFinePointer, getFinePointer, () => false);
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    if (!fine) return;
+    if (!ready) return;
     document.documentElement.classList.add("has-custom-cursor");
-    setReady(true);
 
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const ringPos = { x: mouse.x, y: mouse.y };
@@ -61,7 +69,7 @@ export function Cursor() {
       cancelAnimationFrame(raf);
       document.documentElement.classList.remove("has-custom-cursor");
     };
-  }, []);
+  }, [ready]);
 
   if (!ready) return null;
 

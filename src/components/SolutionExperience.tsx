@@ -118,7 +118,7 @@ export function SolutionExperience({ solution }: { solution: SolutionPage }) {
       ))}
 
       <section className="border-t border-black/10 py-16">
-        <div className="container grid grid-cols-3 gap-8">
+        <div className="container grid grid-cols-1 gap-8 sm:grid-cols-3">
           {solution.outcomes.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.06}>
               <p className="display text-[28px] text-[#14171c] sm:text-[40px]">

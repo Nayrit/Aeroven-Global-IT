@@ -8,15 +8,11 @@ export default function manifest(): MetadataRoute.Manifest {
     description: siteConfig.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#000000",
+    background_color: "#f5f3ee",
+    theme_color: "#c51a1b",
+    lang: "en",
+    categories: ["business", "productivity"],
     icons: [
-      {
-        src: "/favicon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-        purpose: "any",
-      },
       {
         src: "/icon-192.png",
         sizes: "192x192",
@@ -30,10 +26,10 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "any",
       },
       {
-        src: "/apple-touch-icon.png",
-        sizes: "180x180",
+        src: "/icon-512.png",
+        sizes: "512x512",
         type: "image/png",
-        purpose: "any",
+        purpose: "maskable",
       },
     ],
   };

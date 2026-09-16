@@ -166,6 +166,7 @@ export const brand = {
 
 export const nav = {
   links: [
+    { label: "Solutions", href: "/solutions" },
     { label: "Capabilities", href: "/capabilities" },
     { label: "Process", href: "/process" },
     { label: "Engagement", href: "/engagement" },
@@ -531,17 +532,17 @@ export const capabilitiesHero = {
     "Architecting the Future with Enterprise Grade Digital Capabilities",
   body: "From intelligent system automation to high concurrency cloud engineering, Aeroven Global IT Solutions empowers global enterprises to innovate rapidly, scale seamlessly, and operate with absolute agility.",
   anchors: [
-    { label: "Digital Transformation", href: "#cap-1" },
-    { label: "Custom Software", href: "#cap-2" },
-    { label: "Cloud & DevOps", href: "#cap-3" },
-    { label: "Data & Applied AI", href: "#cap-4" },
-    { label: "Quality & Security", href: "#cap-5" },
+    { label: "Digital Transformation", href: "#digital-transformation" },
+    { label: "Custom Software", href: "#custom-software" },
+    { label: "Cloud & DevOps", href: "#cloud-devops" },
+    { label: "Data & Applied AI", href: "#data-applied-ai" },
+    { label: "Quality & Security", href: "#quality-security" },
   ],
 } as const;
 
 export const capabilities: CapabilityDetail[] = [
   {
-    id: "cap-1",
+    id: "digital-transformation",
     number: "Capability 01",
     title: "Enterprise Digital Transformation",
     description:
@@ -554,7 +555,7 @@ export const capabilities: CapabilityDetail[] = [
     navLabel: "Digital Transformation",
   },
   {
-    id: "cap-2",
+    id: "custom-software",
     number: "Capability 02",
     title: "Custom Software Engineering",
     description:
@@ -567,7 +568,7 @@ export const capabilities: CapabilityDetail[] = [
     navLabel: "Custom Software",
   },
   {
-    id: "cap-3",
+    id: "cloud-devops",
     number: "Capability 03",
     title: "Cloud Engineering & DevOps",
     description:
@@ -581,7 +582,7 @@ export const capabilities: CapabilityDetail[] = [
     navLabel: "Cloud & DevOps",
   },
   {
-    id: "cap-4",
+    id: "data-applied-ai",
     number: "Capability 04",
     title: "Data Engineering & Applied AI",
     description:
@@ -594,7 +595,7 @@ export const capabilities: CapabilityDetail[] = [
     navLabel: "Data & Applied AI",
   },
   {
-    id: "cap-5",
+    id: "quality-security",
     number: "Capability 05",
     title: "Quality Engineering & Security Audits",
     description:

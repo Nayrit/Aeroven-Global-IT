@@ -8,17 +8,35 @@ import { JobsBoard } from "@/components/JobsBoard";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
+import { routes } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Careers",
   description: careersPage.hero.body,
-};
+  path: routes.careers,
+  keywords: ["careers", "jobs", "engineering roles", "Aeroven hiring"],
+});
 
 export default function CareersPage() {
   const { hero, life, benefits, openRoles, hiring, cta } = careersPage;
 
   return (
     <>
+      <JsonLd
+        data={[
+          webPageJsonLd({
+            title: "Careers",
+            description: hero.body,
+            path: routes.careers,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Careers", path: routes.careers },
+          ]),
+        ]}
+      />
       <ChapterHero
         index="05"
         eyebrow={hero.eyebrow}

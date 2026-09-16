@@ -5,11 +5,16 @@ import { Counter } from "@/components/Kinetic";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
 import { ImageHolder } from "@/components/ImageHolder";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
+import { routes } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Client Success",
   description: successPage.hero.body,
-};
+  path: routes.success,
+  keywords: ["case studies", "client success", "enterprise outcomes"],
+});
 
 export default function SuccessPage() {
   const { hero, featuredBadge, featured, caseStudies, testimonials, logos, cta } =
@@ -17,6 +22,19 @@ export default function SuccessPage() {
 
   return (
     <>
+      <JsonLd
+        data={[
+          webPageJsonLd({
+            title: "Client Success",
+            description: hero.body,
+            path: routes.success,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Client Success", path: routes.success },
+          ]),
+        ]}
+      />
       <ChapterHero
         index="04"
         eyebrow={hero.eyebrow}

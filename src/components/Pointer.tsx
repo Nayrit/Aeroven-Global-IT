@@ -6,6 +6,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -18,6 +19,16 @@ const PointerContext = createContext<PointerState>({
   label: "",
   hovering: false,
 });
+
+function subscribeFinePointer(onStoreChange: () => void) {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", onStoreChange);
+  return () => mq.removeEventListener("change", onStoreChange);
+}
+
+function getFinePointer() {
+  return window.matchMedia("(pointer: fine)").matches;
+}
 
 export function usePointer() {
   return useContext(PointerContext);
@@ -59,12 +70,10 @@ export function Cursor() {
   const { hovering, label } = usePointer();
   const ring = useRef<HTMLDivElement>(null);
   const dot = useRef<HTMLDivElement>(null);
-  const [on, setOn] = useState(false);
+  const on = useSyncExternalStore(subscribeFinePointer, getFinePointer, () => false);
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    if (!fine) return;
-    setOn(true);
+    if (!on) return;
     document.body.classList.add("has-custom-cursor");
     const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const ringPos = { ...mouse };
@@ -91,7 +100,7 @@ export function Cursor() {
       cancelAnimationFrame(raf);
       document.body.classList.remove("has-custom-cursor");
     };
-  }, []);
+  }, [on]);
 
   if (!on) return null;
 

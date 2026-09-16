@@ -24,12 +24,15 @@ export function ScrollReel({
   const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={ref} className="relative h-[320vh] bg-transparent">
-      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-        <div className="container mb-8 flex items-end justify-between gap-6">
+    <section
+      ref={ref}
+      className="relative h-[220vh] bg-transparent sm:h-[280vh] lg:h-[320vh]"
+    >
+      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
+        <div className="container mb-6 flex items-end justify-between gap-6 sm:mb-8">
           <div>
             <p className="eyebrow">{eyebrow}</p>
-            <h2 className="display mt-4 max-w-3xl text-[36px] text-[#14171c] sm:text-[56px]">
+            <h2 className="display mt-4 max-w-3xl text-[28px] text-[#14171c] sm:text-[36px] lg:text-[56px]">
               {title}
             </h2>
           </div>
@@ -37,12 +40,18 @@ export function ScrollReel({
             {hint}
           </p>
         </div>
-        <motion.div style={{ x }} className="flex gap-6 will-change-transform pl-[4vw] pr-[20vw]">
+        <motion.div
+          style={{ x }}
+          className="flex gap-4 will-change-transform pl-[4vw] pr-[20vw] sm:gap-6"
+        >
           {children}
         </motion.div>
-        <div className="container mt-10">
+        <div className="container mt-8 sm:mt-10">
           <div className="h-[2px] w-full bg-black/10">
-            <motion.div className="h-full bg-[#c51a1b]" style={{ width: progress }} />
+            <motion.div
+              className="h-full bg-[#c51a1b]"
+              style={{ width: progress }}
+            />
           </div>
         </div>
       </div>

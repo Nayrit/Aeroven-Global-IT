@@ -21,7 +21,7 @@ export function ProcessExperience() {
         title={hero.headline}
         body={hero.body}
       />
-      <div className="container grid grid-cols-3 gap-6 border-y border-black/10 py-10">
+      <div className="container grid grid-cols-1 gap-6 border-y border-black/10 py-10 sm:grid-cols-3">
         {hero.stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.06}>
             <p className="display text-[28px] text-[#14171c]">

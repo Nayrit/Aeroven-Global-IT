@@ -8,9 +8,10 @@ export default function NotFound() {
   return (
     <section className="pb-24 pt-40">
       <div className="container">
+        <meta name="robots" content="noindex, nofollow" />
         <Reveal>
           <p className="eyebrow">404</p>
-          <h1 className="display mt-4 text-[48px] text-[#14171c] sm:text-[72px]">
+          <h1 className="display mt-4 text-[40px] text-[#14171c] sm:text-[72px]">
             <RevealText text="Page not found" />
           </h1>
           <p className="mt-5 max-w-md text-[17px] text-[#5d6673]">

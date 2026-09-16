@@ -6,19 +6,34 @@ import { ChapterHero } from "@/components/ChapterHero";
 import { Reveal } from "@/components/Reveal";
 import { ImageHolder } from "@/components/ImageHolder";
 import { CtaBand } from "@/components/CtaBand";
-import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
   title: "Products & Solutions",
   description:
-    "Explore Aeroven’s business engines — custom AI-powered ERP, technology consulting, WMS, HRMS, and omnichannel commerce.",
+    "Explore Aeroven business engines — custom AI-powered ERP, technology consulting, WMS, HRMS, and omnichannel commerce.",
   path: "/solutions",
-  keywords: ["ERP", "WMS", "HRMS", "commerce", "consulting"],
+  keywords: ["ERP", "WMS", "HRMS", "commerce", "consulting", "solutions"],
 });
 
 export default function SolutionsIndexPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPageJsonLd({
+            title: "Products & Solutions",
+            description:
+              "Explore Aeroven business engines — custom AI-powered ERP, technology consulting, WMS, HRMS, and omnichannel commerce.",
+            path: "/solutions",
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Solutions", path: "/solutions" },
+          ]),
+        ]}
+      />
       <ChapterHero
         eyebrow="Products & Solutions"
         title="Next-generation business engines built for scale"
@@ -51,7 +66,7 @@ export default function SolutionsIndexPage() {
                   <p className="mt-3 flex-1 text-[15px] leading-relaxed text-[#5d6673]">
                     {item.summary}
                   </p>
-                  <span className="mt-6 inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#8b93a0] group-hover:text-[#c51a1b]">
+                  <span className="mt-6 inline-flex min-h-11 items-center gap-1 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#8b93a0] group-hover:text-[#c51a1b]">
                     Explore
                     <ArrowUpRight className="size-3.5" />
                   </span>

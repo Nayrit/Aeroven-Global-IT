@@ -1,12 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Syne, Instrument_Serif } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Experience } from "@/components/Experience";
+import { JsonLd } from "@/components/JsonLd";
 import { siteConfig } from "@/lib/site";
 import {
   absoluteUrl,
+  localBusinessJsonLd,
   organizationJsonLd,
+  siteViewport,
   websiteJsonLd,
 } from "@/lib/seo";
 import "./globals.css";
@@ -33,6 +36,8 @@ const instrument = Instrument_Serif({
   display: "swap",
 });
 
+export const viewport: Viewport = siteViewport;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -47,12 +52,16 @@ export const metadata: Metadata = {
   category: "technology",
   keywords: [
     "Aeroven",
+    "Aeroven Global IT Solutions",
     "AI consulting",
     "custom software",
     "cloud engineering",
     "DevOps",
     "data engineering",
     "enterprise digital transformation",
+    "ERP",
+    "WMS",
+    "HRMS",
   ],
   formatDetection: {
     email: false,
@@ -80,9 +89,9 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: absoluteUrl("/brand/aeroven-it.png"),
-        width: 3293,
-        height: 337,
+        url: absoluteUrl("/opengraph-image"),
+        width: 1200,
+        height: 630,
         alt: siteConfig.name,
       },
     ],
@@ -91,7 +100,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteConfig.name} | Engineered Intelligence`,
     description: siteConfig.description,
-    images: [absoluteUrl("/brand/aeroven-it.png")],
+    images: [absoluteUrl("/opengraph-image")],
   },
   robots: {
     index: true,
@@ -107,6 +116,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
   },
+  verification: {
+    // Add Search Console / Bing tokens via env when available
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+      : {}),
+  },
 };
 
 export default function RootLayout({
@@ -114,8 +129,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = [organizationJsonLd(), websiteJsonLd()];
-
   return (
     <html
       lang="en"
@@ -123,11 +136,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
+        <JsonLd
+          data={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]}
         />
       </head>
       <body
@@ -137,7 +147,7 @@ export default function RootLayout({
         <Experience>
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#c51a1b] focus:px-4 focus:py-2 focus:font-bold focus:text-white"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-[#c51a1b] focus:px-4 focus:py-2 focus:font-bold focus:text-white"
           >
             Skip to main content
           </a>

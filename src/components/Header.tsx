@@ -14,7 +14,14 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [menuPath, setMenuPath] = useState(pathname);
   const lastY = useRef(0);
+
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setOpen(false);
+    setHidden(false);
+  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,11 +39,6 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [open]);
-
-  useEffect(() => {
-    setOpen(false);
-    setHidden(false);
-  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -129,12 +131,26 @@ export function Header() {
                 >
                   <Link
                     href={link.href}
-                    className="display block border-b border-black/10 py-4 text-[36px] text-[#14171c]"
+                    className="display block border-b border-black/10 py-4 text-[32px] text-[#14171c] sm:text-[36px]"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.05 * links.length,
+                  duration: 0.45,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="mt-8 sm:hidden"
+              >
+                <Link href="/consultation" className="btn btn-primary w-full">
+                  {nav.cta}
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         ) : null}

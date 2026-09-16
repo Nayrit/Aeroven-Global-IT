@@ -6,17 +6,41 @@ import { ChapterHero } from "@/components/ChapterHero";
 import { Counter } from "@/components/Kinetic";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
+import { routes } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Capabilities",
   description: capabilitiesPage.hero.body,
-};
+  path: routes.capabilities,
+  keywords: [
+    "digital transformation",
+    "custom software",
+    "cloud DevOps",
+    "applied AI",
+    "security audits",
+  ],
+});
 
 export default function CapabilitiesPage() {
   const { hero, items, stats, cta } = capabilitiesPage;
 
   return (
     <>
+      <JsonLd
+        data={[
+          webPageJsonLd({
+            title: "Capabilities",
+            description: hero.body,
+            path: routes.capabilities,
+          }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Capabilities", path: routes.capabilities },
+          ]),
+        ]}
+      />
       <ChapterHero
         index="01"
         eyebrow={hero.eyebrow}
@@ -34,7 +58,7 @@ export default function CapabilitiesPage() {
         <section
           key={item.id}
           id={item.id}
-          className="border-t border-black/10 py-16 sm:py-20"
+          className="scroll-mt-28 border-t border-black/10 py-16 sm:py-20"
         >
           <div className="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal delay={0.04}>
@@ -52,7 +76,7 @@ export default function CapabilitiesPage() {
               {item.features.map((feature, fi) => (
                 <Reveal key={feature} delay={0.04 + fi * 0.03}>
                   <li className="flex items-start gap-3 border-b border-black/10 py-4">
-                    <Check className="mt-0.5 size-4 text-[#c51a1b]" />
+                    <Check className="mt-0.5 size-4 shrink-0 text-[#c51a1b]" />
                     <span className="text-[16px] text-[#14171c]">{feature}</span>
                   </li>
                 </Reveal>

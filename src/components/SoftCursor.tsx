@@ -1,21 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+
+function subscribeFinePointer(onStoreChange: () => void) {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", onStoreChange);
+  return () => mq.removeEventListener("change", onStoreChange);
+}
+
+function getFinePointer() {
+  return window.matchMedia("(pointer: fine)").matches;
+}
 
 export function SoftCursor() {
   const reduce = useReducedMotion();
+  const fine = useSyncExternalStore(subscribeFinePointer, getFinePointer, () => false);
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [hover, setHover] = useState(false);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (reduce) return;
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    if (!fine) return;
+    if (reduce || !fine) return;
 
     document.documentElement.classList.add("has-soft-cursor");
-    setVisible(true);
 
     const move = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
@@ -34,9 +42,9 @@ export function SoftCursor() {
       window.removeEventListener("mousemove", move);
       document.removeEventListener("mouseleave", leave);
     };
-  }, [reduce]);
+  }, [reduce, fine]);
 
-  if (reduce || !visible) return null;
+  if (reduce || !fine || !visible) return null;
 
   return (
     <>

@@ -63,6 +63,7 @@ export const footerLinks: Record<string, string> = {
   Data: `${routes.capabilities}#data-applied-ai`,
   Strategy: routes.engagement,
   "Digital Transformation": `${routes.capabilities}#digital-transformation`,
+  "Custom Software": `${routes.capabilities}#custom-software`,
   "Cloud & DevOps": `${routes.capabilities}#cloud-devops`,
   "Data & Applied AI": `${routes.capabilities}#data-applied-ai`,
   "Quality & Security": `${routes.capabilities}#quality-security`,
