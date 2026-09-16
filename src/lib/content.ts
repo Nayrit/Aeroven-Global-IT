@@ -197,7 +197,7 @@ export const footer = {
   } satisfies FooterColumn,
   explore: {
     title: "Explore",
-    links: ["Capabilities", "Process", "Engagement", "Success"],
+    links: ["Capabilities", "Process", "Engagement", "Success", "Solutions"],
   } satisfies FooterColumn,
   resources: {
     title: "Resources",

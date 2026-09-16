@@ -34,6 +34,7 @@ export const routes = {
   careers: "/careers",
   consultation: "/consultation",
   contact: "/consultation",
+  solutions: "/solutions",
   newsroom: "/newsroom",
   blog: "/blog",
   docs: "/docs",
@@ -43,6 +44,14 @@ export const routes = {
   cookies: "/cookies",
   caseStudies: "/success",
 } as const;
+
+export const solutionPaths = [
+  "/solutions/custom-ai-powered-erp",
+  "/solutions/technology-consulting",
+  "/solutions/supply-chain-wms",
+  "/solutions/hrms-workforce",
+  "/solutions/omnichannel-commerce",
+] as const;
 
 export const footerLinks: Record<string, string> = {
   About: routes.about,
@@ -61,6 +70,7 @@ export const footerLinks: Record<string, string> = {
   Process: routes.process,
   Engagement: routes.engagement,
   Success: routes.success,
+  Solutions: routes.solutions,
   "Case Studies": routes.caseStudies,
   Blog: routes.blog,
   Docs: routes.docs,
@@ -79,6 +89,8 @@ export const allMarketingPaths = [
   routes.success,
   routes.careers,
   routes.consultation,
+  routes.solutions,
+  ...solutionPaths,
   routes.newsroom,
   routes.blog,
   routes.docs,

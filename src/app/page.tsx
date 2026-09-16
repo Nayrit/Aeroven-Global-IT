@@ -46,13 +46,36 @@ export default function HomePage() {
       body: products.featured.description,
       image: "/media/aeroven-product.jpg",
       tag: products.featured.badge,
+      href: "/solutions/custom-ai-powered-erp",
     },
-    ...products.items.map((item, i) => ({
-      title: item.title,
-      body: item.description,
-      image: i % 2 === 0 ? "/media/aeroven-hero.jpg" : "/media/aeroven-office.jpg",
-      tag: `0${i + 1}`,
-    })),
+    {
+      title: products.items[0].title,
+      body: products.items[0].description,
+      image: "/media/aeroven-hero.jpg",
+      tag: "01",
+      href: "/solutions/technology-consulting",
+    },
+    {
+      title: products.items[1].title,
+      body: products.items[1].description,
+      image: "/media/aeroven-office.jpg",
+      tag: "02",
+      href: "/solutions/supply-chain-wms",
+    },
+    {
+      title: products.items[2].title,
+      body: products.items[2].description,
+      image: "/media/aeroven-hero.jpg",
+      tag: "03",
+      href: "/solutions/hrms-workforce",
+    },
+    {
+      title: products.items[3].title,
+      body: products.items[3].description,
+      image: "/media/aeroven-office.jpg",
+      tag: "04",
+      href: "/solutions/omnichannel-commerce",
+    },
   ];
 
   return (
@@ -171,10 +194,11 @@ export default function HomePage() {
       {/* ── PRODUCTS: horizontal scroll reel ── */}
       <ScrollReel eyebrow={products.eyebrow} title={products.headline}>
         {reelItems.map((card) => (
-          <article
+          <Link
             key={card.title}
-            data-cursor="drag"
-            className="w-[min(78vw,420px)] shrink-0 overflow-hidden border border-black/10 bg-white"
+            href={card.href}
+            data-cursor="open"
+            className="group w-[min(78vw,420px)] shrink-0 overflow-hidden border border-black/10 bg-white transition-colors hover:border-[#c51a1b]/40"
           >
             <ImageHolder
               src={card.image}
@@ -187,12 +211,18 @@ export default function HomePage() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#c51a1b]">
                 {card.tag}
               </p>
-              <h3 className="display mt-3 text-[24px] text-[#14171c]">{card.title}</h3>
+              <h3 className="display mt-3 text-[24px] text-[#14171c] transition-colors group-hover:text-[#c51a1b]">
+                {card.title}
+              </h3>
               <p className="mt-3 line-clamp-4 text-[14px] leading-relaxed text-[#5d6673]">
                 {card.body}
               </p>
+              <span className="mt-5 inline-flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8b93a0] transition-colors group-hover:text-[#c51a1b]">
+                Explore
+                <ArrowUpRight className="size-3.5" />
+              </span>
             </div>
-          </article>
+          </Link>
         ))}
       </ScrollReel>
 
