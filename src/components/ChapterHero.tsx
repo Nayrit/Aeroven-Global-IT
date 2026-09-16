@@ -1,21 +1,27 @@
 "use client";
 
-import { Reveal, RevealText } from "./Reveal";
+import { Reveal, RevealClip, RevealText } from "./Reveal";
+import { ImageHolder } from "./ImageHolder";
+import { Parallax } from "./Parallax";
 
 export function ChapterHero({
   index,
   eyebrow,
   title,
   body,
+  imageLabel,
+  imageCaption,
 }: {
   index?: string;
   eyebrow: string;
   title: string;
   body?: string;
+  imageLabel?: string;
+  imageCaption?: string;
 }) {
   return (
-    <section className="relative pb-12 pt-32 sm:pb-16 sm:pt-36">
-      <div className="container">
+    <section className="relative overflow-hidden pb-12 pt-32 sm:pb-16 sm:pt-36">
+      <div className="container grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
         <Reveal>
           <div className="flex items-center justify-between gap-6">
             <p className="eyebrow">{eyebrow}</p>
@@ -34,6 +40,17 @@ export function ChapterHero({
             </p>
           ) : null}
         </Reveal>
+        {imageLabel ? (
+          <RevealClip delay={0.12}>
+            <Parallax offset={40}>
+              <ImageHolder
+                label={imageLabel}
+                caption={imageCaption}
+                ratio="landscape"
+              />
+            </Parallax>
+          </RevealClip>
+        ) : null}
       </div>
     </section>
   );

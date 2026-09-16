@@ -22,6 +22,8 @@ export default function CapabilitiesPage() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
+        imageLabel="Capabilities"
+        imageCaption="Platforms, cloud, AI, quality"
       />
       <div className="container flex flex-wrap gap-2 pb-12">
         {hero.anchors.map((anchor) => (

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { MorphScene } from "./MorphScene";
+import { ImageHolder } from "./ImageHolder";
 import { Magnetic } from "./Magnetic";
 import { Reveal } from "./Reveal";
 
@@ -29,18 +29,20 @@ export function CapabilityTheater({
   const current = items[active];
 
   return (
-    <section className="py-24">
-      <div className="container grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+    <section className="py-24 sm:py-28">
+      <div className="container grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
         <Reveal>
           <p className="eyebrow">{eyebrow}</p>
           <h2 className="display mt-4 max-w-xl text-[36px] text-[#14171c] sm:text-[48px]">
             {headline}
           </h2>
+          <p className="mt-3 text-[14px] text-[#8b93a0]">Hover a capability — the preview updates.</p>
           <div className="mt-10">
             {items.map((item, i) => (
               <button
                 key={item.title}
                 type="button"
+                data-interactive
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
                 onClick={() => setActive(i)}
@@ -50,31 +52,31 @@ export function CapabilityTheater({
                 {active === i ? (
                   <motion.span
                     layoutId={reduce ? undefined : "cap-bar"}
-                    className="absolute left-0 top-0 h-full w-[2px] bg-[#c51a1b]"
-                    transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                    className="absolute left-0 top-0 h-full w-[3px] bg-[#c51a1b]"
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   />
                 ) : null}
-                <span
-                  className={`text-[12px] transition-colors ${
-                    active === i ? "text-[#c51a1b]" : "text-[#8b93a0]"
-                  }`}
+                <motion.span
+                  animate={{ color: active === i ? "#c51a1b" : "#8b93a0" }}
+                  className="text-[13px] font-semibold"
                 >
                   0{i + 1}
-                </span>
-                <span
-                  className={`text-[18px] transition-colors sm:text-[20px] ${
-                    active === i
-                      ? "font-semibold text-[#14171c]"
-                      : "text-[#5d6673]"
-                  }`}
+                </motion.span>
+                <motion.span
+                  animate={{
+                    color: active === i ? "#14171c" : "#5d6673",
+                    x: active === i && !reduce ? 6 : 0,
+                    fontWeight: active === i ? 600 : 400,
+                  }}
+                  className="text-[18px] sm:text-[20px]"
                 >
                   {item.title}
-                </span>
+                </motion.span>
               </button>
             ))}
           </div>
           {href ? (
-            <Magnetic strength={0.14} className="mt-10">
+            <Magnetic strength={0.28} className="mt-10">
               <Link href={href} className="btn btn-outline">
                 View capabilities
                 <ArrowUpRight className="size-4" />
@@ -82,20 +84,32 @@ export function CapabilityTheater({
             </Magnetic>
           ) : null}
         </Reveal>
-        <Reveal delay={0.08}>
-          <MorphScene
-            index={active}
-            className="aspect-square w-full border border-black/10"
-          />
-          <div className="mt-6 min-h-[4.5rem] max-w-md">
+
+        <Reveal delay={0.1}>
+          <div className="relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={current?.title}
+                initial={reduce ? false : { opacity: 0, scale: 0.96, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={reduce ? undefined : { opacity: 0, scale: 1.02, y: -12 }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <ImageHolder
+                  label={`Capability 0${active + 1}`}
+                  caption={current?.title}
+                  ratio="square"
+                />
+              </motion.div>
+            </AnimatePresence>
             <AnimatePresence mode="wait">
               <motion.p
-                key={current?.title}
-                initial={reduce ? false : { opacity: 0, y: 10 }}
+                key={`${current?.title}-desc`}
+                initial={reduce ? false : { opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -8 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[16px] leading-relaxed text-[#5d6673]"
+                exit={reduce ? undefined : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-6 text-[16px] leading-relaxed text-[#5d6673]"
               >
                 {current?.description}
               </motion.p>

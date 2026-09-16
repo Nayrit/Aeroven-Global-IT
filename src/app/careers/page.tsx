@@ -24,6 +24,8 @@ export default function CareersPage() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
+        imageLabel="Careers"
+        imageCaption="Life at Aeroven"
       />
       <div className="container flex flex-wrap gap-4 pb-10">
         <Magnetic strength={0.16}>

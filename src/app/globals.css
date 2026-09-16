@@ -307,7 +307,7 @@ select.input-field option {
 .marquee-track {
   display: inline-flex;
   gap: 56px;
-  animation: marquee 40s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 @keyframes marquee {
@@ -320,7 +320,87 @@ select.input-field option {
 }
 
 .magnetic {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.image-holder {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px dashed rgba(20, 23, 28, 0.18);
+  background:
+    linear-gradient(135deg, #efece5 0%, #f7f5f1 48%, #ebe7df 100%);
+}
+
+.image-holder-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(20, 23, 28, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 23, 28, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 78%);
+}
+
+.image-holder-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.55) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  animation: holder-shimmer 2.8s ease-in-out infinite;
+}
+
+@keyframes holder-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  55%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.horizontal-reel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  cursor: grab;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 8px;
+  touch-action: pan-x;
+}
+
+.horizontal-reel > * {
+  scroll-snap-align: start;
+}
+
+.horizontal-reel::-webkit-scrollbar {
+  display: none;
+}
+
+.has-soft-cursor,
+.has-soft-cursor * {
+  cursor: none !important;
+}
+
+.has-soft-cursor input,
+.has-soft-cursor textarea,
+.has-soft-cursor select {
+  cursor: text !important;
 }
 
 .compare-table tbody tr {
@@ -384,7 +464,8 @@ details summary::-webkit-details-marker {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .image-holder-shimmer {
     animation: none;
   }
 
@@ -395,7 +476,13 @@ details summary::-webkit-details-marker {
     transform: none;
   }
 
-  .magnetic {
+  .magnetic,
+  .tilt-card {
     transition: none;
+  }
+
+  .has-soft-cursor,
+  .has-soft-cursor * {
+    cursor: auto !important;
   }
 }

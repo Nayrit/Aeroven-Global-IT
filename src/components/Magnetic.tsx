@@ -5,7 +5,7 @@ import { useReducedMotion } from "framer-motion";
 
 export function Magnetic({
   children,
-  strength = 0.18,
+  strength = 0.35,
   className = "",
 }: {
   children: ReactNode;

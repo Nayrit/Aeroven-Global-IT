@@ -20,6 +20,8 @@ export function ProcessExperience() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
+        imageLabel="Process"
+        imageCaption="Delivery stages in practice"
       />
       <div className="container grid grid-cols-3 gap-6 border-y border-black/10 py-10">
         {hero.stats.map((stat, i) => (

@@ -27,50 +27,58 @@ export function InteractiveRows({
           <button
             key={item.title}
             type="button"
+            data-interactive
             onMouseEnter={() => setActive(i)}
             onFocus={() => setActive(i)}
             onClick={() => setActive(i)}
             aria-pressed={on}
-            className="relative grid w-full gap-2 border-t border-black/10 py-7 text-left last:border-b sm:grid-cols-[72px_1fr] sm:items-start"
+            className="group relative grid w-full gap-2 border-t border-black/10 py-8 text-left last:border-b sm:grid-cols-[88px_1fr] sm:items-start"
           >
             {on ? (
               <motion.span
                 layoutId={reduce ? undefined : layoutId}
-                className="absolute left-0 top-0 h-full w-[2px] bg-[#c51a1b]"
-                transition={{ type: "spring", stiffness: 380, damping: 34 }}
+                className="absolute left-0 top-0 h-full w-[3px] bg-[#c51a1b]"
+                transition={{ type: "spring", stiffness: 420, damping: 32 }}
               />
             ) : null}
-            <span
-              className={`pl-4 text-[15px] font-semibold transition-colors ${
-                on ? "text-[#c51a1b]" : "text-[#8b93a0]"
-              }`}
+            <motion.span
+              animate={{
+                color: on ? "#c51a1b" : "#8b93a0",
+                x: on && !reduce ? 6 : 0,
+              }}
+              className="pl-5 text-[18px] font-semibold"
             >
               {item.number}
-            </span>
-            <div className="pl-4 sm:pl-0">
-              <h3
-                className={`text-[20px] font-semibold transition-colors ${
-                  on ? "text-[#14171c]" : "text-[#5d6673]"
-                }`}
+            </motion.span>
+            <div className="pl-5 sm:pl-0">
+              <motion.h3
+                animate={{
+                  color: on ? "#14171c" : "#5d6673",
+                  x: on && !reduce ? 8 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                className="text-[22px] font-semibold sm:text-[26px]"
               >
                 {item.title}
-              </h3>
+              </motion.h3>
               {reduce ? (
-                <p className="mt-2 text-[15px] leading-relaxed text-[#5d6673]">
+                <p className="mt-3 max-w-2xl text-[16px] leading-relaxed text-[#5d6673]">
                   {item.description}
                 </p>
               ) : (
                 <AnimatePresence initial={false}>
                   {on ? (
-                    <motion.p
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden text-[15px] leading-relaxed text-[#5d6673]"
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, y: -8 }}
+                      animate={{ opacity: 1, height: "auto", y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -4 }}
+                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
                     >
-                      <span className="mt-2 block">{item.description}</span>
-                    </motion.p>
+                      <p className="mt-3 max-w-2xl pb-1 text-[16px] leading-relaxed text-[#5d6673]">
+                        {item.description}
+                      </p>
+                    </motion.div>
                   ) : null}
                 </AnimatePresence>
               )}
