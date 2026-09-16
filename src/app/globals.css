@@ -29,7 +29,7 @@
 }
 
 html {
-  background: var(--paper);
+  background: #f5f3ee;
 }
 
 html.lenis,
@@ -44,7 +44,7 @@ html.lenis {
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--paper);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-outfit), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -307,7 +307,7 @@ select.input-field option {
 .marquee-track {
   display: inline-flex;
   gap: 56px;
-  animation: marquee 28s linear infinite;
+  animation: marquee 22s linear infinite;
 }
 
 @keyframes marquee {
@@ -411,6 +411,17 @@ select.input-field option {
 .has-soft-cursor input,
 .has-soft-cursor textarea,
 .has-soft-cursor select {
+  cursor: text !important;
+}
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select {
   cursor: text !important;
 }
 
