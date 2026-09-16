@@ -22,9 +22,6 @@ export default function SuccessPage() {
         eyebrow={hero.eyebrow}
         title={hero.headline}
         body={hero.body}
-        imageSrc="/media/aeroven-product.jpg"
-        imageLabel="Success"
-        imageCaption="Outcomes in production"
       />
       <div className="container grid grid-cols-2 gap-6 border-y border-black/10 py-10 lg:grid-cols-4">
         {hero.stats.map((stat, i) => (
@@ -39,31 +36,29 @@ export default function SuccessPage() {
       <section className="py-20">
         <div className="container">
           <Reveal className="overflow-hidden border border-black/10 bg-white">
-            <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-              <ImageHolder
-                src="/media/aeroven-hero.jpg"
-                alt={featured.company}
-                label="Featured case"
-                ratio="landscape"
-                className="min-h-[240px] rounded-none border-0 lg:min-h-full"
-              />
-              <div className="p-8 sm:p-12">
-                <p className="eyebrow">{featuredBadge}</p>
-                <p className="mt-5 text-[13px] text-[#c51a1b]">
-                  {featured.company} · {featured.industry}
-                </p>
-                <h2 className="display mt-3 text-[28px] text-[#14171c] sm:text-[40px]">
-                  {featured.title}
-                </h2>
-                <p className="mt-4 text-[16px] text-[#5d6673]">{featured.description}</p>
-                <div className="mt-8 grid gap-6 sm:grid-cols-3">
-                  {featured.metrics.map((metric) => (
-                    <div key={metric.label}>
-                      <p className="display text-[28px] text-[#14171c]">{metric.value}</p>
-                      <p className="mt-1 text-[13px] text-[#5d6673]">{metric.label}</p>
-                    </div>
-                  ))}
-                </div>
+            <ImageHolder
+              src="/media/aeroven-hero.jpg"
+              alt={featured.company}
+              label="Featured case"
+              ratio="landscape"
+              className="rounded-none border-0"
+            />
+            <div className="relative z-[1] bg-white p-8 sm:p-12">
+              <p className="eyebrow">{featuredBadge}</p>
+              <p className="mt-5 text-[13px] text-[#c51a1b]">
+                {featured.company} · {featured.industry}
+              </p>
+              <h2 className="display mt-3 text-[28px] text-[#14171c] sm:text-[40px]">
+                {featured.title}
+              </h2>
+              <p className="mt-4 text-[16px] text-[#5d6673]">{featured.description}</p>
+              <div className="mt-8 grid gap-6 sm:grid-cols-3">
+                {featured.metrics.map((metric) => (
+                  <div key={metric.label}>
+                    <p className="display text-[28px] text-[#14171c]">{metric.value}</p>
+                    <p className="mt-1 text-[13px] text-[#5d6673]">{metric.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </Reveal>

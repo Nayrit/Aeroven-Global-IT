@@ -20,6 +20,7 @@ export function ImageHolder({
   interactive = true,
   src,
   alt,
+  priority = false,
 }: {
   label?: string;
   caption?: string;
@@ -28,40 +29,34 @@ export function ImageHolder({
   interactive?: boolean;
   src?: string;
   alt?: string;
+  priority?: boolean;
 }) {
   const reduce = useReducedMotion();
 
   if (src) {
     return (
       <motion.div
-        className={`media-frame ${RATIOS[ratio]} ${className}`}
+        className={`media-frame relative w-full overflow-hidden ${RATIOS[ratio]} ${className}`}
         whileHover={
           reduce || !interactive
             ? undefined
-            : { scale: 1.01, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+            : { scale: 1.008, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
         }
       >
         <Image
           src={src}
           alt={alt ?? label}
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="(max-width: 768px) 100vw, 80vw"
           className="object-cover"
-          priority={ratio === "hero"}
+          priority={priority || ratio === "hero" || ratio === "wide"}
         />
       </motion.div>
     );
   }
 
   return (
-    <motion.div
-      className={`image-holder ${RATIOS[ratio]} ${className}`}
-      whileHover={
-        reduce || !interactive
-          ? undefined
-          : { scale: 1.01, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } }
-      }
-    >
+    <div className={`image-holder relative w-full overflow-hidden ${RATIOS[ratio]} ${className}`}>
       <div className="image-holder-grid" aria-hidden />
       <div className="relative z-[1] flex flex-col items-center gap-2 px-4 text-center">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8b93a0]">
@@ -73,6 +68,6 @@ export function ImageHolder({
           </p>
         ) : null}
       </div>
-    </motion.div>
+    </div>
   );
 }

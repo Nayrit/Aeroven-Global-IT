@@ -71,8 +71,11 @@ export function EngagementExperience() {
                     <th className="py-3 pr-4 text-[14px] font-medium text-[#5d6673]">
                       {row.label}
                     </th>
-                    {row.values.map((value) => (
-                      <td key={`${row.label}-${value}`} className="py-3 pr-4 text-[14px] text-[#14171c]">
+                    {row.values.map((value, vi) => (
+                      <td
+                        key={`${row.label}-${vi}`}
+                        className="py-3 pr-4 text-[14px] text-[#14171c]"
+                      >
                         {value}
                       </td>
                     ))}

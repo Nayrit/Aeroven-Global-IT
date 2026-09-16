@@ -341,15 +341,13 @@ select.input-field option {
 .media-frame {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   background: #ebe8e1;
 }
 
-.media-frame img {
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.media-frame:hover img {
-  transform: scale(1.04);
+.media-frame > img,
+.media-frame > span {
+  max-width: none !important;
 }
 
 .image-holder-grid {

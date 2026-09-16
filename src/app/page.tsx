@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { home, offices, footer } from "@/lib/content";
 import { Counter } from "@/components/Kinetic";
 import { Reveal, RevealClip, RevealText } from "@/components/Reveal";
@@ -12,7 +13,7 @@ import { InteractiveRows } from "@/components/InteractiveRows";
 import { CtaBand } from "@/components/CtaBand";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { ImageHolder } from "@/components/ImageHolder";
-import { Parallax } from "@/components/Parallax";
+import { KenBurns, ScrollScale } from "@/components/Parallax";
 
 export default function HomePage() {
   const {
@@ -29,64 +30,86 @@ export default function HomePage() {
   const ticker = [...footer.trustedByExtended, ...footer.trustedByExtended];
   const reduce = useReducedMotion();
   const featuredOffice = offices[Math.min(2, offices.length - 1)];
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroFade = useTransform(scrollYProgress, [0, 0.85], [1, 0.15]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
   return (
     <>
-      <section className="relative overflow-hidden pb-16 pt-28 sm:pb-24 sm:pt-36">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">{hero.badge}</p>
-          </Reveal>
-          <h1 className="display mt-6 max-w-4xl text-[42px] text-[#14171c] sm:text-[60px] lg:text-[72px]">
-            <RevealText text={hero.headlineBefore.trim()} />{" "}
-            <span className="text-[#c51a1b]">
-              <RevealText text={hero.headlineAccent} delay={0.16} />
-            </span>
-          </h1>
-          <Reveal delay={0.18}>
-            <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-[#5d6673]">
-              {hero.body}
-            </p>
-            <div className="mt-10 flex flex-wrap items-center gap-5">
-              <Magnetic strength={0.32}>
-                <Link href="/consultation" className="btn btn-primary">
-                  {hero.primaryCta}
-                  <ArrowUpRight className="size-4" />
-                </Link>
-              </Magnetic>
-              <Magnetic strength={0.22}>
-                <Link href="/success" className="btn btn-ghost">
-                  {hero.secondaryCta}
-                </Link>
-              </Magnetic>
-            </div>
-          </Reveal>
-        </div>
-
-        <RevealClip delay={0.12} className="mt-14 sm:mt-16">
+      <section ref={heroRef} className="relative overflow-hidden pb-16 pt-28 sm:pb-24 sm:pt-36">
+        <motion.div style={reduce ? undefined : { opacity: heroFade, y: heroY }}>
           <div className="container">
-            <Parallax offset={48}>
-              <ImageHolder
-                src="/media/aeroven-hero.jpg"
-                alt="Aeroven engineering workspace"
-                label="Hero"
-                ratio="wide"
-                className="min-h-[240px] sm:min-h-[380px] lg:min-h-[460px]"
-              />
-            </Parallax>
-          </div>
-        </RevealClip>
-
-        <div className="container mt-12 grid grid-cols-3 gap-6 border-t border-black/10 pt-8">
-          {hero.stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={0.08 + i * 0.08}>
-              <p className="display text-[26px] text-[#14171c] sm:text-[40px]">
-                <Counter value={stat.value} />
-              </p>
-              <p className="mt-2 text-[12px] text-[#5d6673] sm:text-[13px]">{stat.label}</p>
+            <Reveal>
+              <p className="eyebrow">{hero.badge}</p>
             </Reveal>
-          ))}
-        </div>
+            <h1 className="display mt-6 max-w-4xl text-[42px] text-[#14171c] sm:text-[60px] lg:text-[72px]">
+              <RevealText text={hero.headlineBefore.trim()} />{" "}
+              <span className="text-[#c51a1b]">
+                <RevealText text={hero.headlineAccent} delay={0.14} />
+              </span>
+            </h1>
+            <Reveal delay={0.2}>
+              <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-[#5d6673]">
+                {hero.body}
+              </p>
+              <div className="mt-10 flex flex-wrap items-center gap-5">
+                <Magnetic strength={0.38}>
+                  <Link href="/consultation" className="btn btn-primary">
+                    {hero.primaryCta}
+                    <ArrowUpRight className="size-4" />
+                  </Link>
+                </Magnetic>
+                <Magnetic strength={0.26}>
+                  <Link href="/success" className="btn btn-ghost">
+                    {hero.secondaryCta}
+                  </Link>
+                </Magnetic>
+              </div>
+            </Reveal>
+          </div>
+
+          <RevealClip delay={0.1} className="mt-12 sm:mt-16">
+            <div className="container">
+              <KenBurns>
+                <ImageHolder
+                  src="/media/aeroven-hero.jpg"
+                  alt="Aeroven engineering workspace"
+                  label="Hero"
+                  ratio="wide"
+                  priority
+                  className="min-h-[220px] sm:min-h-[360px] lg:min-h-[440px]"
+                />
+              </KenBurns>
+            </div>
+          </RevealClip>
+
+          <div className="container mt-12 grid grid-cols-3 gap-6 border-t border-black/10 pt-8">
+            {hero.stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={0.08 + i * 0.1}>
+                <p className="display text-[28px] text-[#14171c] sm:text-[42px]">
+                  <Counter value={stat.value} />
+                </p>
+                <p className="mt-2 text-[12px] text-[#5d6673] sm:text-[13px]">{stat.label}</p>
+              </Reveal>
+            ))}
+          </div>
+        </motion.div>
+
+        {!reduce ? (
+          <motion.a
+            href="#capabilities"
+            className="mt-14 flex flex-col items-center gap-2 text-[#8b93a0]"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span className="text-[11px] uppercase tracking-[0.22em]">Scroll</span>
+            <ArrowDown className="size-4" />
+          </motion.a>
+        ) : null}
       </section>
 
       <div className="marquee">
@@ -120,23 +143,26 @@ export default function HomePage() {
             </h2>
           </Reveal>
 
-          <Reveal delay={0.08} className="mt-12 overflow-hidden border border-black/10 bg-white">
-            <div className="grid lg:grid-cols-2">
-              <ImageHolder
-                src="/media/aeroven-product.jpg"
-                alt={products.featured.title}
-                label="Featured product"
-                ratio="landscape"
-                className="min-h-[260px] rounded-none border-0 lg:min-h-full"
-              />
-              <div className="flex flex-col justify-center p-8 sm:p-12">
+          {/* Stacked layout — image never overlaps copy */}
+          <ScrollScale className="mt-12">
+            <article className="overflow-hidden border border-black/10 bg-white">
+              <KenBurns>
+                <ImageHolder
+                  src="/media/aeroven-product.jpg"
+                  alt={products.featured.title}
+                  label="Featured product"
+                  ratio="landscape"
+                  className="rounded-none border-0"
+                />
+              </KenBurns>
+              <div className="relative z-[1] bg-white p-8 sm:p-12">
                 <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#c51a1b]">
                   {products.featured.badge}
                 </p>
                 <h3 className="display mt-4 text-[28px] text-[#14171c] sm:text-[36px]">
                   {products.featured.title}
                 </h3>
-                <p className="mt-4 text-[16px] leading-relaxed text-[#5d6673]">
+                <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-[#5d6673]">
                   {products.featured.description}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -150,14 +176,20 @@ export default function HomePage() {
                   ))}
                 </div>
               </div>
-            </div>
-          </Reveal>
+            </article>
+          </ScrollScale>
 
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             {products.items.map((item, i) => (
-              <Reveal key={item.title} delay={i * 0.06} className="border border-black/10 bg-white p-7 transition-colors hover:border-[#c51a1b]/30">
+              <Reveal
+                key={item.title}
+                delay={i * 0.07}
+                className="group border border-black/10 bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-[#c51a1b]/35 hover:shadow-[0_20px_40px_rgba(20,23,28,0.06)]"
+              >
                 <p className="text-[12px] text-[#004b9c]">0{i + 1}</p>
-                <h3 className="mt-3 text-[20px] font-semibold text-[#14171c]">{item.title}</h3>
+                <h3 className="mt-3 text-[20px] font-semibold text-[#14171c] transition-colors group-hover:text-[#c51a1b]">
+                  {item.title}
+                </h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-[#5d6673]">
                   {item.description}
                 </p>
@@ -175,7 +207,9 @@ export default function HomePage() {
               <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
                 {process.headline}
               </h2>
-              <p className="mt-3 text-[14px] text-[#8b93a0]">Hover a stage to open it.</p>
+              <p className="mt-3 text-[14px] text-[#8b93a0]">
+                Hover or tap each stage — it opens live.
+              </p>
             </Reveal>
           </div>
           <InteractiveRows items={process.steps} layoutId="home-process" />
@@ -189,7 +223,7 @@ export default function HomePage() {
             <h2 className="display mt-4 text-[36px] text-[#14171c] sm:text-[48px]">
               {engagement.headline}
             </h2>
-            <Magnetic strength={0.24} className="mt-8">
+            <Magnetic strength={0.28} className="mt-8">
               <Link href="/engagement" className="btn btn-ghost">
                 Compare models
               </Link>
@@ -209,7 +243,7 @@ export default function HomePage() {
           </Reveal>
           <div className="mt-12 grid gap-px bg-black/10 lg:grid-cols-3">
             {testimonials.items.map((item, i) => (
-              <Reveal key={item.name} delay={i * 0.08} className="bg-white p-8">
+              <Reveal key={item.name} delay={i * 0.1} className="bg-white p-8">
                 <p className="serif text-[22px] leading-relaxed text-[#14171c]">
                   “{item.quote}”
                 </p>
@@ -229,23 +263,27 @@ export default function HomePage() {
             <h2 className="display mt-4 text-[36px] text-[#14171c]">Global offices</h2>
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <ImageHolder
-              src="/media/aeroven-office.jpg"
-              alt={`${featuredOffice.city} office`}
-              label={featuredOffice.city}
-              ratio="landscape"
-              className="min-h-[280px]"
-            />
-            <div className="grid content-center gap-0 sm:grid-cols-2">
+          <div className="mt-12 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+            <ScrollScale>
+              <KenBurns>
+                <ImageHolder
+                  src="/media/aeroven-office.jpg"
+                  alt={`${featuredOffice.city} office`}
+                  label={featuredOffice.city}
+                  ratio="landscape"
+                  className="min-h-[260px]"
+                />
+              </KenBurns>
+            </ScrollScale>
+            <div className="grid content-center sm:grid-cols-2">
               {offices.map((office, i) => (
                 <motion.div
                   key={office.city}
-                  initial={reduce ? false : { opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={reduce ? false : { opacity: 0, x: 24 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05, duration: 0.5 }}
-                  className="border-t border-black/10 py-5 pr-4"
+                  transition={{ delay: i * 0.06, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-t border-black/10 py-5 pr-4 transition-colors hover:bg-white/60"
                 >
                   <p className="text-[17px] font-semibold text-[#14171c]">{office.city}</p>
                   <p className="mt-1 text-[11px] uppercase tracking-[0.12em] text-[#c51a1b]">
@@ -256,7 +294,7 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 

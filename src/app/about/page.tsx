@@ -5,6 +5,7 @@ import { CtaBand } from "@/components/CtaBand";
 import { ChapterHero } from "@/components/ChapterHero";
 import { Reveal } from "@/components/Reveal";
 import { Magnetic } from "@/components/Magnetic";
+import { ImageHolder } from "@/components/ImageHolder";
 import { offices } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { routes, siteConfig } from "@/lib/site";
@@ -38,9 +39,6 @@ export default function AboutPage() {
         eyebrow="Company"
         title="Engineering digital platforms that scale"
         body={`${siteConfig.name} partners with startups and enterprises to design, build, and operate AI-powered software — from discovery through production.`}
-        imageSrc="/media/aeroven-office.jpg"
-        imageLabel="About"
-        imageCaption="Global delivery footprint"
       />
       <section className="pb-12">
         <div className="container flex flex-wrap gap-4">
@@ -72,6 +70,15 @@ export default function AboutPage() {
           <Reveal>
             <p className="eyebrow">Offices</p>
             <h2 className="display mt-4 text-[32px] text-[#14171c]">Global offices</h2>
+          </Reveal>
+          <Reveal className="mt-10 overflow-hidden border border-black/10">
+            <ImageHolder
+              src="/media/aeroven-office.jpg"
+              alt="Aeroven office"
+              label="Office"
+              ratio="wide"
+              className="rounded-none border-0"
+            />
           </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {offices.map((office, i) => (

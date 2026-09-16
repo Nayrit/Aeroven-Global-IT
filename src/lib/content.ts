@@ -259,10 +259,10 @@ export const globalOfficesHeader = {
 /* -------------------------------------------------------------------------- */
 
 export const homeHero = {
-  badge: "AI-Powered Digital Solutions · Startup to Enterprise",
+  badge: "Startup to Enterprise",
   headlineBefore: "We Engineer Your ",
-  headlineAccent: "AI-Powered Digital Transformation",
-  body: "We design and build bespoke, intelligent solutions that empower startups to innovate rapidly and enterprises to operate globally.",
+  headlineAccent: "Digital Transformation",
+  body: "We design and build bespoke, AI-powered solutions that help startups innovate fast and enterprises operate at global scale.",
   primaryCta: "Explore AI Solutions",
   secondaryCta: "View Case Studies",
   stats: [
