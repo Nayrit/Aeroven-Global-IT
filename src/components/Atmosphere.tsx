@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-/** Light, consultancy-grade WebGL field — mouse-reactive liquid color on paper. */
+/**
+ * Visible liquid WebGL field — brand blue/teal/red that clearly reacts to the cursor.
+ * (Previous version was too close to paper and looked “static”.)
+ */
 const VERT = `
 attribute vec2 a_pos;
 void main(){ gl_Position = vec4(a_pos,0.0,1.0); }
@@ -22,8 +25,8 @@ float noise(vec2 p){
   return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;
 }
 float fbm(vec2 p){
-  float v=0.; float a=.5;
-  for(int i=0;i<5;i++){ v+=a*noise(p); p*=2.05; a*=.5; }
+  float v=0.; float a=.55;
+  for(int i=0;i<6;i++){ v+=a*noise(p); p*=2.1; a*=.5; }
   return v;
 }
 
@@ -33,23 +36,28 @@ void main(){
   vec2 m = (u_mouse / u_res) - .5;
   m.x *= u_res.x / u_res.y;
 
-  float t = u_time * .06;
-  float n = fbm(p*1.4 + vec2(t*.5, -t*.35) + fbm(p*2.1 - t));
+  float t = u_time * .09;
+  float n = fbm(p * 1.55 + vec2(t * .55, -t * .4));
+  n = fbm(p * 1.2 + n + t * .3);
   float d = length(p - m);
-  float bloom = exp(-d * 2.4) * .55;
-  float field = n * .85 + bloom;
+  float bloom = exp(-d * 1.9) * .85;
+  float rip = sin(d * 14.0 - t * 6.0) * exp(-d * 3.5) * .18;
+  float field = clamp(n * .75 + bloom + rip, 0.0, 1.2);
 
-  // paper → soft blue → teal → red accent near cursor
   vec3 paper = vec3(0.961, 0.953, 0.933);
-  vec3 mist  = vec3(0.90, 0.91, 0.93);
-  vec3 blue  = vec3(0.78, 0.86, 0.94);
-  vec3 teal  = vec3(0.72, 0.84, 0.88);
-  vec3 red   = vec3(0.95, 0.78, 0.78);
+  vec3 blue  = vec3(0.55, 0.72, 0.92);   // visible cobalt wash
+  vec3 teal  = vec3(0.35, 0.62, 0.72);
+  vec3 red   = vec3(0.90, 0.42, 0.42);
 
-  vec3 col = mix(paper, mist, smoothstep(0.2, 0.5, field));
-  col = mix(col, blue, smoothstep(0.4, 0.72, field) * 0.7);
-  col = mix(col, teal, smoothstep(0.55, 0.9, field) * 0.45);
-  col = mix(col, red, bloom * 0.65);
+  vec3 col = paper;
+  col = mix(col, blue, smoothstep(0.28, 0.62, field) * 0.85);
+  col = mix(col, teal, smoothstep(0.48, 0.88, field) * 0.55);
+  col = mix(col, red, bloom * 0.9);
+  col += red * rip * 0.8;
+
+  // soft vignette so the field reads as depth
+  float vig = smoothstep(1.45, 0.35, length(p * 0.85));
+  col = mix(col * 0.92, col, vig);
 
   gl_FragColor = vec4(col, 1.0);
 }
@@ -76,7 +84,7 @@ export function Atmosphere() {
     const gl = canvas.getContext("webgl", {
       alpha: false,
       antialias: false,
-      powerPreference: "low-power",
+      powerPreference: "high-performance",
     });
     if (!gl) return;
 
@@ -114,7 +122,7 @@ export function Atmosphere() {
     };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
       canvas.style.width = `${window.innerWidth}px`;
@@ -127,8 +135,8 @@ export function Atmosphere() {
     const start = performance.now();
     const tick = (now: number) => {
       if (!running) return;
-      mouse.x += (target.x - mouse.x) * 0.07;
-      mouse.y += (target.y - mouse.y) * 0.07;
+      mouse.x += (target.x - mouse.x) * 0.08;
+      mouse.y += (target.y - mouse.y) * 0.08;
       gl.uniform2f(uRes, canvas.width, canvas.height);
       const dpr = canvas.width / window.innerWidth;
       gl.uniform2f(uMouse, mouse.x * dpr, (window.innerHeight - mouse.y) * dpr);

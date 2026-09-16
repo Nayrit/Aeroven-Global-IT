@@ -319,6 +319,15 @@ select.input-field option {
   }
 }
 
+@keyframes loader-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .magnetic {
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }

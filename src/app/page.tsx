@@ -37,10 +37,8 @@ export default function HomePage() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const reelItems = [
     {
@@ -59,10 +57,10 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO: full viewport cinematic ── */}
+      {/* ── HERO: full-viewport living field ── */}
       <section
         ref={heroRef}
-        className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-16 pt-28 sm:pb-20"
+        className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-20 pt-28"
       >
         <motion.div
           style={{ y: heroY, opacity: heroOpacity }}
@@ -76,18 +74,18 @@ export default function HomePage() {
               auto
             />
           </RiseIn>
-          <h1 className="display mt-6 max-w-5xl text-[44px] text-[#14171c] sm:text-[68px] lg:text-[80px]">
+          <h1 className="display mt-6 max-w-5xl text-[48px] text-[#14171c] sm:text-[72px] lg:text-[88px]">
             <RevealText text={hero.headlineBefore.trim()} />{" "}
             <span className="text-[#c51a1b]">
               <RevealText text={hero.headlineAccent} delay={0.18} />
             </span>
           </h1>
           <RiseIn delay={0.4}>
-            <p className="mt-7 max-w-xl text-[18px] leading-relaxed text-[#5d6673]">
+            <p className="mt-7 max-w-xl text-[19px] leading-relaxed text-[#5d6673]">
               {hero.body}
             </p>
             <div className="mt-10 flex flex-wrap items-center gap-5">
-              <Magnetic strength={0.45}>
+              <Magnetic strength={0.48}>
                 <Link
                   href="/consultation"
                   data-cursor="book"
@@ -97,49 +95,40 @@ export default function HomePage() {
                   <ArrowUpRight className="size-4" />
                 </Link>
               </Magnetic>
-              <Magnetic strength={0.3}>
+              <Magnetic strength={0.32}>
                 <Link href="/success" data-cursor="view" className="btn btn-ghost">
                   {hero.secondaryCta}
                 </Link>
               </Magnetic>
             </div>
           </RiseIn>
-
-          <div className="mt-16 grid grid-cols-3 gap-6 border-t border-black/10 pt-8">
-            {hero.stats.map((stat, i) => (
-              <RiseIn key={stat.label} delay={0.55 + i * 0.1}>
-                <p className="display text-[28px] text-[#14171c] sm:text-[44px]">
-                  <Counter value={stat.value} />
-                </p>
-                <p className="mt-2 text-[12px] text-[#5d6673]">{stat.label}</p>
-              </RiseIn>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          style={{ scale: heroScale }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 top-[48%] z-[1] overflow-hidden opacity-50"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <motion.img
-            src="/media/aeroven-hero.jpg"
-            alt=""
-            className="h-[120%] w-full object-cover"
-            style={{ y: heroImgY }}
-          />
         </motion.div>
 
         <motion.a
-          href="#capabilities"
+          href="#stats"
           data-cursor="scroll"
-          className="relative z-[2] mt-12 flex flex-col items-center gap-2 text-[#8b93a0]"
+          className="absolute bottom-8 left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-2 text-[#5d6673]"
           animate={{ y: [0, 14, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 1.45, repeat: Infinity, ease: "easeInOut" }}
         >
-          <span className="text-[11px] uppercase tracking-[0.24em]">Scroll</span>
+          <span className="text-[11px] font-semibold uppercase tracking-[0.28em]">
+            Scroll
+          </span>
           <ArrowDown className="size-4" />
         </motion.a>
+      </section>
+
+      <section id="stats" className="relative z-[2] border-y border-black/10 bg-white/55 py-14 backdrop-blur-md">
+        <div className="container grid grid-cols-3 gap-6">
+          {hero.stats.map((stat, i) => (
+            <RiseIn key={stat.label} delay={i * 0.1}>
+              <p className="display text-[32px] text-[#14171c] sm:text-[48px]">
+                <Counter value={stat.value} />
+              </p>
+              <p className="mt-2 text-[12px] text-[#5d6673] sm:text-[13px]">{stat.label}</p>
+            </RiseIn>
+          ))}
+        </div>
       </section>
 
       <div className="marquee relative z-[2]">

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/** Interactive particle network — follows pointer (TSH / agency-site DNA). */
+/** Dense interactive network — clearly visible, follows pointer. */
 export function CanvasField({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: -9999, y: -9999 });
@@ -25,13 +25,13 @@ export function CanvasField({ className = "" }: { className?: string }) {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = window.innerWidth < 768 ? 36 : 72;
+      const count = window.innerWidth < 768 ? 48 : 110;
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.5,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        r: Math.random() * 2.2 + 0.8,
       }));
     };
 
@@ -47,14 +47,14 @@ export function CanvasField({ className = "" }: { className?: string }) {
         const dx = mx - p.x;
         const dy = my - p.y;
         const dist = Math.hypot(dx, dy) || 1;
-        if (dist < 240) {
-          p.vx += (dx / dist) * 0.05;
-          p.vy += (dy / dist) * 0.05;
+        if (dist < 280) {
+          p.vx += (dx / dist) * 0.07;
+          p.vy += (dy / dist) * 0.07;
         }
-        p.vx *= 0.97;
-        p.vy *= 0.97;
-        p.x += p.vx + (Math.random() - 0.5) * 0.08;
-        p.y += p.vy + (Math.random() - 0.5) * 0.08;
+        p.vx *= 0.965;
+        p.vy *= 0.965;
+        p.x += p.vx;
+        p.y += p.vy;
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
         if (p.y < 0) p.y = h;
@@ -66,20 +66,20 @@ export function CanvasField({ className = "" }: { className?: string }) {
         for (let j = i + 1; j < particles.length; j++) {
           const b = particles[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < 120) {
+          if (d < 140) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0,75,156,${(1 - d / 120) * 0.16})`;
-            ctx.lineWidth = 0.7;
+            ctx.strokeStyle = `rgba(0,75,156,${(1 - d / 140) * 0.28})`;
+            ctx.lineWidth = 1;
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
           }
         }
         const md = Math.hypot(a.x - mx, a.y - my);
-        if (md < 180) {
+        if (md < 220) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(197,26,27,${(1 - md / 180) * 0.22})`;
-          ctx.lineWidth = 0.8;
+          ctx.strokeStyle = `rgba(197,26,27,${(1 - md / 220) * 0.4})`;
+          ctx.lineWidth = 1.1;
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(mx, my);
           ctx.stroke();
@@ -87,8 +87,10 @@ export function CanvasField({ className = "" }: { className?: string }) {
       }
 
       for (const p of particles) {
+        const md = Math.hypot(p.x - mx, p.y - my);
         ctx.beginPath();
-        ctx.fillStyle = "rgba(20,23,28,0.35)";
+        ctx.fillStyle =
+          md < 160 ? "rgba(197,26,27,0.75)" : "rgba(20,23,28,0.45)";
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       }
